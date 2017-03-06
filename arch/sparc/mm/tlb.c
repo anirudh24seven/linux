@@ -221,7 +221,7 @@ void set_pmd_at(struct mm_struct *mm, unsigned long addr,
 /*
  * This routine is only called when splitting a THP
  */
-void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
+void pmdp_invalidate(struct vmAreaStruct *vma, unsigned long address,
 		     pmd_t *pmdp)
 {
 	pmd_t entry = *pmdp;

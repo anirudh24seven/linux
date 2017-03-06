@@ -317,7 +317,7 @@ out:
 }
 
 /* We provide getgeo only to please some old bootloader/partitioning tools */
-static int virtblk_getgeo(struct block_device *bd, struct hd_geometry *geo)
+static int virtblk_getgeo(struct block_device *bd, struct hdGeometry *geo)
 {
 	struct virtio_blk *vblk = bd->bd_disk->private_data;
 

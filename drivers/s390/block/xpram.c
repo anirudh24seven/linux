@@ -229,7 +229,7 @@ fail:
 	return BLK_QC_T_NONE;
 }
 
-static int xpram_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int xpram_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	unsigned long size;
 

@@ -254,8 +254,8 @@ vivt_flush_cache_page(struct vm_area_struct *vma, unsigned long user_addr, unsig
 		vivt_flush_cache_page(vma,addr,pfn)
 #else
 extern void flush_cache_mm(struct mm_struct *mm);
-extern void flush_cache_range(struct vm_area_struct *vma, unsigned long start, unsigned long end);
-extern void flush_cache_page(struct vm_area_struct *vma, unsigned long user_addr, unsigned long pfn);
+extern void flush_cache_range(struct vmAreaStruct *vma, unsigned long start, unsigned long end);
+extern void flush_cache_page(struct vmAreaStruct *vma, unsigned long user_addr, unsigned long pfn);
 #endif
 
 #define flush_cache_dup_mm(mm) flush_cache_mm(mm)

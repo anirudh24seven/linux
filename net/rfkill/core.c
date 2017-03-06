@@ -178,9 +178,9 @@ static void rfkill_led_trigger_unregister(struct rfkill *rfkill)
 }
 
 static struct led_trigger rfkill_any_led_trigger;
-static struct work_struct rfkill_any_work;
+static struct workStruct rfkill_any_work;
 
-static void rfkill_any_led_trigger_worker(struct work_struct *work)
+static void rfkill_any_led_trigger_worker(struct workStruct *work)
 {
 	enum led_brightness brightness = LED_OFF;
 	struct rfkill *rfkill;

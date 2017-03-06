@@ -6008,7 +6008,7 @@ static void kvm_set_mmio_spte_mask(void)
 }
 
 #ifdef CONFIG_X86_64
-static void pvclock_gtod_update_fn(struct work_struct *work)
+static void pvclock_gtod_update_fn(struct workStruct *work)
 {
 	struct kvm *kvm;
 

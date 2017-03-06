@@ -27,7 +27,7 @@
 #include <asm/page.h>
 
 struct mm_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 extern pgd_t swapper_pg_dir[1024];
 extern void paging_init(void);
@@ -249,7 +249,7 @@ static inline pte_t pte_mkspecial(pte_t pte)
 	return pte;
 }
 
-static inline  int ptep_test_and_clear_young(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
+static inline  int ptep_test_and_clear_young(struct vmAreaStruct *vma, unsigned long addr, pte_t *ptep)
 {
 	return test_and_clear_bit(_PAGE_BIT_ACCESSED, ptep);
 }

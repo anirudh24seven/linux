@@ -295,7 +295,7 @@ void zap_pid_ns_processes(struct pid_namespace *pid_ns)
 static int pid_ns_ctl_handler(struct ctl_table *table, int write,
 		void __user *buffer, size_t *lenp, loff_t *ppos)
 {
-	struct pid_namespace *pid_ns = task_active_pid_ns(current);
+	struct pidNamespace *pid_ns = task_active_pid_ns(current);
 	struct ctl_table tmp = *table;
 
 	if (write && !ns_capable(pid_ns->user_ns, CAP_SYS_ADMIN))

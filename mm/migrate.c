@@ -1409,7 +1409,7 @@ static int do_move_page_to_node_array(struct mm_struct *mm,
 	 * Build a list of pages to migrate
 	 */
 	for (pp = pm; pp->node != MAX_NUMNODES; pp++) {
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 		struct page *page;
 
 		err = -EFAULT;
@@ -1577,7 +1577,7 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
 
 	for (i = 0; i < nr_pages; i++) {
 		unsigned long addr = (unsigned long)(*pages);
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 		struct page *page;
 		int err = -EFAULT;
 
@@ -1844,7 +1844,7 @@ bool pmd_trans_migrating(pmd_t pmd)
  * node. Caller is expected to have an elevated reference count on
  * the page that will be dropped by this function before returning.
  */
-int migrate_misplaced_page(struct page *page, struct vm_area_struct *vma,
+int migrate_misplaced_page(struct page *page, struct vmAreaStruct *vma,
 			   int node)
 {
 	pg_data_t *pgdat = NODE_DATA(node);
@@ -1901,7 +1901,7 @@ out:
  * before returning.
  */
 int migrate_misplaced_transhuge_page(struct mm_struct *mm,
-				struct vm_area_struct *vma,
+				struct vmAreaStruct *vma,
 				pmd_t *pmd, pmd_t entry,
 				unsigned long address,
 				struct page *page, int node)

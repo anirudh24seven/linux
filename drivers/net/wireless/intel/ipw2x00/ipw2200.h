@@ -1319,7 +1319,7 @@ struct ipw_priv {
 
 	struct tasklet_struct irq_tasklet;
 
-	/* LED related variables and work_struct */
+	/* LED related variables and workStruct */
 	u8 nic_type;
 	u32 led_activity_on;
 	u32 led_activity_off;

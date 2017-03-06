@@ -304,7 +304,7 @@ static void cx25821_audioups_handler(struct work_struct *work)
 			_audio_work_entry);
 
 	if (!dev) {
-		pr_err("ERROR %s(): since container_of(work_struct) FAILED!\n",
+		pr_err("ERROR %s(): since container_of(workStruct) FAILED!\n",
 			__func__);
 		return;
 	}

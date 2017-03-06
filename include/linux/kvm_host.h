@@ -169,7 +169,7 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
 
 #ifdef CONFIG_KVM_ASYNC_PF
 struct kvm_async_pf {
-	struct work_struct work;
+	struct workStruct work;
 	struct list_head link;
 	struct list_head queue;
 	struct kvm_vcpu *vcpu;

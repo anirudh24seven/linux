@@ -182,7 +182,7 @@ struct iommu_table_group_ops {
 
 struct iommu_table_group_link {
 	struct list_head next;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	struct iommu_table_group *table_group;
 };
 

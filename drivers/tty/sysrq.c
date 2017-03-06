@@ -102,7 +102,7 @@ static struct sysrq_key_op sysrq_loglevel_op = {
 #ifdef CONFIG_VT
 static void sysrq_handle_SAK(int key)
 {
-	struct work_struct *SAK_work = &vc_cons[fg_console].SAK_work;
+	struct workStruct *SAK_work = &vc_cons[fg_console].SAK_work;
 	schedule_work(SAK_work);
 }
 static struct sysrq_key_op sysrq_SAK_op = {
@@ -230,7 +230,7 @@ static void showacpu(void *dummy)
 	spin_unlock_irqrestore(&show_lock, flags);
 }
 
-static void sysrq_showregs_othercpus(struct work_struct *dummy)
+static void sysrq_showregs_othercpus(struct workStruct *dummy)
 {
 	smp_call_function(showacpu, NULL, 0);
 }
@@ -599,7 +599,7 @@ static const unsigned char sysrq_xlate[KEY_CNT] =
 
 struct sysrq_state {
 	struct input_handle handle;
-	struct work_struct reinject_work;
+	struct workStruct reinject_work;
 	unsigned long key_down[BITS_TO_LONGS(KEY_CNT)];
 	unsigned int alt;
 	unsigned int alt_use;
@@ -737,7 +737,7 @@ static void sysrq_of_get_keyreset_config(void)
 }
 #endif
 
-static void sysrq_reinject_alt_sysrq(struct work_struct *work)
+static void sysrq_reinject_alt_sysrq(struct workStruct *work)
 {
 	struct sysrq_state *sysrq =
 			container_of(work, struct sysrq_state, reinject_work);

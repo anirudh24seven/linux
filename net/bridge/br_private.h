@@ -615,7 +615,7 @@ br_mdb_ip_get(struct net_bridge_mdb_htable *mdb, struct br_ip *dst);
 struct net_bridge_mdb_entry *
 br_multicast_new_group(struct net_bridge *br, struct net_bridge_port *port,
 		       struct br_ip *group);
-void br_multicast_free_pg(struct rcu_head *head);
+void br_multicast_free_pg(struct rcuHead *head);
 struct net_bridge_port_group *
 br_multicast_new_port_group(struct net_bridge_port *port, struct br_ip *group,
 			    struct net_bridge_port_group __rcu *next,

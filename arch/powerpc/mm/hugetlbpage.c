@@ -378,14 +378,14 @@ int alloc_bootmem_huge_page(struct hstate *hstate)
 	((PAGE_SIZE - sizeof(struct hugepd_freelist)) / sizeof(pte_t))
 
 struct hugepd_freelist {
-	struct rcu_head	rcu;
+	struct rcuHead	rcu;
 	unsigned int index;
 	void *ptes[0];
 };
 
 static DEFINE_PER_CPU(struct hugepd_freelist *, hugepd_freelist_cur);
 
-static void hugepd_free_rcu_callback(struct rcu_head *head)
+static void hugepd_free_rcu_callback(struct rcuHead *head)
 {
 	struct hugepd_freelist *batch =
 		container_of(head, struct hugepd_freelist, rcu);
@@ -712,7 +712,7 @@ unsigned long hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
 }
 #endif
 
-unsigned long vma_mmu_pagesize(struct vm_area_struct *vma)
+unsigned long vma_mmu_pagesize(struct vmAreaStruct *vma)
 {
 #ifdef CONFIG_PPC_MM_SLICES
 	unsigned int psize = get_slice_psize(vma->vm_mm, vma->vm_start);

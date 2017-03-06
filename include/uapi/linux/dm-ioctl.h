@@ -89,7 +89,7 @@
  *
  * Beware that CHS geometry is nearly obsolete and only provided
  * for compatibility with dm devices that can be booted by a PC
- * BIOS.  See struct hd_geometry for range limits.  Also note that
+ * BIOS.  See struct hdGeometry for range limits.  Also note that
  * the geometry is erased if the device size changes.
  */
 

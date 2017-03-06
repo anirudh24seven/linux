@@ -310,7 +310,7 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
 #define ptep_clear_flush_young_notify(__vma, __address, __ptep)		\
 ({									\
 	int __young;							\
-	struct vm_area_struct *___vma = __vma;				\
+	struct vmAreaStruct *___vma = __vma;				\
 	unsigned long ___address = __address;				\
 	__young = ptep_clear_flush_young(___vma, ___address, __ptep);	\
 	__young |= mmu_notifier_clear_flush_young(___vma->vm_mm,	\
@@ -323,7 +323,7 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
 #define pmdp_clear_flush_young_notify(__vma, __address, __pmdp)		\
 ({									\
 	int __young;							\
-	struct vm_area_struct *___vma = __vma;				\
+	struct vmAreaStruct *___vma = __vma;				\
 	unsigned long ___address = __address;				\
 	__young = pmdp_clear_flush_young(___vma, ___address, __pmdp);	\
 	__young |= mmu_notifier_clear_flush_young(___vma->vm_mm,	\
@@ -336,7 +336,7 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
 #define ptep_clear_young_notify(__vma, __address, __ptep)		\
 ({									\
 	int __young;							\
-	struct vm_area_struct *___vma = __vma;				\
+	struct vmAreaStruct *___vma = __vma;				\
 	unsigned long ___address = __address;				\
 	__young = ptep_test_and_clear_young(___vma, ___address, __ptep);\
 	__young |= mmu_notifier_clear_young(___vma->vm_mm, ___address,	\
@@ -347,7 +347,7 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
 #define pmdp_clear_young_notify(__vma, __address, __pmdp)		\
 ({									\
 	int __young;							\
-	struct vm_area_struct *___vma = __vma;				\
+	struct vmAreaStruct *___vma = __vma;				\
 	unsigned long ___address = __address;				\
 	__young = pmdp_test_and_clear_young(___vma, ___address, __pmdp);\
 	__young |= mmu_notifier_clear_young(___vma->vm_mm, ___address,	\
@@ -426,8 +426,8 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
 	set_pte_at(___mm, ___address, __ptep, ___pte);			\
 })
 
-extern void mmu_notifier_call_srcu(struct rcu_head *rcu,
-				   void (*func)(struct rcu_head *rcu));
+extern void mmu_notifier_call_srcu(struct rcuHead *rcu,
+				   void (*func)(struct rcuHead *rcu));
 extern void mmu_notifier_synchronize(void);
 
 #else /* CONFIG_MMU_NOTIFIER */

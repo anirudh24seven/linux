@@ -1225,7 +1225,7 @@ out:
  * meant. These special mappings include - vDSO, vsyscall, and other
  * architecture specific mappings
  */
-static bool always_dump_vma(struct vm_area_struct *vma)
+static bool always_dump_vma(struct vmAreaStruct *vma)
 {
 	/* Any vsyscall mappings? */
 	if (vma == get_gate_vma(vma->vm_mm))
@@ -1251,7 +1251,7 @@ static bool always_dump_vma(struct vm_area_struct *vma)
 /*
  * Decide what to dump of a segment, part, all or none.
  */
-static unsigned long vma_dump_size(struct vm_area_struct *vma,
+static unsigned long vma_dump_size(struct vmAreaStruct *vma,
 				   unsigned long mm_flags)
 {
 #define FILTER(type)	(mm_flags & (1UL << MMF_DUMP_##type))
@@ -1537,7 +1537,7 @@ static void fill_siginfo_note(struct memelfnote *note, user_siginfo_t *csigdata,
  */
 static int fill_files_note(struct memelfnote *note)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned count, size, names_ofs, remaining, n;
 	user_long_t *data;
 	user_long_t *start_end_ofs;
@@ -2092,10 +2092,10 @@ static void free_note_info(struct elf_note_info *info)
 
 #endif
 
-static struct vm_area_struct *first_vma(struct task_struct *tsk,
-					struct vm_area_struct *gate_vma)
+static struct vmAreaStruct *first_vma(struct task_struct *tsk,
+					struct vmAreaStruct *gate_vma)
 {
-	struct vm_area_struct *ret = tsk->mm->mmap;
+	struct vmAreaStruct *ret = tsk->mm->mmap;
 
 	if (ret)
 		return ret;
@@ -2105,10 +2105,10 @@ static struct vm_area_struct *first_vma(struct task_struct *tsk,
  * Helper function for iterating across a vma list.  It ensures that the caller
  * will visit `gate_vma' prior to terminating the search.
  */
-static struct vm_area_struct *next_vma(struct vm_area_struct *this_vma,
-					struct vm_area_struct *gate_vma)
+static struct vmAreaStruct *next_vma(struct vmAreaStruct *this_vma,
+					struct vmAreaStruct *gate_vma)
 {
-	struct vm_area_struct *ret;
+	struct vmAreaStruct *ret;
 
 	ret = this_vma->vm_next;
 	if (ret)
@@ -2147,7 +2147,7 @@ static int elf_core_dump(struct coredump_params *cprm)
 	mm_segment_t fs;
 	int segs, i;
 	size_t vma_data_size = 0;
-	struct vm_area_struct *vma, *gate_vma;
+	struct vmAreaStruct *vma, *gate_vma;
 	struct elfhdr *elf = NULL;
 	loff_t offset = 0, dataoff;
 	struct elf_note_info info = { };

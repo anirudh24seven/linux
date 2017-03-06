@@ -880,7 +880,7 @@ void flush_cache_mm(struct mm_struct *mm)
 	flush_cache_all();
 }
 
-void flush_cache_page(struct vm_area_struct *vma, unsigned long u_vaddr,
+void flush_cache_page(struct vmAreaStruct *vma, unsigned long u_vaddr,
 		      unsigned long pfn)
 {
 	unsigned int paddr = pfn << PAGE_SHIFT;
@@ -893,13 +893,13 @@ void flush_cache_page(struct vm_area_struct *vma, unsigned long u_vaddr,
 		__inv_icache_page(paddr, u_vaddr);
 }
 
-void flush_cache_range(struct vm_area_struct *vma, unsigned long start,
+void flush_cache_range(struct vmAreaStruct *vma, unsigned long start,
 		       unsigned long end)
 {
 	flush_cache_all();
 }
 
-void flush_anon_page(struct vm_area_struct *vma, struct page *page,
+void flush_anon_page(struct vmAreaStruct *vma, struct page *page,
 		     unsigned long u_vaddr)
 {
 	/* TBD: do we really need to clear the kernel mapping */

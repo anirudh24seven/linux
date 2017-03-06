@@ -47,7 +47,7 @@ ENTRY(__cpuc_flush_user_all)
  *
  *	- start - start address (may not be aligned)
  *	- end   - end address (exclusive, may not be aligned)
- *	- flags	- vm_area_struct flags describing address space
+ *	- flags	- vmAreaStruct flags describing address space
  */
 ENTRY(__cpuc_flush_user_range)
 	cxor.a	r2, #0

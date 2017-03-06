@@ -1378,7 +1378,7 @@ err_dev_init:
 }
 
 #if defined(CONFIG_MODULES) && defined(MODULE)
-static void request_module_async(struct work_struct *work)
+static void request_module_async(struct workStruct *work)
 {
 	struct cx231xx *dev = container_of(work,
 					   struct cx231xx, request_module_wk);

@@ -525,7 +525,7 @@ nomem:
 #ifdef CONFIG_CHELSIO_T4_DCB
 struct cxgbit_dcb_work {
 	struct dcb_app_type dcb_app;
-	struct work_struct work;
+	struct workStruct work;
 };
 
 static void
@@ -578,7 +578,7 @@ cxgbit_update_dcb_priority(struct cxgbit_device *cdev, u8 port_id,
 	spin_unlock_bh(&cdev->cskq.lock);
 }
 
-static void cxgbit_dcb_workfn(struct work_struct *work)
+static void cxgbit_dcb_workfn(struct workStruct *work)
 {
 	struct cxgbit_dcb_work *dcb_work;
 	struct net_device *ndev;

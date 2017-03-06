@@ -66,7 +66,7 @@ ergo_interrupt(int intno, void *dev_id)
 /******************************************************************************/
 /* ergo_irq_bh will be called as part of the kernel clearing its shared work  */
 /* queue sometime after a call to schedule_work has been made passing our     */
-/* work_struct. This task is the only one handling data transfer from or to   */
+/* workStruct. This task is the only one handling data transfer from or to   */
 /* the card after booting. The task may be queued from everywhere             */
 /* (interrupts included).                                                     */
 /******************************************************************************/

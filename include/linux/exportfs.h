@@ -189,7 +189,7 @@ struct fid {
  *    get_name is not (which is possibly inconsistent)
  */
 
-struct export_operations {
+struct exportOperations {
 	int (*encode_fh)(struct inode *inode, __u32 *fh, int *max_len,
 			struct inode *parent);
 	struct dentry * (*fh_to_dentry)(struct super_block *sb, struct fid *fid,

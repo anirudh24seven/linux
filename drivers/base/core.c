@@ -290,9 +290,9 @@ static void device_link_free(struct device_link *link)
 }
 
 #ifdef CONFIG_SRCU
-static void __device_link_free_srcu(struct rcu_head *rhead)
+static void __device_link_free_srcu(struct rcuHead *rhead)
 {
-	device_link_free(container_of(rhead, struct device_link, rcu_head));
+	device_link_free(container_of(rhead, struct device_link, rcuHead));
 }
 
 static void __device_link_del(struct device_link *link)
@@ -305,7 +305,7 @@ static void __device_link_del(struct device_link *link)
 
 	list_del_rcu(&link->s_node);
 	list_del_rcu(&link->c_node);
-	call_srcu(&device_links_srcu, &link->rcu_head, __device_link_free_srcu);
+	call_srcu(&device_links_srcu, &link->rcuHead, __device_link_free_srcu);
 }
 #else /* !CONFIG_SRCU */
 static void __device_link_del(struct device_link *link)

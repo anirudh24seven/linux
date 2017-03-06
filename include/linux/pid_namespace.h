@@ -21,7 +21,7 @@ struct pidmap {
 
 struct fs_pin;
 
-enum { /* definitions for pid_namespace's hide_pid field */
+enum { /* definitions for pidNamespace's hide_pid field */
 	HIDEPID_OFF	  = 0,
 	HIDEPID_NO_ACCESS = 1,
 	HIDEPID_INVISIBLE = 2,
@@ -43,7 +43,7 @@ struct pid_namespace {
 	struct dentry *proc_thread_self;
 #endif
 #ifdef CONFIG_BSD_PROCESS_ACCT
-	struct fs_pin *bacct;
+	struct fsPin *bacct;
 #endif
 	struct user_namespace *user_ns;
 	struct ucounts *ucounts;
@@ -59,18 +59,18 @@ extern struct pid_namespace init_pid_ns;
 #define PIDNS_HASH_ADDING (1U << 31)
 
 #ifdef CONFIG_PID_NS
-static inline struct pid_namespace *get_pid_ns(struct pid_namespace *ns)
+static inline struct pidNamespace *get_pid_ns(struct pidNamespace *ns)
 {
 	if (ns != &init_pid_ns)
 		kref_get(&ns->kref);
 	return ns;
 }
 
-extern struct pid_namespace *copy_pid_ns(unsigned long flags,
-	struct user_namespace *user_ns, struct pid_namespace *ns);
-extern void zap_pid_ns_processes(struct pid_namespace *pid_ns);
-extern int reboot_pid_ns(struct pid_namespace *pid_ns, int cmd);
-extern void put_pid_ns(struct pid_namespace *ns);
+extern struct pidNamespace *copy_pid_ns(unsigned long flags,
+	struct user_namespace *user_ns, struct pidNamespace *ns);
+extern void zap_pid_ns_processes(struct pidNamespace *pid_ns);
+extern int reboot_pid_ns(struct pidNamespace *pid_ns, int cmd);
+extern void put_pid_ns(struct pidNamespace *ns);
 
 #else /* !CONFIG_PID_NS */
 #include <linux/err.h>

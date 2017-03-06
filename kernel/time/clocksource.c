@@ -108,7 +108,7 @@ static char override_name[CS_NAME_LEN];
 static int finished_booting;
 
 #ifdef CONFIG_CLOCKSOURCE_WATCHDOG
-static void clocksource_watchdog_work(struct work_struct *work);
+static void clocksource_watchdog_work(struct workStruct *work);
 static void clocksource_select(void);
 
 static LIST_HEAD(watchdog_list);
@@ -128,7 +128,7 @@ static void __clocksource_change_rating(struct clocksource *cs, int rating);
 #define WATCHDOG_INTERVAL (HZ >> 1)
 #define WATCHDOG_THRESHOLD (NSEC_PER_SEC >> 4)
 
-static void clocksource_watchdog_work(struct work_struct *work)
+static void clocksource_watchdog_work(struct workStruct *work)
 {
 	/*
 	 * If kthread_run fails the next watchdog scan over the

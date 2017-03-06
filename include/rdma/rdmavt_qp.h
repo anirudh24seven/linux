@@ -208,7 +208,7 @@ struct rvt_rq {
 
 /*
  * This structure is used by rvt_mmap() to validate an offset
- * when an mmap() request is made.  The vm_area_struct then uses
+ * when an mmap() request is made.  The vmAreaStruct then uses
  * this as its vm_private_data.
  */
 struct rvt_mmap_info {

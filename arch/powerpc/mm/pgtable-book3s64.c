@@ -27,7 +27,7 @@ int (*register_process_table)(unsigned long base, unsigned long page_size,
  * handled those two for us, we additionally deal with missing execute
  * permission here on some processors
  */
-int pmdp_set_access_flags(struct vm_area_struct *vma, unsigned long address,
+int pmdp_set_access_flags(struct vmAreaStruct *vma, unsigned long address,
 			  pmd_t *pmdp, pmd_t entry, int dirty)
 {
 	int changed;
@@ -44,7 +44,7 @@ int pmdp_set_access_flags(struct vm_area_struct *vma, unsigned long address,
 	return changed;
 }
 
-int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 			      unsigned long address, pmd_t *pmdp)
 {
 	return __pmdp_test_and_clear_young(vma->vm_mm, address, pmdp);
@@ -68,7 +68,7 @@ void set_pmd_at(struct mm_struct *mm, unsigned long addr,
  * We use this to invalidate a pmdp entry before switching from a
  * hugepte to regular pmd entry.
  */
-void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
+void pmdp_invalidate(struct vmAreaStruct *vma, unsigned long address,
 		     pmd_t *pmdp)
 {
 	pmd_hugepage_update(vma->vm_mm, address, pmdp, _PAGE_PRESENT, 0);
@@ -113,7 +113,7 @@ pmd_t pmd_modify(pmd_t pmd, pgprot_t newprot)
  * We use it to preload an HPTE into the hash table corresponding to
  * the updated linux HUGE PMD entry.
  */
-void update_mmu_cache_pmd(struct vm_area_struct *vma, unsigned long addr,
+void update_mmu_cache_pmd(struct vmAreaStruct *vma, unsigned long addr,
 			  pmd_t *pmd)
 {
 	return;

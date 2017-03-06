@@ -72,7 +72,7 @@ nitpick_ignore = [
     ("c:type", "poll_table"),
     ("c:type", "platform_device"),
     ("c:type", "pollfd"),
-    ("c:type", "poll_table_struct"),
+    ("c:type", "pollTableStruct"),
     ("c:type", "s32"),
     ("c:type", "s64"),
     ("c:type", "sd"),
@@ -101,7 +101,7 @@ nitpick_ignore = [
     ("c:type", "usb_interface"),
     ("c:type", "v4l2_std_id"),
     ("c:type", "video_system_t"),
-    ("c:type", "vm_area_struct"),
+    ("c:type", "vmAreaStruct"),
 
     # Opaque structures
 

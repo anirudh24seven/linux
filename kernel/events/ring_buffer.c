@@ -773,7 +773,7 @@ static void perf_mmap_unmark_page(void *addr)
 	page->mapping = NULL;
 }
 
-static void rb_free_work(struct work_struct *work)
+static void rb_free_work(struct workStruct *work)
 {
 	struct ring_buffer *rb;
 	void *base;

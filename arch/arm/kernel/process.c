@@ -331,7 +331,7 @@ unsigned long arch_randomize_brk(struct mm_struct *mm)
  * atomic helpers. Insert it into the gate_vma so that it is visible
  * through ptrace and /proc/<pid>/mem.
  */
-static struct vm_area_struct gate_vma = {
+static struct vmAreaStruct gate_vma = {
 	.vm_start	= 0xffff0000,
 	.vm_end		= 0xffff0000 + PAGE_SIZE,
 	.vm_flags	= VM_READ | VM_EXEC | VM_MAYREAD | VM_MAYEXEC,
@@ -344,7 +344,7 @@ static int __init gate_vma_init(void)
 }
 arch_initcall(gate_vma_init);
 
-struct vm_area_struct *get_gate_vma(struct mm_struct *mm)
+struct vmAreaStruct *get_gate_vma(struct mm_struct *mm)
 {
 	return &gate_vma;
 }
@@ -363,7 +363,7 @@ int in_gate_area_no_mm(unsigned long addr)
 #define is_gate_vma(vma)	0
 #endif
 
-const char *arch_vma_name(struct vm_area_struct *vma)
+const char *arch_vma_name(struct vmAreaStruct *vma)
 {
 	return is_gate_vma(vma) ? "[vectors]" : NULL;
 }
@@ -412,7 +412,7 @@ static const struct vm_special_mapping sigpage_mapping = {
 int arch_setup_additional_pages(struct linux_binprm *bprm, int uses_interp)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long npages;
 	unsigned long addr;
 	unsigned long hint;

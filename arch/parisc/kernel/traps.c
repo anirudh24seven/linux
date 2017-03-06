@@ -716,7 +716,7 @@ void notrace handle_interruption(int code, struct pt_regs *regs)
 		 */
 
 		if (user_mode(regs)) {
-			struct vm_area_struct *vma;
+			struct vmAreaStruct *vma;
 
 			down_read(&current->mm->mmap_sem);
 			vma = find_vma(current->mm,regs->iaoq[0]);

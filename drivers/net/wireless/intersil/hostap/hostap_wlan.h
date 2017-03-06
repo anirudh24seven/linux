@@ -723,13 +723,13 @@ struct local_info {
 
 	/* if card timeout is detected in interrupt context, reset_queue is
 	 * used to schedule card reseting to be done in user context */
-	struct work_struct reset_queue;
+	struct workStruct reset_queue;
 
 	/* For scheduling a change of the promiscuous mode RID */
 	int is_promisc;
-	struct work_struct set_multicast_list_queue;
+	struct workStruct set_multicast_list_queue;
 
-	struct work_struct set_tim_queue;
+	struct workStruct set_tim_queue;
 	struct list_head set_tim_list;
 	spinlock_t set_tim_lock;
 
@@ -819,7 +819,7 @@ struct local_info {
 	struct hfa384x_hostscan_result *last_scan_results;
 	int last_scan_results_count;
 	enum { PRISM2_SCAN, PRISM2_HOSTSCAN } last_scan_type;
-	struct work_struct info_queue;
+	struct workStruct info_queue;
 	unsigned long pending_info; /* bit field of pending info_queue items */
 #define PRISM2_INFO_PENDING_LINKSTATUS 0
 #define PRISM2_INFO_PENDING_SCANRESULTS 1
@@ -851,7 +851,7 @@ struct local_info {
 	int comms_qual; /* in some odd unit.. */
 	int avg_signal; /* in dB (note: negative) */
 	int avg_noise; /* in dB (note: negative) */
-	struct work_struct comms_qual_update;
+	struct workStruct comms_qual_update;
 
 	/* RSSI to dBm adjustment (for RX descriptor fields) */
 	int rssi_to_dBm; /* subtract from RSSI to get approximate dBm value */

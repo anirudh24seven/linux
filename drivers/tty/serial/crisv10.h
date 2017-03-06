@@ -96,7 +96,7 @@ struct e100_serial {
 	unsigned int		recv_cnt;
 	unsigned int		max_recv_cnt;
 
-	struct work_struct	work;
+	struct workStruct	work;
 	struct async_icount	icount;   /* error-statistics etc.*/
 
 	unsigned long char_time_usec;       /* The time for 1 char, in usecs */

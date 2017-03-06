@@ -110,7 +110,7 @@ static int request_seq_drv(struct device *dev, void *data)
 	return 0;
 }
 
-static void autoload_drivers(struct work_struct *work)
+static void autoload_drivers(struct workStruct *work)
 {
 	/* avoid reentrance */
 	if (atomic_inc_return(&snd_seq_in_init) == 1)

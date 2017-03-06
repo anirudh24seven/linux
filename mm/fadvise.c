@@ -30,7 +30,7 @@ SYSCALL_DEFINE4(fadvise64_64, int, fd, loff_t, offset, loff_t, len, int, advice)
 	struct fd f = fdget(fd);
 	struct inode *inode;
 	struct address_space *mapping;
-	struct backing_dev_info *bdi;
+	struct backingDevInfo *bdi;
 	loff_t endbyte;			/* inclusive */
 	pgoff_t start_index;
 	pgoff_t end_index;

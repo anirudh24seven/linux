@@ -74,14 +74,14 @@ tlb_remove_tlb_entry(struct mmu_gather *tlb, pte_t *ptep, unsigned long address)
  * the vmas are adjusted to only cover the region to be torn down.
  */
 static inline void
-tlb_start_vma(struct mmu_gather *tlb, struct vm_area_struct *vma)
+tlb_start_vma(struct mmu_gather *tlb, struct vmAreaStruct *vma)
 {
 	if (!tlb->fullmm)
 		flush_cache_range(vma, vma->vm_start, vma->vm_end);
 }
 
 static inline void
-tlb_end_vma(struct mmu_gather *tlb, struct vm_area_struct *vma)
+tlb_end_vma(struct mmu_gather *tlb, struct vmAreaStruct *vma)
 {
 	if (!tlb->fullmm && tlb->end) {
 		flush_tlb_range(vma, tlb->start, tlb->end);
@@ -137,10 +137,10 @@ static inline void tlb_remove_check_page_size_change(struct mmu_gather *tlb,
 #define tlb_migrate_finish(mm)		do { } while (0)
 
 #if defined(CONFIG_CPU_SH4) || defined(CONFIG_SUPERH64)
-extern void tlb_wire_entry(struct vm_area_struct *, unsigned long, pte_t);
+extern void tlb_wire_entry(struct vmAreaStruct *, unsigned long, pte_t);
 extern void tlb_unwire_entry(void);
 #else
-static inline void tlb_wire_entry(struct vm_area_struct *vma ,
+static inline void tlb_wire_entry(struct vmAreaStruct *vma ,
 				  unsigned long addr, pte_t pte)
 {
 	BUG();

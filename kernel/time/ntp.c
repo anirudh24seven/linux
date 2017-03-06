@@ -508,11 +508,11 @@ int __weak update_persistent_clock64(struct timespec64 now64)
 #endif
 
 #if defined(CONFIG_GENERIC_CMOS_UPDATE) || defined(CONFIG_RTC_SYSTOHC)
-static void sync_cmos_clock(struct work_struct *work);
+static void sync_cmos_clock(struct workStruct *work);
 
 static DECLARE_DELAYED_WORK(sync_cmos_work, sync_cmos_clock);
 
-static void sync_cmos_clock(struct work_struct *work)
+static void sync_cmos_clock(struct workStruct *work)
 {
 	struct timespec64 now;
 	struct timespec64 next;

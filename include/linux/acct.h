@@ -22,11 +22,11 @@
 struct vfsmount;
 struct super_block;
 struct pacct_struct;
-struct pid_namespace;
-extern int acct_parm[]; /* for sysctl */
+struct pidNamespace;
+extern int acctParam[]; /* for sysctl */
 extern void acct_collect(long exitcode, int group_dead);
 extern void acct_process(void);
-extern void acct_exit_ns(struct pid_namespace *);
+extern void acct_exit_ns(struct pidNamespace *);
 #else
 #define acct_collect(x,y)	do { } while (0)
 #define acct_process()		do { } while (0)

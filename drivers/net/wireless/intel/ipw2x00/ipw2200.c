@@ -7229,7 +7229,7 @@ static int ipw_qos_set_tx_queue_command(struct ipw_priv *priv,
 /*
 * background support to run QoS activate functionality
 */
-static void ipw_bg_qos_activate(struct work_struct *work)
+static void ipw_bg_qos_activate(struct workStruct *work)
 {
 	struct ipw_priv *priv =
 		container_of(work, struct ipw_priv, qos_activate);

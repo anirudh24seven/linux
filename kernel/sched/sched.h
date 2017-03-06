@@ -301,7 +301,7 @@ struct task_group {
 	struct rt_bandwidth rt_bandwidth;
 #endif
 
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	struct list_head list;
 
 	struct task_group *parent;
@@ -578,7 +578,7 @@ static inline bool sched_asym_prefer(int a, int b)
 struct root_domain {
 	atomic_t refcount;
 	atomic_t rto_count;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	cpumask_var_t span;
 	cpumask_var_t online;
 

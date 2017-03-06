@@ -1049,11 +1049,11 @@ acpi_status acpi_os_execute(acpi_execute_type type,
 
 	/*
 	 * Allocate/initialize DPC structure.  Note that this memory will be
-	 * freed by the callee.  The kernel handles the work_struct list  in a
+	 * freed by the callee.  The kernel handles the workStruct list  in a
 	 * way that allows us to also free its memory inside the callee.
 	 * Because we may want to schedule several tasks with different
 	 * parameters we can't use the approach some kernel code uses of
-	 * having a static work_struct.
+	 * having a static workStruct.
 	 */
 
 	dpc = kzalloc(sizeof(struct acpi_os_dpc), GFP_ATOMIC);

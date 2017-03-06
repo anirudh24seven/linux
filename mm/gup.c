@@ -1133,7 +1133,7 @@ int __mm_populate(unsigned long start, unsigned long len, int ignore_errors)
 #ifdef CONFIG_ELF_CORE
 struct page *get_dump_page(unsigned long addr)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct page *page;
 
 	if (__get_user_pages(current, current->mm, addr, 1,

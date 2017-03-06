@@ -101,7 +101,7 @@ struct mapped_device {
 	struct super_block *frozen_sb;
 
 	/* forced geometry settings */
-	struct hd_geometry geometry;
+	struct hdGeometry geometry;
 
 	struct block_device *bdev;
 

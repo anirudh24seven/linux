@@ -451,7 +451,7 @@ struct reg_regdb_apply_request {
 static LIST_HEAD(reg_regdb_apply_list);
 static DEFINE_MUTEX(reg_regdb_apply_mutex);
 
-static void reg_regdb_apply(struct work_struct *work)
+static void reg_regdb_apply(struct workStruct *work)
 {
 	struct reg_regdb_apply_request *request;
 
@@ -529,10 +529,10 @@ static inline int reg_query_builtin(const char *alpha2)
 
 static u32 reg_crda_timeouts;
 
-static void crda_timeout_work(struct work_struct *work);
+static void crda_timeout_work(struct workStruct *work);
 static DECLARE_DELAYED_WORK(crda_timeout, crda_timeout_work);
 
-static void crda_timeout_work(struct work_struct *work)
+static void crda_timeout_work(struct workStruct *work)
 {
 	pr_debug("Timeout while waiting for CRDA to reply, restoring regulatory settings\n");
 	rtnl_lock();

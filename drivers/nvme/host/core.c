@@ -851,7 +851,7 @@ static void nvme_release(struct gendisk *disk, fmode_t mode)
 	nvme_put_ns(ns);
 }
 
-static int nvme_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int nvme_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	/* some standard values */
 	geo->heads = 1 << 6;

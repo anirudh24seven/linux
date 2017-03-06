@@ -366,7 +366,7 @@ out:
 	return type;
 }
 
-static const struct export_operations orangefs_export_ops = {
+static const struct exportOperations orangefs_export_ops = {
 	.encode_fh = orangefs_encode_fh,
 	.fh_to_dentry = orangefs_fh_to_dentry,
 };

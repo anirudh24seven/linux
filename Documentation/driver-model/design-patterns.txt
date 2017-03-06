@@ -71,11 +71,11 @@ Continuing on the above example we add an offloaded work:
 struct foo {
     spinlock_t lock;
     struct workqueue_struct *wq;
-    struct work_struct offload;
+    struct workStruct offload;
     (...)
 };
 
-static void foo_work(struct work_struct *work)
+static void foo_work(struct workStruct *work)
 {
     struct foo *foo = container_of(work, struct foo, offload);
 

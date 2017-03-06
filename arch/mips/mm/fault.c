@@ -38,7 +38,7 @@ int show_unhandled_signals = 1;
 static void __kprobes __do_page_fault(struct pt_regs *regs, unsigned long write,
 	unsigned long address)
 {
-	struct vm_area_struct * vma = NULL;
+	struct vmAreaStruct * vma = NULL;
 	struct task_struct *tsk = current;
 	struct mm_struct *mm = tsk->mm;
 	const int field = sizeof(unsigned long) * 2;

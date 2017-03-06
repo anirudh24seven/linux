@@ -453,19 +453,19 @@ long -- there might be other high-priority work to be done.
 In such cases, one uses call_rcu() rather than synchronize_rcu().
 The call_rcu() API is as follows:
 
-	void call_rcu(struct rcu_head * head,
-		      void (*func)(struct rcu_head *head));
+	void call_rcu(struct rcuHead * head,
+		      void (*func)(struct rcuHead *head));
 
 This function invokes func(head) after a grace period has elapsed.
 This invocation might happen from either softirq or process context,
 so the function is not permitted to block.  The foo struct needs to
-have an rcu_head structure added, perhaps as follows:
+have an rcuHead structure added, perhaps as follows:
 
 	struct foo {
 		int a;
 		char b;
 		long c;
-		struct rcu_head rcu;
+		struct rcuHead rcu;
 	};
 
 The foo_update_a() function might then be written as follows:
@@ -500,7 +500,7 @@ The foo_update_a() function might then be written as follows:
 
 The foo_reclaim() function might appear as follows:
 
-	void foo_reclaim(struct rcu_head *rp)
+	void foo_reclaim(struct rcuHead *rp)
 	{
 		struct foo *fp = container_of(rp, struct foo, rcu);
 

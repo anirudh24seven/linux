@@ -927,19 +927,19 @@ static inline void native_set_pud_at(struct mm_struct *mm, unsigned long addr,
  * race with other CPU's that might be updating the dirty
  * bit at the same time.
  */
-struct vm_area_struct;
+struct vmAreaStruct;
 
 #define  __HAVE_ARCH_PTEP_SET_ACCESS_FLAGS
-extern int ptep_set_access_flags(struct vm_area_struct *vma,
+extern int ptep_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pte_t *ptep,
 				 pte_t entry, int dirty);
 
 #define __HAVE_ARCH_PTEP_TEST_AND_CLEAR_YOUNG
-extern int ptep_test_and_clear_young(struct vm_area_struct *vma,
+extern int ptep_test_and_clear_young(struct vmAreaStruct *vma,
 				     unsigned long addr, pte_t *ptep);
 
 #define __HAVE_ARCH_PTEP_CLEAR_YOUNG_FLUSH
-extern int ptep_clear_flush_young(struct vm_area_struct *vma,
+extern int ptep_clear_flush_young(struct vmAreaStruct *vma,
 				  unsigned long address, pte_t *ptep);
 
 #define __HAVE_ARCH_PTEP_GET_AND_CLEAR
@@ -982,21 +982,21 @@ static inline void ptep_set_wrprotect(struct mm_struct *mm,
 #define mk_pmd(page, pgprot)   pfn_pmd(page_to_pfn(page), (pgprot))
 
 #define  __HAVE_ARCH_PMDP_SET_ACCESS_FLAGS
-extern int pmdp_set_access_flags(struct vm_area_struct *vma,
+extern int pmdp_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pmd_t *pmdp,
 				 pmd_t entry, int dirty);
-extern int pudp_set_access_flags(struct vm_area_struct *vma,
+extern int pudp_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pud_t *pudp,
 				 pud_t entry, int dirty);
 
 #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-extern int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+extern int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 				     unsigned long addr, pmd_t *pmdp);
-extern int pudp_test_and_clear_young(struct vm_area_struct *vma,
+extern int pudp_test_and_clear_young(struct vmAreaStruct *vma,
 				     unsigned long addr, pud_t *pudp);
 
 #define __HAVE_ARCH_PMDP_CLEAR_YOUNG_FLUSH
-extern int pmdp_clear_flush_young(struct vm_area_struct *vma,
+extern int pmdp_clear_flush_young(struct vmAreaStruct *vma,
 				  unsigned long address, pmd_t *pmdp);
 
 
@@ -1060,15 +1060,15 @@ static inline unsigned long page_level_mask(enum pg_level level)
  * The x86 doesn't have any external MMU info: the kernel page
  * tables contain all the necessary information.
  */
-static inline void update_mmu_cache(struct vm_area_struct *vma,
+static inline void update_mmu_cache(struct vmAreaStruct *vma,
 		unsigned long addr, pte_t *ptep)
 {
 }
-static inline void update_mmu_cache_pmd(struct vm_area_struct *vma,
+static inline void update_mmu_cache_pmd(struct vmAreaStruct *vma,
 		unsigned long addr, pmd_t *pmd)
 {
 }
-static inline void update_mmu_cache_pud(struct vm_area_struct *vma,
+static inline void update_mmu_cache_pud(struct vmAreaStruct *vma,
 		unsigned long addr, pud_t *pud)
 {
 }

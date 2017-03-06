@@ -96,7 +96,7 @@ unsigned int kobjsize(const void *objp)
 	 * PAGE_SIZE for 0-order pages.
 	 */
 	if (!PageCompound(page)) {
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 
 		vma = find_vma(current->mm, (unsigned long)objp);
 		if (vma)
@@ -113,9 +113,9 @@ unsigned int kobjsize(const void *objp)
 static long __get_user_pages(struct task_struct *tsk, struct mm_struct *mm,
 		      unsigned long start, unsigned long nr_pages,
 		      unsigned int foll_flags, struct page **pages,
-		      struct vm_area_struct **vmas, int *nonblocking)
+		      struct vmAreaStruct **vmas, int *nonblocking)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long vm_flags;
 	int i;
 
@@ -162,7 +162,7 @@ finish_or_fault:
  */
 long get_user_pages(unsigned long start, unsigned long nr_pages,
 		    unsigned int gup_flags, struct page **pages,
-		    struct vm_area_struct **vmas)
+		    struct vmAreaStruct **vmas)
 {
 	return __get_user_pages(current, current->mm, start, nr_pages,
 				gup_flags, pages, vmas, NULL);
@@ -208,7 +208,7 @@ EXPORT_SYMBOL(get_user_pages_unlocked);
  *
  * Returns zero and the pfn at @pfn on success, -ve otherwise.
  */
-int follow_pfn(struct vm_area_struct *vma, unsigned long address,
+int follow_pfn(struct vmAreaStruct *vma, unsigned long address,
 	unsigned long *pfn)
 {
 	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
@@ -244,7 +244,7 @@ void *vmalloc_user(unsigned long size)
 	ret = __vmalloc(size, GFP_KERNEL | __GFP_HIGHMEM | __GFP_ZERO,
 			PAGE_KERNEL);
 	if (ret) {
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 
 		down_write(&current->mm->mmap_sem);
 		vma = find_vma(current->mm, (unsigned long)ret);
@@ -478,7 +478,7 @@ void free_vm_area(struct vm_struct *area)
 }
 EXPORT_SYMBOL_GPL(free_vm_area);
 
-int vm_insert_page(struct vm_area_struct *vma, unsigned long addr,
+int vm_insert_page(struct vmAreaStruct *vma, unsigned long addr,
 		   struct page *page)
 {
 	return -EINVAL;
@@ -661,7 +661,7 @@ static void put_nommu_region(struct vm_region *region)
 /*
  * update protection on a vma
  */
-static void protect_vma(struct vm_area_struct *vma, unsigned long flags)
+static void protect_vma(struct vmAreaStruct *vma, unsigned long flags)
 {
 #ifdef CONFIG_MPU
 	struct mm_struct *mm = vma->vm_mm;
@@ -680,9 +680,9 @@ static void protect_vma(struct vm_area_struct *vma, unsigned long flags)
  * page
  * - should be called with mm->mmap_sem held writelocked
  */
-static void add_vma_to_mm(struct mm_struct *mm, struct vm_area_struct *vma)
+static void add_vma_to_mm(struct mm_struct *mm, struct vmAreaStruct *vma)
 {
-	struct vm_area_struct *pvma, *prev;
+	struct vmAreaStruct *pvma, *prev;
 	struct address_space *mapping;
 	struct rb_node **p, *parent, *rb_prev;
 
@@ -709,7 +709,7 @@ static void add_vma_to_mm(struct mm_struct *mm, struct vm_area_struct *vma)
 	p = &mm->mm_rb.rb_node;
 	while (*p) {
 		parent = *p;
-		pvma = rb_entry(parent, struct vm_area_struct, vm_rb);
+		pvma = rb_entry(parent, struct vmAreaStruct, vm_rb);
 
 		/* sort by: start addr, end addr, VMA struct addr in that order
 		 * (the latter is necessary as we may get identical VMAs) */
@@ -738,7 +738,7 @@ static void add_vma_to_mm(struct mm_struct *mm, struct vm_area_struct *vma)
 	/* add VMA to the VMA list also */
 	prev = NULL;
 	if (rb_prev)
-		prev = rb_entry(rb_prev, struct vm_area_struct, vm_rb);
+		prev = rb_entry(rb_prev, struct vmAreaStruct, vm_rb);
 
 	__vma_link_list(mm, vma, prev, parent);
 }
@@ -746,7 +746,7 @@ static void add_vma_to_mm(struct mm_struct *mm, struct vm_area_struct *vma)
 /*
  * delete a VMA from its owning mm_struct and address space
  */
-static void delete_vma_from_mm(struct vm_area_struct *vma)
+static void delete_vma_from_mm(struct vmAreaStruct *vma)
 {
 	int i;
 	struct address_space *mapping;
@@ -790,7 +790,7 @@ static void delete_vma_from_mm(struct vm_area_struct *vma)
 /*
  * destroy a VMA record
  */
-static void delete_vma(struct mm_struct *mm, struct vm_area_struct *vma)
+static void delete_vma(struct mm_struct *mm, struct vmAreaStruct *vma)
 {
 	if (vma->vm_ops && vma->vm_ops->close)
 		vma->vm_ops->close(vma);
@@ -804,9 +804,9 @@ static void delete_vma(struct mm_struct *mm, struct vm_area_struct *vma)
  * look up the first VMA in which addr resides, NULL if none
  * - should be called with mm->mmap_sem at least held readlocked
  */
-struct vm_area_struct *find_vma(struct mm_struct *mm, unsigned long addr)
+struct vmAreaStruct *find_vma(struct mm_struct *mm, unsigned long addr)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	/* check the cache first */
 	vma = vmacache_find(mm, addr);
@@ -832,7 +832,7 @@ EXPORT_SYMBOL(find_vma);
  * find a VMA
  * - we don't extend stack VMAs under NOMMU conditions
  */
-struct vm_area_struct *find_extend_vma(struct mm_struct *mm, unsigned long addr)
+struct vmAreaStruct *find_extend_vma(struct mm_struct *mm, unsigned long addr)
 {
 	return find_vma(mm, addr);
 }
@@ -841,7 +841,7 @@ struct vm_area_struct *find_extend_vma(struct mm_struct *mm, unsigned long addr)
  * expand a stack to a given address
  * - not supported under NOMMU conditions
  */
-int expand_stack(struct vm_area_struct *vma, unsigned long address)
+int expand_stack(struct vmAreaStruct *vma, unsigned long address)
 {
 	return -ENOMEM;
 }
@@ -850,11 +850,11 @@ int expand_stack(struct vm_area_struct *vma, unsigned long address)
  * look up the first VMA exactly that exactly matches addr
  * - should be called with mm->mmap_sem at least held readlocked
  */
-static struct vm_area_struct *find_vma_exact(struct mm_struct *mm,
+static struct vmAreaStruct *find_vma_exact(struct mm_struct *mm,
 					     unsigned long addr,
 					     unsigned long len)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long end = addr + len;
 
 	/* check the cache first */
@@ -1081,7 +1081,7 @@ static unsigned long determine_vm_flags(struct file *file,
  * set up a shared mapping on a file (the driver or filesystem provides and
  * pins the storage)
  */
-static int do_mmap_shared_file(struct vm_area_struct *vma)
+static int do_mmap_shared_file(struct vmAreaStruct *vma)
 {
 	int ret;
 
@@ -1102,7 +1102,7 @@ static int do_mmap_shared_file(struct vm_area_struct *vma)
 /*
  * set up a private mapping or an anonymous shared mapping
  */
-static int do_mmap_private(struct vm_area_struct *vma,
+static int do_mmap_private(struct vmAreaStruct *vma,
 			   struct vm_region *region,
 			   unsigned long len,
 			   unsigned long capabilities)
@@ -1209,7 +1209,7 @@ unsigned long do_mmap(struct file *file,
 			unsigned long *populate,
 			struct list_head *uf)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct vm_region *region;
 	struct rb_node *rb;
 	unsigned long capabilities, result;
@@ -1476,10 +1476,10 @@ SYSCALL_DEFINE1(old_mmap, struct mmap_arg_struct __user *, arg)
  * split a vma into two pieces at address 'addr', a new vma is allocated either
  * for the first part or the tail.
  */
-int split_vma(struct mm_struct *mm, struct vm_area_struct *vma,
+int split_vma(struct mm_struct *mm, struct vmAreaStruct *vma,
 	      unsigned long addr, int new_below)
 {
-	struct vm_area_struct *new;
+	struct vmAreaStruct *new;
 	struct vm_region *region;
 	unsigned long npages;
 
@@ -1541,7 +1541,7 @@ int split_vma(struct mm_struct *mm, struct vm_area_struct *vma,
  * the end
  */
 static int shrink_vma(struct mm_struct *mm,
-		      struct vm_area_struct *vma,
+		      struct vmAreaStruct *vma,
 		      unsigned long from, unsigned long to)
 {
 	struct vm_region *region;
@@ -1581,7 +1581,7 @@ static int shrink_vma(struct mm_struct *mm,
  */
 int do_munmap(struct mm_struct *mm, unsigned long start, size_t len, struct list_head *uf)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long end;
 	int ret;
 
@@ -1661,7 +1661,7 @@ SYSCALL_DEFINE2(munmap, unsigned long, addr, size_t, len)
  */
 void exit_mmap(struct mm_struct *mm)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	if (!mm)
 		return;
@@ -1695,7 +1695,7 @@ static unsigned long do_mremap(unsigned long addr,
 			unsigned long old_len, unsigned long new_len,
 			unsigned long flags, unsigned long new_addr)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	/* insanity checks first */
 	old_len = PAGE_ALIGN(old_len);
@@ -1739,7 +1739,7 @@ SYSCALL_DEFINE5(mremap, unsigned long, addr, unsigned long, old_len,
 	return ret;
 }
 
-struct page *follow_page_mask(struct vm_area_struct *vma,
+struct page *follow_page_mask(struct vmAreaStruct *vma,
 			      unsigned long address, unsigned int flags,
 			      unsigned int *page_mask)
 {
@@ -1747,7 +1747,7 @@ struct page *follow_page_mask(struct vm_area_struct *vma,
 	return NULL;
 }
 
-int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
+int remap_pfn_range(struct vmAreaStruct *vma, unsigned long addr,
 		unsigned long pfn, unsigned long size, pgprot_t prot)
 {
 	if (addr != (pfn << PAGE_SHIFT))
@@ -1758,7 +1758,7 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
 }
 EXPORT_SYMBOL(remap_pfn_range);
 
-int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len)
+int vm_iomap_memory(struct vmAreaStruct *vma, phys_addr_t start, unsigned long len)
 {
 	unsigned long pfn = start >> PAGE_SHIFT;
 	unsigned long vm_len = vma->vm_end - vma->vm_start;
@@ -1768,7 +1768,7 @@ int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long
 }
 EXPORT_SYMBOL(vm_iomap_memory);
 
-int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
+int remap_vmalloc_range(struct vmAreaStruct *vma, void *addr,
 			unsigned long pgoff)
 {
 	unsigned int size = vma->vm_end - vma->vm_start;
@@ -1813,7 +1813,7 @@ EXPORT_SYMBOL(filemap_map_pages);
 int __access_remote_vm(struct task_struct *tsk, struct mm_struct *mm,
 		unsigned long addr, void *buf, int len, unsigned int gup_flags)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int write = gup_flags & FOLL_WRITE;
 
 	down_read(&mm->mmap_sem);
@@ -1896,7 +1896,7 @@ EXPORT_SYMBOL_GPL(access_process_vm);
 int nommu_shrink_inode_mappings(struct inode *inode, size_t size,
 				size_t newsize)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct vm_region *region;
 	pgoff_t low, high;
 	size_t r_size, r_top;

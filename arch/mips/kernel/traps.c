@@ -739,7 +739,7 @@ void force_fcr31_sig(unsigned long fcr31, void __user *fault_addr,
 int process_fpemu_return(int sig, void __user *fault_addr, unsigned long fcr31)
 {
 	struct siginfo si = { 0 };
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	switch (sig) {
 	case 0:

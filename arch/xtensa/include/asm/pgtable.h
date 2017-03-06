@@ -329,10 +329,10 @@ set_pmd(pmd_t *pmdp, pmd_t pmdval)
 	*pmdp = pmdval;
 }
 
-struct vm_area_struct;
+struct vmAreaStruct;
 
 static inline int
-ptep_test_and_clear_young(struct vm_area_struct *vma, unsigned long addr,
+ptep_test_and_clear_young(struct vmAreaStruct *vma, unsigned long addr,
 			  pte_t *ptep)
 {
 	pte_t pte = *ptep;
@@ -422,7 +422,7 @@ ptep_set_wrprotect(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
 
 #define kern_addr_valid(addr)	(1)
 
-extern  void update_mmu_cache(struct vm_area_struct * vma,
+extern  void update_mmu_cache(struct vmAreaStruct * vma,
 			      unsigned long address, pte_t *ptep);
 
 typedef pte_t *pte_addr_t;

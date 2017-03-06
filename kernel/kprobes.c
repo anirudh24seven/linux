@@ -476,7 +476,7 @@ static LIST_HEAD(optimizing_list);
 static LIST_HEAD(unoptimizing_list);
 static LIST_HEAD(freeing_list);
 
-static void kprobe_optimizer(struct work_struct *work);
+static void kprobe_optimizer(struct workStruct *work);
 static DECLARE_DELAYED_WORK(optimizing_work, kprobe_optimizer);
 #define OPTIMIZE_DELAY 5
 
@@ -562,7 +562,7 @@ static void kick_kprobe_optimizer(void)
 }
 
 /* Kprobe jump optimizer */
-static void kprobe_optimizer(struct work_struct *work)
+static void kprobe_optimizer(struct workStruct *work)
 {
 	mutex_lock(&kprobe_mutex);
 	/* Lock modules while optimizing kprobes */

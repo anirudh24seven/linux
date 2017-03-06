@@ -248,7 +248,7 @@ single call to:
 .. code-block:: none
 
     int videobuf_mmap_mapper(struct videobuf_queue *q,
-			     struct vm_area_struct *vma);
+			     struct vmAreaStruct *vma);
 
 Everything else is handled by the videobuf code.
 

@@ -26,7 +26,7 @@
 #ifdef CONFIG_PM
 extern struct workqueue_struct *pm_wq;
 
-static inline bool queue_pm_work(struct work_struct *work)
+static inline bool queue_pm_work(struct workStruct *work)
 {
 	return queue_work(pm_wq, work);
 }

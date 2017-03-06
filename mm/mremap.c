@@ -50,7 +50,7 @@ static pmd_t *get_old_pmd(struct mm_struct *mm, unsigned long addr)
 	return pmd;
 }
 
-static pmd_t *alloc_new_pmd(struct mm_struct *mm, struct vm_area_struct *vma,
+static pmd_t *alloc_new_pmd(struct mm_struct *mm, struct vmAreaStruct *vma,
 			    unsigned long addr)
 {
 	pgd_t *pgd;
@@ -71,7 +71,7 @@ static pmd_t *alloc_new_pmd(struct mm_struct *mm, struct vm_area_struct *vma,
 	return pmd;
 }
 
-static void take_rmap_locks(struct vm_area_struct *vma)
+static void take_rmap_locks(struct vmAreaStruct *vma)
 {
 	if (vma->vm_file)
 		i_mmap_lock_write(vma->vm_file->f_mapping);
@@ -79,7 +79,7 @@ static void take_rmap_locks(struct vm_area_struct *vma)
 		anon_vma_lock_write(vma->anon_vma);
 }
 
-static void drop_rmap_locks(struct vm_area_struct *vma)
+static void drop_rmap_locks(struct vmAreaStruct *vma)
 {
 	if (vma->anon_vma)
 		anon_vma_unlock_write(vma->anon_vma);
@@ -102,9 +102,9 @@ static pte_t move_soft_dirty_pte(pte_t pte)
 	return pte;
 }
 
-static void move_ptes(struct vm_area_struct *vma, pmd_t *old_pmd,
+static void move_ptes(struct vmAreaStruct *vma, pmd_t *old_pmd,
 		unsigned long old_addr, unsigned long old_end,
-		struct vm_area_struct *new_vma, pmd_t *new_pmd,
+		struct vmAreaStruct *new_vma, pmd_t *new_pmd,
 		unsigned long new_addr, bool need_rmap_locks, bool *need_flush)
 {
 	struct mm_struct *mm = vma->vm_mm;
@@ -182,8 +182,8 @@ static void move_ptes(struct vm_area_struct *vma, pmd_t *old_pmd,
 
 #define LATENCY_LIMIT	(64 * PAGE_SIZE)
 
-unsigned long move_page_tables(struct vm_area_struct *vma,
-		unsigned long old_addr, struct vm_area_struct *new_vma,
+unsigned long move_page_tables(struct vmAreaStruct *vma,
+		unsigned long old_addr, struct vmAreaStruct *new_vma,
 		unsigned long new_addr, unsigned long len,
 		bool need_rmap_locks)
 {
@@ -249,14 +249,14 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
 	return len + old_addr - old_end;	/* how much done */
 }
 
-static unsigned long move_vma(struct vm_area_struct *vma,
+static unsigned long move_vma(struct vmAreaStruct *vma,
 		unsigned long old_addr, unsigned long old_len,
 		unsigned long new_len, unsigned long new_addr,
 		bool *locked, struct vm_userfaultfd_ctx *uf,
 		struct list_head *uf_unmap)
 {
 	struct mm_struct *mm = vma->vm_mm;
-	struct vm_area_struct *new_vma;
+	struct vmAreaStruct *new_vma;
 	unsigned long vm_flags = vma->vm_flags;
 	unsigned long new_pgoff;
 	unsigned long moved_len;
@@ -364,11 +364,11 @@ static unsigned long move_vma(struct vm_area_struct *vma,
 	return new_addr;
 }
 
-static struct vm_area_struct *vma_to_resize(unsigned long addr,
+static struct vmAreaStruct *vma_to_resize(unsigned long addr,
 	unsigned long old_len, unsigned long new_len, unsigned long *p)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma = find_vma(mm, addr);
+	struct vmAreaStruct *vma = find_vma(mm, addr);
 	unsigned long pgoff;
 
 	if (!vma || vma->vm_start > addr)
@@ -422,7 +422,7 @@ static unsigned long mremap_to(unsigned long addr, unsigned long old_len,
 		struct list_head *uf_unmap)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long ret = -EINVAL;
 	unsigned long charged = 0;
 	unsigned long map_flags;
@@ -475,7 +475,7 @@ out:
 	return ret;
 }
 
-static int vma_expandable(struct vm_area_struct *vma, unsigned long delta)
+static int vma_expandable(struct vmAreaStruct *vma, unsigned long delta)
 {
 	unsigned long end = vma->vm_end + delta;
 	if (end < vma->vm_end) /* overflow */
@@ -500,7 +500,7 @@ SYSCALL_DEFINE5(mremap, unsigned long, addr, unsigned long, old_len,
 		unsigned long, new_addr)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long ret = -EINVAL;
 	unsigned long charged = 0;
 	bool locked = false;

@@ -694,7 +694,7 @@ done:
 
 struct ip6fl_iter_state {
 	struct seq_net_private p;
-	struct pid_namespace *pid_ns;
+	struct pidNamespace *pid_ns;
 	int bucket;
 };
 

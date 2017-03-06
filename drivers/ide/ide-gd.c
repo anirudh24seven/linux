@@ -272,7 +272,7 @@ static void ide_gd_release(struct gendisk *disk, fmode_t mode)
 	mutex_unlock(&ide_gd_mutex);
 }
 
-static int ide_gd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int ide_gd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct ide_disk_obj *idkp = ide_drv_g(bdev->bd_disk, ide_disk_obj);
 	ide_drive_t *drive = idkp->drive;

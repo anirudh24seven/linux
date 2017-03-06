@@ -188,7 +188,7 @@ static inline void set_pte(pte_t *ptep, pte_t pte)
 }
 
 struct mm_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 extern void __sync_icache_dcache(pte_t pteval, unsigned long addr);
 
@@ -563,13 +563,13 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newprot)
 
 #ifdef CONFIG_ARM64_HW_AFDBM
 #define __HAVE_ARCH_PTEP_SET_ACCESS_FLAGS
-extern int ptep_set_access_flags(struct vm_area_struct *vma,
+extern int ptep_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pte_t *ptep,
 				 pte_t entry, int dirty);
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
 #define __HAVE_ARCH_PMDP_SET_ACCESS_FLAGS
-static inline int pmdp_set_access_flags(struct vm_area_struct *vma,
+static inline int pmdp_set_access_flags(struct vmAreaStruct *vma,
 					unsigned long address, pmd_t *pmdp,
 					pmd_t entry, int dirty)
 {
@@ -599,7 +599,7 @@ static inline int __ptep_test_and_clear_young(pte_t *ptep)
 	return res;
 }
 
-static inline int ptep_test_and_clear_young(struct vm_area_struct *vma,
+static inline int ptep_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long address,
 					    pte_t *ptep)
 {
@@ -608,7 +608,7 @@ static inline int ptep_test_and_clear_young(struct vm_area_struct *vma,
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
 #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+static inline int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long address,
 					    pmd_t *pmdp)
 {
@@ -716,7 +716,7 @@ void pgd_cache_init(void);
 /*
  * On AArch64, the cache coherency is handled via the set_pte_at() function.
  */
-static inline void update_mmu_cache(struct vm_area_struct *vma,
+static inline void update_mmu_cache(struct vmAreaStruct *vma,
 				    unsigned long addr, pte_t *ptep)
 {
 	/*

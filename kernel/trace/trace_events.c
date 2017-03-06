@@ -3078,7 +3078,7 @@ static DEFINE_SPINLOCK(test_spinlock);
 static DEFINE_SPINLOCK(test_spinlock_irq);
 static DEFINE_MUTEX(test_mutex);
 
-static __init void test_work(struct work_struct *dummy)
+static __init void test_work(struct workStruct *dummy)
 {
 	spin_lock(&test_spinlock);
 	spin_lock_irq(&test_spinlock_irq);

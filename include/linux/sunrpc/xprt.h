@@ -220,7 +220,7 @@ struct rpc_xprt {
 	/*
 	 * Disconnection of idle transports
 	 */
-	struct work_struct	task_cleanup;
+	struct workStruct	task_cleanup;
 	struct timer_list	timer;
 	unsigned long		last_used,
 				idle_timeout,
@@ -270,7 +270,7 @@ struct rpc_xprt {
 	struct dentry		*debugfs;		/* debugfs directory */
 	atomic_t		inject_disconnect;
 #endif
-	struct rcu_head		rcu;
+	struct rcuHead		rcu;
 };
 
 #if defined(CONFIG_SUNRPC_BACKCHANNEL)

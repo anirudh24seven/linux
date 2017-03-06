@@ -91,7 +91,7 @@ out:
 
 #ifdef CONFIG_OPROFILE_EVENT_MULTIPLEX
 
-static void switch_worker(struct work_struct *work);
+static void switch_worker(struct workStruct *work);
 static DECLARE_DELAYED_WORK(switch_work, switch_worker);
 
 static void start_switch_worker(void)
@@ -105,7 +105,7 @@ static void stop_switch_worker(void)
 	cancel_delayed_work_sync(&switch_work);
 }
 
-static void switch_worker(struct work_struct *work)
+static void switch_worker(struct workStruct *work)
 {
 	if (oprofile_ops.switch_events())
 		return;

@@ -27,7 +27,7 @@
 
 #include "internal.h"
 
-struct poll_table_struct;
+struct pollTableStruct;
 
 static ssize_t default_read_file(struct file *file, char __user *buf,
 				 size_t count, loff_t *ppos)
@@ -170,7 +170,7 @@ FULL_PROXY_FUNC(unlocked_ioctl, long, filp,
 		ARGS(filp, cmd, arg));
 
 static unsigned int full_proxy_poll(struct file *filp,
-				struct poll_table_struct *wait)
+				struct pollTableStruct *wait)
 {
 	const struct dentry *dentry = F_DENTRY(filp);
 	const struct file_operations *real_fops = debugfs_real_fops(filp);

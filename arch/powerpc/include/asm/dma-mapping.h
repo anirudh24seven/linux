@@ -29,7 +29,7 @@ extern void __dma_direct_free_coherent(struct device *dev, size_t size,
 				       void *vaddr, dma_addr_t dma_handle,
 				       unsigned long attrs);
 extern int dma_direct_mmap_coherent(struct device *dev,
-				    struct vm_area_struct *vma,
+				    struct vmAreaStruct *vma,
 				    void *cpu_addr, dma_addr_t handle,
 				    size_t size, unsigned long attrs);
 

@@ -85,7 +85,7 @@ pte_t ptep_clear_flush(struct vm_area_struct *vma, unsigned long address,
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
 
 #ifndef __HAVE_ARCH_PMDP_SET_ACCESS_FLAGS
-int pmdp_set_access_flags(struct vm_area_struct *vma,
+int pmdp_set_access_flags(struct vmAreaStruct *vma,
 			  unsigned long address, pmd_t *pmdp,
 			  pmd_t entry, int dirty)
 {
@@ -100,7 +100,7 @@ int pmdp_set_access_flags(struct vm_area_struct *vma,
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_CLEAR_YOUNG_FLUSH
-int pmdp_clear_flush_young(struct vm_area_struct *vma,
+int pmdp_clear_flush_young(struct vmAreaStruct *vma,
 			   unsigned long address, pmd_t *pmdp)
 {
 	int young;
@@ -113,7 +113,7 @@ int pmdp_clear_flush_young(struct vm_area_struct *vma,
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_HUGE_CLEAR_FLUSH
-pmd_t pmdp_huge_clear_flush(struct vm_area_struct *vma, unsigned long address,
+pmd_t pmdp_huge_clear_flush(struct vmAreaStruct *vma, unsigned long address,
 			    pmd_t *pmdp)
 {
 	pmd_t pmd;
@@ -125,7 +125,7 @@ pmd_t pmdp_huge_clear_flush(struct vm_area_struct *vma, unsigned long address,
 }
 
 #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
-pud_t pudp_huge_clear_flush(struct vm_area_struct *vma, unsigned long address,
+pud_t pudp_huge_clear_flush(struct vmAreaStruct *vma, unsigned long address,
 			    pud_t *pudp)
 {
 	pud_t pud;
@@ -173,7 +173,7 @@ pgtable_t pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp)
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_INVALIDATE
-void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
+void pmdp_invalidate(struct vmAreaStruct *vma, unsigned long address,
 		     pmd_t *pmdp)
 {
 	pmd_t entry = *pmdp;
@@ -183,7 +183,7 @@ void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
 #endif
 
 #ifndef pmdp_collapse_flush
-pmd_t pmdp_collapse_flush(struct vm_area_struct *vma, unsigned long address,
+pmd_t pmdp_collapse_flush(struct vmAreaStruct *vma, unsigned long address,
 			  pmd_t *pmdp)
 {
 	/*

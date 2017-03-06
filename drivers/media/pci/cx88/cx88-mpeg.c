@@ -48,7 +48,7 @@ MODULE_PARM_DESC(debug, "enable debug messages [mpeg]");
 } while (0)
 
 #if defined(CONFIG_MODULES) && defined(MODULE)
-static void request_module_async(struct work_struct *work)
+static void request_module_async(struct workStruct *work)
 {
 	struct cx8802_dev *dev = container_of(work, struct cx8802_dev,
 					      request_module_wk);

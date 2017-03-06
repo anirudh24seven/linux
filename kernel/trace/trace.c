@@ -6103,7 +6103,7 @@ static ssize_t tracing_buffers_read(struct file *filp, char __user *ubuf,
 				    size_t count, loff_t *ppos);
 static int tracing_buffers_release(struct inode *inode, struct file *file);
 static ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
-		   struct pipe_inode_info *pipe, size_t len, unsigned int flags);
+		   struct pipeInodeInfo *pipe, size_t len, unsigned int flags);
 
 static int snapshot_raw_open(struct inode *inode, struct file *filp)
 {

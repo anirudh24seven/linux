@@ -131,16 +131,16 @@ typedef pte_t *pte_addr_t;
  */
 extern void pgtable_cache_init(void);
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct mm_struct;
 
-extern void __update_cache(struct vm_area_struct *vma,
+extern void __update_cache(struct vmAreaStruct *vma,
 			   unsigned long address, pte_t pte);
-extern void __update_tlb(struct vm_area_struct *vma,
+extern void __update_tlb(struct vmAreaStruct *vma,
 			 unsigned long address, pte_t pte);
 
 static inline void
-update_mmu_cache(struct vm_area_struct *vma, unsigned long address, pte_t *ptep)
+update_mmu_cache(struct vmAreaStruct *vma, unsigned long address, pte_t *ptep)
 {
 	pte_t pte = *ptep;
 	__update_cache(vma, address, pte);

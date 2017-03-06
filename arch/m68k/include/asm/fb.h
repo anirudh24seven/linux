@@ -8,13 +8,13 @@
 
 #ifdef CONFIG_MMU
 #ifdef CONFIG_SUN3
-static inline void fb_pgprotect(struct file *file, struct vm_area_struct *vma,
+static inline void fb_pgprotect(struct file *file, struct vmAreaStruct *vma,
 				unsigned long off)
 {
 	pgprot_val(vma->vm_page_prot) |= SUN3_PAGE_NOCACHE;
 }
 #else
-static inline void fb_pgprotect(struct file *file, struct vm_area_struct *vma,
+static inline void fb_pgprotect(struct file *file, struct vmAreaStruct *vma,
 				unsigned long off)
 {
 	if (CPU_IS_020_OR_030)

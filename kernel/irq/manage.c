@@ -273,7 +273,7 @@ int irq_set_affinity_hint(unsigned int irq, const struct cpumask *m)
 }
 EXPORT_SYMBOL_GPL(irq_set_affinity_hint);
 
-static void irq_affinity_notify(struct work_struct *work)
+static void irq_affinity_notify(struct workStruct *work)
 {
 	struct irq_affinity_notify *notify =
 		container_of(work, struct irq_affinity_notify, work);

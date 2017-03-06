@@ -16,7 +16,7 @@ struct filename;
 struct linux_binprm {
 	char buf[BINPRM_BUF_SIZE];
 #ifdef CONFIG_MMU
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long vma_pages;
 #else
 # define MAX_ARG_PAGES	32

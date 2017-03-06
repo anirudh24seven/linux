@@ -1554,7 +1554,7 @@ static DEFINE_PER_CPU(struct delayed_work, vmstat_work);
 int sysctl_stat_interval __read_mostly = HZ;
 
 #ifdef CONFIG_PROC_FS
-static void refresh_vm_stats(struct work_struct *work)
+static void refresh_vm_stats(struct workStruct *work)
 {
 	refresh_cpu_vm_stats(true);
 }
@@ -1612,7 +1612,7 @@ int vmstat_refresh(struct ctl_table *table, int write,
 }
 #endif /* CONFIG_PROC_FS */
 
-static void vmstat_update(struct work_struct *w)
+static void vmstat_update(struct workStruct *w)
 {
 	if (refresh_cpu_vm_stats(true)) {
 		/*
@@ -1685,11 +1685,11 @@ void quiet_vmstat(void)
  * threads for vm statistics updates disabled because of
  * inactivity.
  */
-static void vmstat_shepherd(struct work_struct *w);
+static void vmstat_shepherd(struct workStruct *w);
 
 static DECLARE_DEFERRABLE_WORK(shepherd, vmstat_shepherd);
 
-static void vmstat_shepherd(struct work_struct *w)
+static void vmstat_shepherd(struct workStruct *w)
 {
 	int cpu;
 

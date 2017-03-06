@@ -255,7 +255,7 @@ static inline pmd_t radix__pmd_mkhuge(pmd_t pmd)
 		return __pmd(pmd_val(pmd) | _PAGE_PTE | _PAGE_LARGE);
 	return __pmd(pmd_val(pmd) | _PAGE_PTE);
 }
-static inline void radix__pmdp_huge_split_prepare(struct vm_area_struct *vma,
+static inline void radix__pmdp_huge_split_prepare(struct vmAreaStruct *vma,
 					    unsigned long address, pmd_t *pmdp)
 {
 	/* Nothing to do for radix. */
@@ -265,7 +265,7 @@ static inline void radix__pmdp_huge_split_prepare(struct vm_area_struct *vma,
 extern unsigned long radix__pmd_hugepage_update(struct mm_struct *mm, unsigned long addr,
 					  pmd_t *pmdp, unsigned long clr,
 					  unsigned long set);
-extern pmd_t radix__pmdp_collapse_flush(struct vm_area_struct *vma,
+extern pmd_t radix__pmdp_collapse_flush(struct vmAreaStruct *vma,
 				  unsigned long address, pmd_t *pmdp);
 extern void radix__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
 					pgtable_t pgtable);

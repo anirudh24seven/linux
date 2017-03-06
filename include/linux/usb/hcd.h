@@ -89,7 +89,7 @@ struct usb_hcd {
 	struct timer_list	rh_timer;	/* drives root-hub polling */
 	struct urb		*status_urb;	/* the current status urb */
 #ifdef CONFIG_PM
-	struct work_struct	wakeup_work;	/* for remote wakeup */
+	struct workStruct	wakeup_work;	/* for remote wakeup */
 #endif
 
 	/*
@@ -537,7 +537,7 @@ struct usb_tt {
 	/* for control/bulk error recovery (CLEAR_TT_BUFFER) */
 	spinlock_t		lock;
 	struct list_head	clear_list;	/* of usb_tt_clear */
-	struct work_struct	clear_work;
+	struct workStruct	clear_work;
 };
 
 struct usb_tt_clear {

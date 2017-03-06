@@ -141,7 +141,7 @@ struct sched_domain {
 #endif
 	union {
 		void *private;		/* used during construction */
-		struct rcu_head rcu;	/* used during destruction */
+		struct rcuHead rcu;	/* used during destruction */
 	};
 	struct sched_domain_shared *shared;
 

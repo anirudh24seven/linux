@@ -2109,7 +2109,7 @@ EXPORT_SYMBOL_GPL(ptep_notify);
 static inline void thp_split_mm(struct mm_struct *mm)
 {
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long addr;
 
 	for (vma = mm->mmap; vma != NULL; vma = vma->vm_next) {

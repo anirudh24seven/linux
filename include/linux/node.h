@@ -22,7 +22,7 @@ struct node {
 	struct device	dev;
 
 #if defined(CONFIG_MEMORY_HOTPLUG_SPARSE) && defined(CONFIG_HUGETLBFS)
-	struct work_struct	node_work;
+	struct workStruct	node_work;
 #endif
 };
 

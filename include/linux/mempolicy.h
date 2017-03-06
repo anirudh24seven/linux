@@ -126,19 +126,19 @@ struct shared_policy {
 	rwlock_t lock;
 };
 
-int vma_dup_policy(struct vm_area_struct *src, struct vm_area_struct *dst);
+int vma_dup_policy(struct vmAreaStruct *src, struct vmAreaStruct *dst);
 void mpol_shared_policy_init(struct shared_policy *sp, struct mempolicy *mpol);
 int mpol_set_shared_policy(struct shared_policy *info,
-				struct vm_area_struct *vma,
+				struct vmAreaStruct *vma,
 				struct mempolicy *new);
 void mpol_free_shared_policy(struct shared_policy *p);
 struct mempolicy *mpol_shared_policy_lookup(struct shared_policy *sp,
 					    unsigned long idx);
 
 struct mempolicy *get_task_policy(struct task_struct *p);
-struct mempolicy *__get_vma_policy(struct vm_area_struct *vma,
+struct mempolicy *__get_vma_policy(struct vmAreaStruct *vma,
 		unsigned long addr);
-bool vma_policy_mof(struct vm_area_struct *vma);
+bool vma_policy_mof(struct vmAreaStruct *vma);
 
 extern void numa_default_policy(void);
 extern void numa_policy_init(void);
@@ -146,7 +146,7 @@ extern void mpol_rebind_task(struct task_struct *tsk, const nodemask_t *new,
 				enum mpol_rebind_step step);
 extern void mpol_rebind_mm(struct mm_struct *mm, nodemask_t *new);
 
-extern struct zonelist *huge_zonelist(struct vm_area_struct *vma,
+extern struct zonelist *huge_zonelist(struct vmAreaStruct *vma,
 				unsigned long addr, gfp_t gfp_flags,
 				struct mempolicy **mpol, nodemask_t **nodemask);
 extern bool init_nodemask_of_mempolicy(nodemask_t *mask);
@@ -173,7 +173,7 @@ extern int mpol_parse_str(char *str, struct mempolicy **mpol);
 extern void mpol_to_str(char *buffer, int maxlen, struct mempolicy *pol);
 
 /* Check if a vma is migratable */
-static inline bool vma_migratable(struct vm_area_struct *vma)
+static inline bool vma_migratable(struct vmAreaStruct *vma)
 {
 	if (vma->vm_flags & (VM_IO | VM_PFNMAP))
 		return false;
@@ -202,7 +202,7 @@ static inline bool vma_migratable(struct vm_area_struct *vma)
 	return true;
 }
 
-extern int mpol_misplaced(struct page *, struct vm_area_struct *, unsigned long);
+extern int mpol_misplaced(struct page *, struct vmAreaStruct *, unsigned long);
 extern void mpol_put_task_policy(struct task_struct *);
 
 #else

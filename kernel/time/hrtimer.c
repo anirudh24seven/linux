@@ -695,7 +695,7 @@ static void hrtimer_switch_to_hres(void)
 	retrigger_next_event(NULL);
 }
 
-static void clock_was_set_work(struct work_struct *work)
+static void clock_was_set_work(struct workStruct *work)
 {
 	clock_was_set();
 }

@@ -22,7 +22,7 @@
 
 struct page;
 struct task_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 struct zone;
 
 /*

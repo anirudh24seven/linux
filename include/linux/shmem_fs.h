@@ -123,7 +123,7 @@ static inline long shmem_fcntl(struct file *f, unsigned int c, unsigned long a)
 #endif
 
 #ifdef CONFIG_TRANSPARENT_HUGE_PAGECACHE
-extern bool shmem_huge_enabled(struct vm_area_struct *vma);
+extern bool shmem_huge_enabled(struct vmAreaStruct *vma);
 #else
 static inline bool shmem_huge_enabled(struct vm_area_struct *vma)
 {
@@ -133,7 +133,7 @@ static inline bool shmem_huge_enabled(struct vm_area_struct *vma)
 
 #ifdef CONFIG_SHMEM
 extern int shmem_mcopy_atomic_pte(struct mm_struct *dst_mm, pmd_t *dst_pmd,
-				  struct vm_area_struct *dst_vma,
+				  struct vmAreaStruct *dst_vma,
 				  unsigned long dst_addr,
 				  unsigned long src_addr,
 				  struct page **pagep);

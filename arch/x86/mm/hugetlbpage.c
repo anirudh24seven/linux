@@ -25,7 +25,7 @@ follow_huge_addr(struct mm_struct *mm, unsigned long address, int write)
 	int length = 1;
 	int nr;
 	struct page *page;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	vma = find_vma(mm, addr);
 	if (!vma || !is_vm_hugetlb_page(vma))
@@ -128,7 +128,7 @@ hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
 {
 	struct hstate *h = hstate_file(file);
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	if (len & ~huge_page_mask(h))
 		return -EINVAL;

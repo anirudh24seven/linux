@@ -22,7 +22,7 @@ struct nfs_delegation {
 	__u64 change_attr;
 	unsigned long flags;
 	spinlock_t lock;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 };
 
 enum {

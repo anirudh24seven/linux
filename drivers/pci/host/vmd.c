@@ -301,7 +301,7 @@ static void vmd_free(struct device *dev, size_t size, void *vaddr,
 				      attrs);
 }
 
-static int vmd_mmap(struct device *dev, struct vm_area_struct *vma,
+static int vmd_mmap(struct device *dev, struct vmAreaStruct *vma,
 		    void *cpu_addr, dma_addr_t addr, size_t size,
 		    unsigned long attrs)
 {

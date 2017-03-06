@@ -926,7 +926,7 @@ foundit:
 	return 0;
 }
 
-static int inftl_getgeo(struct mtd_blktrans_dev *dev, struct hd_geometry *geo)
+static int inftl_getgeo(struct mtd_blktrans_dev *dev, struct hdGeometry *geo)
 {
 	struct INFTLrecord *inftl = (void *)dev;
 

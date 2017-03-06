@@ -141,7 +141,7 @@ static const struct vm_operations_struct ext2_dax_vm_ops = {
 	.pfn_mkwrite	= ext2_dax_pfn_mkwrite,
 };
 
-static int ext2_file_mmap(struct file *file, struct vm_area_struct *vma)
+static int ext2_file_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	if (!IS_DAX(file_inode(file)))
 		return generic_file_mmap(file, vma);

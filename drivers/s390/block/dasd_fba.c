@@ -208,7 +208,7 @@ static int dasd_fba_do_analysis(struct dasd_block *block)
 }
 
 static int dasd_fba_fill_geometry(struct dasd_block *block,
-				  struct hd_geometry *geo)
+				  struct hdGeometry *geo)
 {
 	if (dasd_check_blocksize(block->bp_block) != 0)
 		return -EINVAL;

@@ -657,7 +657,7 @@ static void __iommu_free_attrs(struct device *dev, size_t size, void *cpu_addr,
 	}
 }
 
-static int __iommu_mmap_attrs(struct device *dev, struct vm_area_struct *vma,
+static int __iommu_mmap_attrs(struct device *dev, struct vmAreaStruct *vma,
 			      void *cpu_addr, dma_addr_t dma_addr, size_t size,
 			      unsigned long attrs)
 {

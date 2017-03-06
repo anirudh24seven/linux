@@ -1631,10 +1631,10 @@ used in place of <tt>synchronize_rcu()</tt> as follows:
  1 struct foo {
  2   int a;
  3   int b;
- 4   struct rcu_head rh;
+ 4   struct rcuHead rh;
  5 };
  6
- 7 static void remove_gp_cb(struct rcu_head *rhp)
+ 7 static void remove_gp_cb(struct rcuHead *rhp)
  8 {
  9   struct foo *p = container_of(rhp, struct foo, rh);
 10
@@ -1717,7 +1717,7 @@ which allows &ldquo;fire and forget&rdquo; operation as shown below:
  1 struct foo {
  2   int a;
  3   int b;
- 4   struct rcu_head rh;
+ 4   struct rcuHead rh;
  5 };
  6
  7 bool remove_gp_faf(void)
@@ -1988,12 +1988,12 @@ guard against mishaps and misuse:
 	will splat if a data element is passed to <tt>call_rcu()</tt>
 	twice in a row, without a grace period in between.
 	(This error is similar to a double free.)
-	The corresponding <tt>rcu_head</tt> structures that are
+	The corresponding <tt>rcuHead</tt> structures that are
 	dynamically allocated are automatically tracked, but
-	<tt>rcu_head</tt> structures allocated on the stack
+	<tt>rcuHead</tt> structures allocated on the stack
 	must be initialized with <tt>init_rcu_head_on_stack()</tt>
 	and cleaned up with <tt>destroy_rcu_head_on_stack()</tt>.
-	Similarly, statically allocated non-stack <tt>rcu_head</tt>
+	Similarly, statically allocated non-stack <tt>rcuHead</tt>
 	structures must be initialized with <tt>init_rcu_head()</tt>
 	and cleaned up with <tt>destroy_rcu_head()</tt>.
 	Mathieu Desnoyers made me aware of this requirement, and also
@@ -2479,7 +2479,7 @@ sufficient to fully vent their ire at RCU's energy-efficiency bugs!
 <p>
 Although small-memory non-realtime systems can simply use Tiny RCU,
 code size is only one aspect of memory efficiency.
-Another aspect is the size of the <tt>rcu_head</tt> structure
+Another aspect is the size of the <tt>rcuHead</tt> structure
 used by <tt>call_rcu()</tt> and <tt>kfree_rcu()</tt>.
 Although this structure contains nothing more than a pair of pointers,
 it does appear in many RCU-protected data structures, including
@@ -2489,9 +2489,9 @@ the many occurrences of the <tt>union</tt> keyword within that structure.
 
 <p>
 This need for memory efficiency is one reason that RCU uses hand-crafted
-singly linked lists to track the <tt>rcu_head</tt> structures that
+singly linked lists to track the <tt>rcuHead</tt> structures that
 are waiting for a grace period to elapse.
-It is also the reason why <tt>rcu_head</tt> structures do not contain
+It is also the reason why <tt>rcuHead</tt> structures do not contain
 debug information, such as fields tracking the file and line of the
 <tt>call_rcu()</tt> or <tt>kfree_rcu()</tt> that posted them.
 Although this information might appear in debug-only kernel builds at some
@@ -2501,7 +2501,7 @@ the needed debug information.
 <p>
 However, in some cases, the need for memory efficiency leads to even
 more extreme measures.
-Returning to the <tt>page</tt> structure, the <tt>rcu_head</tt> field
+Returning to the <tt>page</tt> structure, the <tt>rcuHead</tt> field
 shares storage with a great many other structures that are used at
 various points in the corresponding page's lifetime.
 In order to correctly resolve certain
@@ -2509,7 +2509,7 @@ In order to correctly resolve certain
 the Linux kernel's memory-management subsystem needs a particular bit
 to remain zero during all phases of grace-period processing,
 and that bit happens to map to the bottom bit of the
-<tt>rcu_head</tt> structure's <tt>-&gt;next</tt> field.
+<tt>rcuHead</tt> structure's <tt>-&gt;next</tt> field.
 RCU makes this guarantee as long as <tt>call_rcu()</tt>
 is used to post the callback, as opposed to <tt>kfree_rcu()</tt>
 or some future &ldquo;lazy&rdquo;
@@ -2518,19 +2518,19 @@ energy-efficiency purposes.
 
 <p>
 That said, there are limits.
-RCU requires that the <tt>rcu_head</tt> structure be aligned to a
-two-byte boundary, and passing a misaligned <tt>rcu_head</tt>
+RCU requires that the <tt>rcuHead</tt> structure be aligned to a
+two-byte boundary, and passing a misaligned <tt>rcuHead</tt>
 structure to one of the <tt>call_rcu()</tt> family of functions
 will result in a splat.
 It is therefore necessary to exercise caution when packing
-structures containing fields of type <tt>rcu_head</tt>.
+structures containing fields of type <tt>rcuHead</tt>.
 Why not a four-byte or even eight-byte alignment requirement?
 Because the m68k architecture provides only two-byte alignment,
 and thus acts as alignment's least common denominator.
 
 <p>
 The reason for reserving the bottom bit of pointers to
-<tt>rcu_head</tt> structures is to leave the door open to
+<tt>rcuHead</tt> structures is to leave the door open to
 &ldquo;lazy&rdquo; callbacks whose invocations can safely be deferred.
 Deferring invocation could potentially have energy-efficiency
 benefits, but only if the rate of non-lazy callbacks decreases
@@ -2966,8 +2966,8 @@ This can be done as follows:
 
 <blockquote>
 <pre>
- 1 static void call_my_srcu(struct rcu_head *head,
- 2        void (*func)(struct rcu_head *head))
+ 1 static void call_my_srcu(struct rcuHead *head,
+ 2        void (*func)(struct rcuHead *head))
  3 {
  4   call_srcu(&amp;my_srcu, head, func);
  5 }

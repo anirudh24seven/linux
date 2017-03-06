@@ -29,8 +29,8 @@
 
 #include <uapi/linux/net.h>
 
-struct poll_table_struct;
-struct pipe_inode_info;
+struct pollTableStruct;
+struct pipeInodeInfo;
 struct inode;
 struct file;
 struct net;
@@ -124,7 +124,7 @@ struct socket {
 	const struct proto_ops	*ops;
 };
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct page;
 struct sockaddr;
 struct msghdr;
@@ -151,7 +151,7 @@ struct proto_ops {
 				      struct sockaddr *addr,
 				      int *sockaddr_len, int peer);
 	unsigned int	(*poll)	     (struct file *file, struct socket *sock,
-				      struct poll_table_struct *wait);
+				      struct pollTableStruct *wait);
 	int		(*ioctl)     (struct socket *sock, unsigned int cmd,
 				      unsigned long arg);
 #ifdef CONFIG_COMPAT
@@ -183,11 +183,11 @@ struct proto_ops {
 	int		(*recvmsg)   (struct socket *sock, struct msghdr *m,
 				      size_t total_len, int flags);
 	int		(*mmap)	     (struct file *file, struct socket *sock,
-				      struct vm_area_struct * vma);
+				      struct vmAreaStruct * vma);
 	ssize_t		(*sendpage)  (struct socket *sock, struct page *page,
 				      int offset, size_t size, int flags);
 	ssize_t 	(*splice_read)(struct socket *sock,  loff_t *ppos,
-				       struct pipe_inode_info *pipe, size_t len, unsigned int flags);
+				       struct pipeInodeInfo *pipe, size_t len, unsigned int flags);
 	int		(*set_peek_off)(struct sock *sk, int val);
 	int		(*peek_len)(struct socket *sock);
 	int		(*read_sock)(struct sock *sk, read_descriptor_t *desc,

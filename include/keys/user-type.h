@@ -29,7 +29,7 @@
  *   payload wrapper
  */
 struct user_key_payload {
-	struct rcu_head	rcu;		/* RCU destructor */
+	struct rcuHead	rcu;		/* RCU destructor */
 	unsigned short	datalen;	/* length of this data */
 	char		data[0];	/* actual data */
 };

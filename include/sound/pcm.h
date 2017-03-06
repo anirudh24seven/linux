@@ -1305,7 +1305,7 @@ int snd_pcm_lib_default_mmap(struct snd_pcm_substream *substream,
 /* mmap for io-memory area */
 #if defined(CONFIG_X86) || defined(CONFIG_PPC) || defined(CONFIG_ALPHA)
 #define SNDRV_PCM_INFO_MMAP_IOMEM	SNDRV_PCM_INFO_MMAP
-int snd_pcm_lib_mmap_iomem(struct snd_pcm_substream *substream, struct vm_area_struct *area);
+int snd_pcm_lib_mmap_iomem(struct snd_pcm_substream *substream, struct vmAreaStruct *area);
 #else
 #define SNDRV_PCM_INFO_MMAP_IOMEM	0
 #define snd_pcm_lib_mmap_iomem	NULL

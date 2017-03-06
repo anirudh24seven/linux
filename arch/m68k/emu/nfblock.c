@@ -80,7 +80,7 @@ static blk_qc_t nfhd_make_request(struct request_queue *queue, struct bio *bio)
 	return BLK_QC_T_NONE;
 }
 
-static int nfhd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int nfhd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct nfhd_device *dev = bdev->bd_disk->private_data;
 

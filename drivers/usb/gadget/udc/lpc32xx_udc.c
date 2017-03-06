@@ -686,7 +686,7 @@ static void isp1301_set_powerstate(struct lpc32xx_udc *udc, int enable)
 			ISP1301_I2C_MODE_CONTROL_2, MC2_GLOBAL_PWR_DN);
 }
 
-static void power_work(struct work_struct *work)
+static void power_work(struct workStruct *work)
 {
 	struct lpc32xx_udc *udc =
 		container_of(work, struct lpc32xx_udc, power_job);

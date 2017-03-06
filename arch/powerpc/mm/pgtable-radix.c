@@ -689,7 +689,7 @@ unsigned long radix__pmd_hugepage_update(struct mm_struct *mm, unsigned long add
 	return old;
 }
 
-pmd_t radix__pmdp_collapse_flush(struct vm_area_struct *vma, unsigned long address,
+pmd_t radix__pmdp_collapse_flush(struct vmAreaStruct *vma, unsigned long address,
 			pmd_t *pmdp)
 
 {

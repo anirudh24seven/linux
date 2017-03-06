@@ -63,7 +63,7 @@ out:
 }
 
 #ifdef CONFIG_CARL9170_LEDS
-static void carl9170_led_update(struct work_struct *work)
+static void carl9170_led_update(struct workStruct *work)
 {
 	struct ar9170 *ar = container_of(work, struct ar9170, led_work.work);
 	int i, tmp = 300, blink_delay = 1000;

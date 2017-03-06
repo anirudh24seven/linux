@@ -37,18 +37,18 @@ static inline bool frontswap_enabled(void)
 	return static_branch_unlikely(&frontswap_enabled_key);
 }
 
-static inline bool frontswap_test(struct swap_info_struct *sis, pgoff_t offset)
+static inline bool frontswap_test(struct swapInfoStruct *sis, pgoff_t offset)
 {
 	return __frontswap_test(sis, offset);
 }
 
-static inline void frontswap_map_set(struct swap_info_struct *p,
+static inline void frontswap_map_set(struct swapInfoStruct *p,
 				     unsigned long *map)
 {
 	p->frontswap_map = map;
 }
 
-static inline unsigned long *frontswap_map_get(struct swap_info_struct *p)
+static inline unsigned long *frontswap_map_get(struct swapInfoStruct *p)
 {
 	return p->frontswap_map;
 }

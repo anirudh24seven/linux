@@ -192,7 +192,7 @@ static void eq_update_ci(struct mlx5_eq *eq, int arm)
 }
 
 #ifdef CONFIG_INFINIBAND_ON_DEMAND_PAGING
-static void eqe_pf_action(struct work_struct *work)
+static void eqe_pf_action(struct workStruct *work)
 {
 	struct mlx5_pagefault *pfault = container_of(work,
 						     struct mlx5_pagefault,
@@ -323,7 +323,7 @@ static void mempool_refill(mempool_t *pool)
 		mempool_free(mempool_alloc(pool, GFP_KERNEL), pool);
 }
 
-static void eq_pf_action(struct work_struct *work)
+static void eq_pf_action(struct workStruct *work)
 {
 	struct mlx5_eq *eq = container_of(work, struct mlx5_eq, pf_ctx.work);
 

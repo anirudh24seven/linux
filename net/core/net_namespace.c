@@ -414,7 +414,7 @@ struct net *copy_net_ns(unsigned long flags,
 static DEFINE_SPINLOCK(cleanup_list_lock);
 static LIST_HEAD(cleanup_list);  /* Must hold cleanup_list_lock to touch */
 
-static void cleanup_net(struct work_struct *work)
+static void cleanup_net(struct workStruct *work)
 {
 	const struct pernet_operations *ops;
 	struct net *net, *tmp;

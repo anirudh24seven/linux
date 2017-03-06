@@ -25,7 +25,7 @@
 #include <linux/sysfs.h>
 #include <linux/workqueue.h>
 
-struct hd_geometry;
+struct hdGeometry;
 struct mtd_info;
 struct mtd_blktrans_ops;
 struct file;
@@ -69,7 +69,7 @@ struct mtd_blktrans_ops {
 	void (*background)(struct mtd_blktrans_dev *dev);
 
 	/* Block layer ioctls */
-	int (*getgeo)(struct mtd_blktrans_dev *dev, struct hd_geometry *geo);
+	int (*getgeo)(struct mtd_blktrans_dev *dev, struct hdGeometry *geo);
 	int (*flush)(struct mtd_blktrans_dev *dev);
 
 	/* Called with mtd_table_mutex held; no race with add/remove */

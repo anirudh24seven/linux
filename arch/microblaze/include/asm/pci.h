@@ -45,9 +45,9 @@ extern int pci_domain_nr(struct pci_bus *bus);
 /* Decide whether to display the domain number in /proc */
 extern int pci_proc_domain(struct pci_bus *bus);
 
-struct vm_area_struct;
+struct vmAreaStruct;
 /* Map a range of PCI memory or I/O space for a device into user space */
-int pci_mmap_page_range(struct pci_dev *pdev, struct vm_area_struct *vma,
+int pci_mmap_page_range(struct pci_dev *pdev, struct vmAreaStruct *vma,
 			enum pci_mmap_state mmap_state, int write_combine);
 
 /* Tell drivers/pci/proc.c that we have pci_mmap_page_range() */
@@ -58,7 +58,7 @@ extern int pci_legacy_read(struct pci_bus *bus, loff_t port, u32 *val,
 extern int pci_legacy_write(struct pci_bus *bus, loff_t port, u32 val,
 			   size_t count);
 extern int pci_mmap_legacy_page_range(struct pci_bus *bus,
-				      struct vm_area_struct *vma,
+				      struct vmAreaStruct *vma,
 				      enum pci_mmap_state mmap_state);
 
 #define HAVE_PCI_LEGACY	1

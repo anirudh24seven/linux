@@ -101,11 +101,11 @@ void local_flush_tlb_page(struct mm_struct *mm, unsigned long addr)
 extern void flush_tlb_all(void);
 extern void flush_tlb_current_task(void);
 extern void flush_tlb_mm(struct mm_struct *);
-extern void flush_tlb_page(struct vm_area_struct *, unsigned long);
+extern void flush_tlb_page(struct vmAreaStruct *, unsigned long);
 
 #define flush_tlb()		flush_tlb_current_task()
 
-static inline void flush_tlb_range(struct vm_area_struct *vma,
+static inline void flush_tlb_range(struct vmAreaStruct *vma,
 				   unsigned long start, unsigned long end)
 {
 	flush_tlb_mm(vma->vm_mm);

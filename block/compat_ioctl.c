@@ -51,7 +51,7 @@ struct compat_hd_geometry {
 static int compat_hdio_getgeo(struct gendisk *disk, struct block_device *bdev,
 			struct compat_hd_geometry __user *ugeo)
 {
-	struct hd_geometry geo;
+	struct hdGeometry geo;
 	int ret;
 
 	if (!ugeo)

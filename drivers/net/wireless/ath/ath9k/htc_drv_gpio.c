@@ -61,7 +61,7 @@ static void ath_detect_bt_priority(struct ath9k_htc_priv *priv)
  * 45ms, bt traffic will be given priority during 55% of this
  * period while wlan gets remaining 45%
  */
-static void ath_btcoex_period_work(struct work_struct *work)
+static void ath_btcoex_period_work(struct workStruct *work)
 {
 	struct ath9k_htc_priv *priv = container_of(work, struct ath9k_htc_priv,
 						   coex_period_work.work);
@@ -95,7 +95,7 @@ static void ath_btcoex_period_work(struct work_struct *work)
  * Work to time slice between wlan and bt traffic and
  * configure weight registers
  */
-static void ath_btcoex_duty_cycle_work(struct work_struct *work)
+static void ath_btcoex_duty_cycle_work(struct workStruct *work)
 {
 	struct ath9k_htc_priv *priv = container_of(work, struct ath9k_htc_priv,
 						   duty_cycle_work.work);
@@ -223,7 +223,7 @@ void ath9k_htc_init_btcoex(struct ath9k_htc_priv *priv, char *product)
 /*******/
 
 #ifdef CONFIG_MAC80211_LEDS
-void ath9k_led_work(struct work_struct *work)
+void ath9k_led_work(struct workStruct *work)
 {
 	struct ath9k_htc_priv *priv = container_of(work,
 						   struct ath9k_htc_priv,

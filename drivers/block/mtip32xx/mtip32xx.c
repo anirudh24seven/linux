@@ -3636,14 +3636,14 @@ static int mtip_block_compat_ioctl(struct block_device *dev,
  * affects performance.
  *
  * @dev Pointer to the block_device strucutre.
- * @geo Pointer to a hd_geometry structure.
+ * @geo Pointer to a hdGeometry structure.
  *
  * return value
  *	0       Operation completed successfully.
  *	-ENOTTY An error occurred while reading the drive capacity.
  */
 static int mtip_block_getgeo(struct block_device *dev,
-				struct hd_geometry *geo)
+				struct hdGeometry *geo)
 {
 	struct driver_data *dd = dev->bd_disk->private_data;
 	sector_t capacity;

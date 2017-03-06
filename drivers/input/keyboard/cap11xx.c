@@ -75,7 +75,7 @@
 struct cap11xx_led {
 	struct cap11xx_priv *priv;
 	struct led_classdev cdev;
-	struct work_struct work;
+	struct workStruct work;
 	u32 reg;
 	enum led_brightness new_brightness;
 };
@@ -233,7 +233,7 @@ static void cap11xx_input_close(struct input_dev *idev)
 }
 
 #ifdef CONFIG_LEDS_CLASS
-static void cap11xx_led_work(struct work_struct *work)
+static void cap11xx_led_work(struct workStruct *work)
 {
 	struct cap11xx_led *led = container_of(work, struct cap11xx_led, work);
 	struct cap11xx_priv *priv = led->priv;

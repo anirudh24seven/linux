@@ -282,7 +282,7 @@ struct kmem_cache *files_cachep;
 /* SLAB cache for fs_struct structures (tsk->fs) */
 struct kmem_cache *fs_cachep;
 
-/* SLAB cache for vm_area_struct structures */
+/* SLAB cache for vmAreaStruct structures */
 struct kmem_cache *vm_area_cachep;
 
 /* SLAB cache for mm_struct structures (tsk->mm) */
@@ -568,7 +568,7 @@ free_tsk:
 static __latent_entropy int dup_mmap(struct mm_struct *mm,
 					struct mm_struct *oldmm)
 {
-	struct vm_area_struct *mpnt, *tmp, *prev, **pprev;
+	struct vmAreaStruct *mpnt, *tmp, *prev, **pprev;
 	struct rb_node **rb_link, *rb_parent;
 	int retval;
 	unsigned long charge;
@@ -905,7 +905,7 @@ void mmput(struct mm_struct *mm)
 EXPORT_SYMBOL_GPL(mmput);
 
 #ifdef CONFIG_MMU
-static void mmput_async_fn(struct work_struct *work)
+static void mmput_async_fn(struct workStruct *work)
 {
 	struct mm_struct *mm = container_of(work, struct mm_struct, async_put_work);
 	__mmput(mm);

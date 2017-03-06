@@ -515,7 +515,7 @@ struct ath9k_htc_priv {
 	bool led_registered;
 	char led_name[32];
 	struct led_classdev led_cdev;
-	struct work_struct led_work;
+	struct workStruct led_work;
 #endif
 
 	int cabq;
@@ -608,7 +608,7 @@ struct base_eep_header *ath9k_htc_get_eeprom_base(struct ath9k_htc_priv *priv);
 void ath9k_configure_leds(struct ath9k_htc_priv *priv);
 void ath9k_init_leds(struct ath9k_htc_priv *priv);
 void ath9k_deinit_leds(struct ath9k_htc_priv *priv);
-void ath9k_led_work(struct work_struct *work);
+void ath9k_led_work(struct workStruct *work);
 #else
 static inline void ath9k_configure_leds(struct ath9k_htc_priv *priv)
 {

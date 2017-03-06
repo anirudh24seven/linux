@@ -3,7 +3,7 @@
 
 #include <linux/exportfs.h>
 
-extern const struct export_operations btrfs_export_ops;
+extern const struct exportOperations btrfs_export_ops;
 
 struct btrfs_fid {
 	u64 objectid;

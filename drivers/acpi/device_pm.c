@@ -421,7 +421,7 @@ static void acpi_pm_notify_handler(acpi_handle handle, u32 val, void *not_used)
  * bridge itself doesn't have a wakeup GPE associated with it.
  */
 acpi_status acpi_add_pm_notifier(struct acpi_device *adev, struct device *dev,
-				 void (*work_func)(struct work_struct *work))
+				 void (*work_func)(struct workStruct *work))
 {
 	acpi_status status = AE_ALREADY_EXISTS;
 
@@ -660,7 +660,7 @@ EXPORT_SYMBOL(acpi_pm_device_sleep_state);
  * acpi_pm_notify_work_func - ACPI devices wakeup notification work function.
  * @work: Work item to handle.
  */
-static void acpi_pm_notify_work_func(struct work_struct *work)
+static void acpi_pm_notify_work_func(struct workStruct *work)
 {
 	struct device *dev;
 

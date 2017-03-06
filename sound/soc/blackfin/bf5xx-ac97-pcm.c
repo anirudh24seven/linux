@@ -269,7 +269,7 @@ static int bf5xx_pcm_open(struct snd_pcm_substream *substream)
 
 #if defined(CONFIG_SND_BF5XX_MMAP_SUPPORT)
 static int bf5xx_pcm_mmap(struct snd_pcm_substream *substream,
-	struct vm_area_struct *vma)
+	struct vmAreaStruct *vma)
 {
 	struct snd_pcm_runtime *runtime = substream->runtime;
 	size_t size = vma->vm_end - vma->vm_start;

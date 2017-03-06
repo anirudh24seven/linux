@@ -407,7 +407,7 @@ struct carm_array_info {
 
 static int carm_init_one (struct pci_dev *pdev, const struct pci_device_id *ent);
 static void carm_remove_one (struct pci_dev *pdev);
-static int carm_bdev_getgeo(struct block_device *bdev, struct hd_geometry *geo);
+static int carm_bdev_getgeo(struct block_device *bdev, struct hdGeometry *geo);
 
 static const struct pci_device_id carm_pci_tbl[] = {
 	{ PCI_VENDOR_ID_PROMISE, 0x8000, PCI_ANY_ID, PCI_ANY_ID, 0, 0, },
@@ -433,7 +433,7 @@ static unsigned long carm_major_alloc;
 
 
 
-static int carm_bdev_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int carm_bdev_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct carm_port *port = bdev->bd_disk->private_data;
 

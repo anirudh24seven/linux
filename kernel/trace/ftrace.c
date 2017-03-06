@@ -1303,7 +1303,7 @@ static void free_ftrace_hash(struct ftrace_hash *hash)
 	kfree(hash);
 }
 
-static void __free_ftrace_hash_rcu(struct rcu_head *rcu)
+static void __free_ftrace_hash_rcu(struct rcuHead *rcu)
 {
 	struct ftrace_hash *hash;
 

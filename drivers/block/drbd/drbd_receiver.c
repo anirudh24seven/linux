@@ -6023,7 +6023,7 @@ void drbd_send_acks_wf(struct work_struct *ws)
 	err = drbd_finish_peer_reqs(device);
 	kref_put(&device->kref, drbd_destroy_device);
 	/* get is in drbd_endio_write_sec_final(). That is necessary to keep the
-	   struct work_struct send_acks_work alive, which is in the peer_device object */
+	   struct workStruct send_acks_work alive, which is in the peer_device object */
 
 	if (err) {
 		conn_request_state(connection, NS(conn, C_NETWORK_FAILURE), CS_HARD);

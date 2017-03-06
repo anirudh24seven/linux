@@ -139,7 +139,7 @@ static pte_t set_pte_filter(pte_t pte)
 	return __pte(pte_val(pte) & ~_PAGE_EXEC);
 }
 
-static pte_t set_access_flags_filter(pte_t pte, struct vm_area_struct *vma,
+static pte_t set_access_flags_filter(pte_t pte, struct vmAreaStruct *vma,
 				     int dirty)
 {
 	struct page *pg;

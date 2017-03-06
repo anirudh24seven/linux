@@ -23,18 +23,18 @@ extern struct ctl_table epoll_table[]; /* for sysctl */
 
 #define DEFAULT_POLLMASK (POLLIN | POLLOUT | POLLRDNORM | POLLWRNORM)
 
-struct poll_table_struct;
+struct pollTableStruct;
 
 /* 
  * structures and helpers for f_op->poll implementations
  */
-typedef void (*poll_queue_proc)(struct file *, wait_queue_head_t *, struct poll_table_struct *);
+typedef void (*poll_queue_proc)(struct file *, wait_queue_head_t *, struct pollTableStruct *);
 
 /*
  * Do not touch the structure directly, use the access functions
  * poll_does_not_wait() and poll_requested_events() instead.
  */
-typedef struct poll_table_struct {
+typedef struct pollTableStruct {
 	poll_queue_proc _qproc;
 	unsigned long _key;
 } poll_table;

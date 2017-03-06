@@ -3260,7 +3260,7 @@ static void dasd_release(struct gendisk *disk, fmode_t mode)
 /*
  * Return disk geometry.
  */
-static int dasd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int dasd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct dasd_device *base;
 

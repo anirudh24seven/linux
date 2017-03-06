@@ -181,12 +181,12 @@ static struct dirty_throttle_control *mdtc_gdtc(struct dirty_throttle_control *m
 	return mdtc->gdtc;
 }
 
-static struct fprop_local_percpu *wb_memcg_completions(struct bdi_writeback *wb)
+static struct fprop_local_percpu *wb_memcg_completions(struct bdiWriteback *wb)
 {
 	return &wb->memcg_completions;
 }
 
-static void wb_min_max_ratio(struct bdi_writeback *wb,
+static void wb_min_max_ratio(struct bdiWriteback *wb,
 			     unsigned long *minp, unsigned long *maxp)
 {
 	unsigned long this_bw = wb->avg_write_bandwidth;
@@ -1983,17 +1983,17 @@ void laptop_mode_timer_fn(unsigned long data)
 	struct request_queue *q = (struct request_queue *)data;
 	int nr_pages = global_node_page_state(NR_FILE_DIRTY) +
 		global_node_page_state(NR_UNSTABLE_NFS);
-	struct bdi_writeback *wb;
+	struct bdiWriteback *wb;
 
 	/*
 	 * We want to write everything out, not just down to the dirty
 	 * threshold
 	 */
-	if (!bdi_has_dirty_io(q->backing_dev_info))
+	if (!bdi_has_dirty_io(q->backingDevInfo))
 		return;
 
 	rcu_read_lock();
-	list_for_each_entry_rcu(wb, &q->backing_dev_info->wb_list, bdi_node)
+	list_for_each_entry_rcu(wb, &q->backingDevInfo->wb_list, bdi_node)
 		if (wb_has_dirty_io(wb))
 			wb_start_writeback(wb, nr_pages, true,
 					   WB_REASON_LAPTOP_TIMER);
@@ -2005,7 +2005,7 @@ void laptop_mode_timer_fn(unsigned long data)
  * of all dirty data a few seconds from now.  If the flush is already scheduled
  * then push it back - the user is still using the disk.
  */
-void laptop_io_completion(struct backing_dev_info *info)
+void laptop_io_completion(struct backingDevInfo *info)
 {
 	mod_timer(&info->laptop_mode_wb_timer, jiffies + laptop_mode);
 }
@@ -2017,7 +2017,7 @@ void laptop_io_completion(struct backing_dev_info *info)
  */
 void laptop_sync_completion(void)
 {
-	struct backing_dev_info *bdi;
+	struct backingDevInfo *bdi;
 
 	rcu_read_lock();
 

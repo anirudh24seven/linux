@@ -27,7 +27,7 @@ union label_t {
  * compute the block number from a
  * cyl-cyl-head-head structure
  */
-static sector_t cchh2blk(struct vtoc_cchh *ptr, struct hd_geometry *geo)
+static sector_t cchh2blk(struct vtoc_cchh *ptr, struct hdGeometry *geo)
 {
 	sector_t cyl;
 	__u16 head;
@@ -45,7 +45,7 @@ static sector_t cchh2blk(struct vtoc_cchh *ptr, struct hd_geometry *geo)
  * compute the block number from a
  * cyl-cyl-head-head-block structure
  */
-static sector_t cchhb2blk(struct vtoc_cchhb *ptr, struct hd_geometry *geo)
+static sector_t cchhb2blk(struct vtoc_cchhb *ptr, struct hdGeometry *geo)
 {
 	sector_t cyl;
 	__u16 head;
@@ -62,7 +62,7 @@ static sector_t cchhb2blk(struct vtoc_cchhb *ptr, struct hd_geometry *geo)
 
 static int find_label(struct parsed_partitions *state,
 		      dasd_information2_t *info,
-		      struct hd_geometry *geo,
+		      struct hdGeometry *geo,
 		      int blocksize,
 		      sector_t *labelsect,
 		      char name[],
@@ -130,7 +130,7 @@ static int find_label(struct parsed_partitions *state,
 }
 
 static int find_vol1_partitions(struct parsed_partitions *state,
-				struct hd_geometry *geo,
+				struct hdGeometry *geo,
 				int blocksize,
 				char name[],
 				union label_t *label)
@@ -192,7 +192,7 @@ static int find_vol1_partitions(struct parsed_partitions *state,
 }
 
 static int find_lnx1_partitions(struct parsed_partitions *state,
-				struct hd_geometry *geo,
+				struct hdGeometry *geo,
 				int blocksize,
 				char name[],
 				union label_t *label,
@@ -239,7 +239,7 @@ static int find_lnx1_partitions(struct parsed_partitions *state,
 }
 
 static int find_cms1_partitions(struct parsed_partitions *state,
-				struct hd_geometry *geo,
+				struct hdGeometry *geo,
 				int blocksize,
 				char name[],
 				union label_t *label,
@@ -292,7 +292,7 @@ int ibm_partition(struct parsed_partitions *state)
 	int blocksize, res;
 	loff_t i_size, offset, size;
 	dasd_information2_t *info;
-	struct hd_geometry *geo;
+	struct hdGeometry *geo;
 	char type[5] = {0,};
 	char name[7] = {0,};
 	sector_t labelsect;
@@ -308,7 +308,7 @@ int ibm_partition(struct parsed_partitions *state)
 	info = kmalloc(sizeof(dasd_information2_t), GFP_KERNEL);
 	if (info == NULL)
 		goto out_exit;
-	geo = kmalloc(sizeof(struct hd_geometry), GFP_KERNEL);
+	geo = kmalloc(sizeof(struct hdGeometry), GFP_KERNEL);
 	if (geo == NULL)
 		goto out_nogeo;
 	label = kmalloc(sizeof(union label_t), GFP_KERNEL);

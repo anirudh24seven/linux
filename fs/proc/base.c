@@ -381,7 +381,7 @@ static const struct file_operations proc_pid_cmdline_ops = {
  * Provides a wchan file via kallsyms in a proper one-value-per-file format.
  * Returns the resolved symbol.  If that fails, simply return the address.
  */
-static int proc_pid_wchan(struct seq_file *m, struct pid_namespace *ns,
+static int proc_pid_wchan(struct seq_file *m, struct pidNamespace *ns,
 			  struct pid *pid, struct task_struct *task)
 {
 	unsigned long wchan;
@@ -420,7 +420,7 @@ static void unlock_trace(struct task_struct *task)
 
 #define MAX_STACK_TRACE_DEPTH	64
 
-static int proc_pid_stack(struct seq_file *m, struct pid_namespace *ns,
+static int proc_pid_stack(struct seq_file *m, struct pidNamespace *ns,
 			  struct pid *pid, struct task_struct *task)
 {
 	struct stack_trace trace;
@@ -457,7 +457,7 @@ static int proc_pid_stack(struct seq_file *m, struct pid_namespace *ns,
 /*
  * Provides /proc/PID/schedstat
  */
-static int proc_pid_schedstat(struct seq_file *m, struct pid_namespace *ns,
+static int proc_pid_schedstat(struct seq_file *m, struct pidNamespace *ns,
 			      struct pid *pid, struct task_struct *task)
 {
 	if (unlikely(!sched_info_on()))
@@ -612,7 +612,7 @@ static int proc_pid_limits(struct seq_file *m, struct pid_namespace *ns,
 }
 
 #ifdef CONFIG_HAVE_ARCH_TRACEHOOK
-static int proc_pid_syscall(struct seq_file *m, struct pid_namespace *ns,
+static int proc_pid_syscall(struct seq_file *m, struct pidNamespace *ns,
 			    struct pid *pid, struct task_struct *task)
 {
 	long nr;
@@ -2172,7 +2172,7 @@ struct timers_private {
 	struct pid *pid;
 	struct task_struct *task;
 	struct sighand_struct *sighand;
-	struct pid_namespace *ns;
+	struct pidNamespace *ns;
 	unsigned long flags;
 };
 
@@ -2678,13 +2678,13 @@ out_unlock:
 	return result;
 }
 
-static int proc_tid_io_accounting(struct seq_file *m, struct pid_namespace *ns,
+static int proc_tid_io_accounting(struct seq_file *m, struct pidNamespace *ns,
 				  struct pid *pid, struct task_struct *task)
 {
 	return do_io_accounting(task, m, 0);
 }
 
-static int proc_tgid_io_accounting(struct seq_file *m, struct pid_namespace *ns,
+static int proc_tgid_io_accounting(struct seq_file *m, struct pidNamespace *ns,
 				   struct pid *pid, struct task_struct *task)
 {
 	return do_io_accounting(task, m, 1);

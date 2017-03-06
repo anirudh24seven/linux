@@ -209,7 +209,7 @@ static int pf_open(struct block_device *bdev, fmode_t mode);
 static void do_pf_request(struct request_queue * q);
 static int pf_ioctl(struct block_device *bdev, fmode_t mode,
 		    unsigned int cmd, unsigned long arg);
-static int pf_getgeo(struct block_device *bdev, struct hd_geometry *geo);
+static int pf_getgeo(struct block_device *bdev, struct hdGeometry *geo);
 
 static void pf_release(struct gendisk *disk, fmode_t mode);
 
@@ -327,7 +327,7 @@ out:
 	return ret;
 }
 
-static int pf_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int pf_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct pf_unit *pf = bdev->bd_disk->private_data;
 	sector_t capacity = get_capacity(pf->disk);

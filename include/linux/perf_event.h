@@ -684,9 +684,9 @@ struct perf_event {
 	unsigned long			addr_filters_gen;
 
 	void (*destroy)(struct perf_event *);
-	struct rcu_head			rcu_head;
+	struct rcuHead			rcuHead;
 
-	struct pid_namespace		*ns;
+	struct pidNamespace		*ns;
 	u64				id;
 
 	u64				(*clock)(void);
@@ -1105,7 +1105,7 @@ static inline u64 __perf_event_count(struct perf_event *event)
 	return local64_read(&event->count) + atomic64_read(&event->child_count);
 }
 
-extern void perf_event_mmap(struct vm_area_struct *vma);
+extern void perf_event_mmap(struct vmAreaStruct *vma);
 extern struct perf_guest_info_callbacks *perf_guest_cbs;
 extern int perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *callbacks);
 extern int perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *callbacks);

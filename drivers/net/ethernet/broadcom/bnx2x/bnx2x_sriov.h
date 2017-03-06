@@ -538,7 +538,7 @@ void bnx2x_pf_set_vfs_vlan(struct bnx2x *bp);
 int bnx2x_sriov_configure(struct pci_dev *dev, int num_vfs);
 void bnx2x_iov_channel_down(struct bnx2x *bp);
 
-void bnx2x_iov_task(struct work_struct *work);
+void bnx2x_iov_task(struct workStruct *work);
 
 void bnx2x_schedule_iov_task(struct bnx2x *bp, enum bnx2x_iov_flag flag);
 

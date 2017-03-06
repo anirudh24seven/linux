@@ -320,7 +320,7 @@ typedef struct hd_drive_hob_hdr {
 #define SECURITY_DISABLE_PASSWORD	0xBF
 #endif /* __KERNEL__ */
 
-struct hd_geometry {
+struct hdGeometry {
       unsigned char heads;
       unsigned char sectors;
       unsigned short cylinders;

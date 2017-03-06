@@ -281,7 +281,7 @@ asmlinkage void __kprobes do_sparc64_fault(struct pt_regs *regs)
 {
 	enum ctx_state prev_state = exception_enter();
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned int insn = 0;
 	int si_code, fault_code, fault;
 	unsigned long address, mm_rss;

@@ -61,7 +61,7 @@ struct privcmd_data {
 };
 
 static int privcmd_vma_range_is_mapped(
-               struct vm_area_struct *vma,
+               struct vmAreaStruct *vma,
                unsigned long addr,
                unsigned long nr_pages);
 
@@ -217,7 +217,7 @@ static int traverse_pages_block(unsigned nelem, size_t size,
 
 struct mmap_gfn_state {
 	unsigned long va;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	domid_t domain;
 };
 
@@ -225,7 +225,7 @@ static int mmap_gfn_range(void *data, void *state)
 {
 	struct privcmd_mmap_entry *msg = data;
 	struct mmap_gfn_state *st = state;
-	struct vm_area_struct *vma = st->vma;
+	struct vmAreaStruct *vma = st->vma;
 	int rc;
 
 	/* Do not allow range to wrap the address space. */
@@ -256,7 +256,7 @@ static long privcmd_ioctl_mmap(struct file *file, void __user *udata)
 	struct privcmd_data *data = file->private_data;
 	struct privcmd_mmap mmapcmd;
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int rc;
 	LIST_HEAD(pagelist);
 	struct mmap_gfn_state state;
@@ -315,7 +315,7 @@ out:
 struct mmap_batch_state {
 	domid_t domain;
 	unsigned long va;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int index;
 	/* A tristate:
 	 *      0 for no errors
@@ -339,7 +339,7 @@ static int mmap_batch_fn(void *data, int nr, void *state)
 {
 	xen_pfn_t *gfnp = data;
 	struct mmap_batch_state *st = state;
-	struct vm_area_struct *vma = st->vma;
+	struct vmAreaStruct *vma = st->vma;
 	struct page **pages = vma->vm_private_data;
 	struct page **cur_pages = NULL;
 	int ret;
@@ -419,7 +419,7 @@ static int mmap_return_errors(void *data, int nr, void *state)
  * the vma with the page info to use later.
  * Returns: 0 if success, otherwise -errno
  */
-static int alloc_empty_pages(struct vm_area_struct *vma, int numpgs)
+static int alloc_empty_pages(struct vmAreaStruct *vma, int numpgs)
 {
 	int rc;
 	struct page **pages;
@@ -450,7 +450,7 @@ static long privcmd_ioctl_mmap_batch(
 	int ret;
 	struct privcmd_mmapbatch_v2 m;
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long nr_pages;
 	LIST_HEAD(pagelist);
 	struct mmap_batch_state state;
@@ -785,7 +785,7 @@ static int privcmd_release(struct inode *ino, struct file *file)
 	return 0;
 }
 
-static void privcmd_close(struct vm_area_struct *vma)
+static void privcmd_close(struct vmAreaStruct *vma)
 {
 	struct page **pages = vma->vm_private_data;
 	int numpgs = vma_pages(vma);
@@ -818,7 +818,7 @@ static const struct vm_operations_struct privcmd_vm_ops = {
 	.fault = privcmd_fault
 };
 
-static int privcmd_mmap(struct file *file, struct vm_area_struct *vma)
+static int privcmd_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	/* DONTCOPY is essential for Xen because copy_page_range doesn't know
 	 * how to recreate these mappings */
@@ -842,7 +842,7 @@ static int is_mapped_fn(pte_t *pte, struct page *pmd_page,
 }
 
 static int privcmd_vma_range_is_mapped(
-	           struct vm_area_struct *vma,
+	           struct vmAreaStruct *vma,
 	           unsigned long addr,
 	           unsigned long nr_pages)
 {

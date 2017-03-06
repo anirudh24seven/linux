@@ -764,7 +764,7 @@ static int mm_revalidate(struct gendisk *disk)
 	return 0;
 }
 
-static int mm_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int mm_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct cardinfo *card = bdev->bd_disk->private_data;
 	int size = card->mm_size * (1024 / MM_HARDSECT);

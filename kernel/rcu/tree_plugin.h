@@ -646,7 +646,7 @@ static void rcu_preempt_do_callbacks(void)
 /*
  * Queue a preemptible-RCU callback for invocation after a grace period.
  */
-void call_rcu(struct rcu_head *head, rcu_callback_t func)
+void call_rcu(struct rcuHead *head, rcu_callback_t func)
 {
 	__call_rcu(head, func, rcu_state_p, -1, 0);
 }
@@ -1509,7 +1509,7 @@ static DECLARE_WAIT_QUEUE_HEAD(oom_callback_wq);
  * RCU OOM callback -- decrement the outstanding count and deliver the
  * wake-up if we are the last one.
  */
-static void rcu_oom_callback(struct rcu_head *rhp)
+static void rcu_oom_callback(struct rcuHead *rhp)
 {
 	if (atomic_dec_and_test(&oom_callback_count))
 		wake_up(&oom_callback_wq);
@@ -1782,7 +1782,7 @@ static bool rcu_nocb_cpu_needs_barrier(struct rcu_state *rsp, int cpu)
 	struct rcu_data *rdp = per_cpu_ptr(rsp->rda, cpu);
 	unsigned long ret;
 #ifdef CONFIG_PROVE_RCU
-	struct rcu_head *rhp;
+	struct rcuHead *rhp;
 #endif /* #ifdef CONFIG_PROVE_RCU */
 
 	/*
@@ -1820,7 +1820,7 @@ static bool rcu_nocb_cpu_needs_barrier(struct rcu_state *rsp, int cpu)
 }
 
 /*
- * Enqueue the specified string of rcu_head structures onto the specified
+ * Enqueue the specified string of rcuHead structures onto the specified
  * CPU's no-CBs lists.  The CPU is specified by rdp, the head of the
  * string by rhp, and the tail of the string by rhtp.  The non-lazy/lazy
  * counts are supplied by rhcount and rhcount_lazy.
@@ -1828,13 +1828,13 @@ static bool rcu_nocb_cpu_needs_barrier(struct rcu_state *rsp, int cpu)
  * If warranted, also wake up the kthread servicing this CPUs queues.
  */
 static void __call_rcu_nocb_enqueue(struct rcu_data *rdp,
-				    struct rcu_head *rhp,
-				    struct rcu_head **rhtp,
+				    struct rcuHead *rhp,
+				    struct rcuHead **rhtp,
 				    int rhcount, int rhcount_lazy,
 				    unsigned long flags)
 {
 	int len;
-	struct rcu_head **old_rhpp;
+	struct rcuHead **old_rhpp;
 	struct task_struct *t;
 
 	/* Enqueue the callback on the nocb list and update counts. */
@@ -1892,7 +1892,7 @@ static void __call_rcu_nocb_enqueue(struct rcu_data *rdp,
  * Otherwise, this function queues the callback where the corresponding
  * "rcuo" kthread can find it.
  */
-static bool __call_rcu_nocb(struct rcu_data *rdp, struct rcu_head *rhp,
+static bool __call_rcu_nocb(struct rcu_data *rdp, struct rcuHead *rhp,
 			    bool lazy, unsigned long flags)
 {
 
@@ -2002,7 +2002,7 @@ static void nocb_leader_wait(struct rcu_data *my_rdp)
 	bool firsttime = true;
 	bool gotcbs;
 	struct rcu_data *rdp;
-	struct rcu_head **tail;
+	struct rcuHead **tail;
 
 wait_again:
 
@@ -2133,9 +2133,9 @@ static void nocb_follower_wait(struct rcu_data *rdp)
 static int rcu_nocb_kthread(void *arg)
 {
 	int c, cl;
-	struct rcu_head *list;
-	struct rcu_head *next;
-	struct rcu_head **tail;
+	struct rcuHead *list;
+	struct rcuHead *next;
+	struct rcuHead **tail;
 	struct rcu_data *rdp = arg;
 
 	/* Each pass through this loop invokes one batch of callbacks */
@@ -2781,11 +2781,11 @@ static void rcu_sysidle_report_gp(struct rcu_state *rsp, int isidle,
 
 /* Callback and function for forcing an RCU grace period. */
 struct rcu_sysidle_head {
-	struct rcu_head rh;
+	struct rcuHead rh;
 	int inuse;
 };
 
-static void rcu_sysidle_cb(struct rcu_head *rhp)
+static void rcu_sysidle_cb(struct rcuHead *rhp)
 {
 	struct rcu_sysidle_head *rshp;
 

@@ -264,7 +264,7 @@ void i2400m_net_wake_stop(struct i2400m *i2400m)
  * TX an skb to an idle device
  *
  * When the device is in basestation-idle mode, we need to wake it up
- * and then TX. So we queue a work_struct for doing so.
+ * and then TX. So we queue a workStruct for doing so.
  *
  * We need to get an extra ref for the skb (so it is not dropped), as
  * well as be careful not to queue more than one request (won't help

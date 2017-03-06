@@ -934,7 +934,7 @@ extern pmd_t mk_pmd(struct page *page, pgprot_t pgprot);
 extern pmd_t pmd_modify(pmd_t pmd, pgprot_t newprot);
 extern void set_pmd_at(struct mm_struct *mm, unsigned long addr,
 		       pmd_t *pmdp, pmd_t pmd);
-extern void update_mmu_cache_pmd(struct vm_area_struct *vma, unsigned long addr,
+extern void update_mmu_cache_pmd(struct vmAreaStruct *vma, unsigned long addr,
 				 pmd_t *pmd);
 extern int hash__has_transparent_hugepage(void);
 static inline int has_transparent_hugepage(void)
@@ -1012,12 +1012,12 @@ static inline pmd_t pmd_mkhuge(pmd_t pmd)
 }
 
 #define __HAVE_ARCH_PMDP_SET_ACCESS_FLAGS
-extern int pmdp_set_access_flags(struct vm_area_struct *vma,
+extern int pmdp_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pmd_t *pmdp,
 				 pmd_t entry, int dirty);
 
 #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-extern int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+extern int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 				     unsigned long address, pmd_t *pmdp);
 
 #define __HAVE_ARCH_PMDP_HUGE_GET_AND_CLEAR
@@ -1029,7 +1029,7 @@ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
 	return hash__pmdp_huge_get_and_clear(mm, addr, pmdp);
 }
 
-static inline pmd_t pmdp_collapse_flush(struct vm_area_struct *vma,
+static inline pmd_t pmdp_collapse_flush(struct vmAreaStruct *vma,
 					unsigned long address, pmd_t *pmdp)
 {
 	if (radix_enabled())
@@ -1057,11 +1057,11 @@ static inline pgtable_t pgtable_trans_huge_withdraw(struct mm_struct *mm,
 }
 
 #define __HAVE_ARCH_PMDP_INVALIDATE
-extern void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
+extern void pmdp_invalidate(struct vmAreaStruct *vma, unsigned long address,
 			    pmd_t *pmdp);
 
 #define __HAVE_ARCH_PMDP_HUGE_SPLIT_PREPARE
-static inline void pmdp_huge_split_prepare(struct vm_area_struct *vma,
+static inline void pmdp_huge_split_prepare(struct vmAreaStruct *vma,
 					   unsigned long address, pmd_t *pmdp)
 {
 	if (radix_enabled())
@@ -1073,7 +1073,7 @@ static inline void pmdp_huge_split_prepare(struct vm_area_struct *vma,
 struct spinlock;
 static inline int pmd_move_must_withdraw(struct spinlock *new_pmd_ptl,
 					 struct spinlock *old_pmd_ptl,
-					 struct vm_area_struct *vma)
+					 struct vmAreaStruct *vma)
 {
 	if (radix_enabled())
 		return false;

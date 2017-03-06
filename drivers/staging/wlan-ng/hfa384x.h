@@ -1244,7 +1244,7 @@ struct hfa384x {
 	struct tasklet_struct reaper_bh;
 	struct tasklet_struct completion_bh;
 
-	struct work_struct usb_work;
+	struct workStruct usb_work;
 
 	unsigned long usb_flags;
 #define THROTTLE_RX	0
@@ -1284,9 +1284,9 @@ struct hfa384x {
 
 	struct wlandevice *wlandev;
 	/* Timer to allow for the deferred processing of linkstatus messages */
-	struct work_struct link_bh;
+	struct workStruct link_bh;
 
-	struct work_struct commsqual_bh;
+	struct workStruct commsqual_bh;
 	struct hfa384x_commsquality qual;
 	struct timer_list commsqual_timer;
 

@@ -180,7 +180,7 @@ gta02_configure_pmu_for_charger(struct pcf50633 *pcf, void *unused, int res)
 static struct delayed_work gta02_charger_work;
 static int gta02_usb_vbus_draw;
 
-static void gta02_charger_worker(struct work_struct *work)
+static void gta02_charger_worker(struct workStruct *work)
 {
 	if (gta02_usb_vbus_draw) {
 		pcf50633_mbc_usb_curlim_set(gta02_pcf, gta02_usb_vbus_draw);

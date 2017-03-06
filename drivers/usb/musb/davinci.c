@@ -159,7 +159,7 @@ static int vbus_state = -1;
  * With unloaded systems, using the shared workqueue seems to suffice
  * to satisfy the 100msec A_WAIT_VRISE timeout...
  */
-static void evm_deferred_drvvbus(struct work_struct *ignored)
+static void evm_deferred_drvvbus(struct workStruct *ignored)
 {
 	gpio_set_value_cansleep(GPIO_nVBUS_DRV, vbus_state);
 	vbus_state = !vbus_state;

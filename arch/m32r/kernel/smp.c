@@ -47,7 +47,7 @@ static volatile unsigned long flushcache_cpumask = 0;
  */
 static cpumask_t flush_cpumask;
 static struct mm_struct *flush_mm;
-static struct vm_area_struct *flush_vma;
+static struct vmAreaStruct *flush_vma;
 static volatile unsigned long flush_va;
 static DEFINE_SPINLOCK(tlbstate_lock);
 #define FLUSH_ALL 0xffffffff
@@ -67,7 +67,7 @@ void smp_flush_cache_all_interrupt(void);
 
 static void flush_tlb_all_ipi(void *);
 static void flush_tlb_others(cpumask_t, struct mm_struct *,
-	struct vm_area_struct *, unsigned long);
+	struct vmAreaStruct *, unsigned long);
 
 void smp_invalidate_interrupt(void);
 
@@ -290,7 +290,7 @@ void smp_flush_tlb_mm(struct mm_struct *mm)
  * ---------- --- --------------------------------------------------------
  *
  *==========================================================================*/
-void smp_flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
+void smp_flush_tlb_range(struct vmAreaStruct *vma, unsigned long start,
 	unsigned long end)
 {
 	smp_flush_tlb_mm(vma->vm_mm);
@@ -313,7 +313,7 @@ void smp_flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
  * ---------- --- --------------------------------------------------------
  *
  *==========================================================================*/
-void smp_flush_tlb_page(struct vm_area_struct *vma, unsigned long va)
+void smp_flush_tlb_page(struct vmAreaStruct *vma, unsigned long va)
 {
 	struct mm_struct *mm = vma->vm_mm;
 	int cpu_id;
@@ -369,7 +369,7 @@ void smp_flush_tlb_page(struct vm_area_struct *vma, unsigned long va)
  *
  *==========================================================================*/
 static void flush_tlb_others(cpumask_t cpumask, struct mm_struct *mm,
-	struct vm_area_struct *vma, unsigned long va)
+	struct vmAreaStruct *vma, unsigned long va)
 {
 	unsigned long *mask;
 #ifdef DEBUG_SMP

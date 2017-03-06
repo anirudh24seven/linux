@@ -189,7 +189,7 @@ extern void arm_dma_free(struct device *dev, size_t size, void *cpu_addr,
 /**
  * arm_dma_mmap - map a coherent DMA allocation into user space
  * @dev: valid struct device pointer, or NULL for ISA and EISA-like devices
- * @vma: vm_area_struct describing requested user mapping
+ * @vma: vmAreaStruct describing requested user mapping
  * @cpu_addr: kernel CPU-view address returned from dma_alloc_coherent
  * @handle: device-view address returned from dma_alloc_coherent
  * @size: size of memory originally requested in dma_alloc_coherent
@@ -199,7 +199,7 @@ extern void arm_dma_free(struct device *dev, size_t size, void *cpu_addr,
  * into user space.  The coherent DMA buffer must not be freed by the
  * driver until the user space mapping has been released.
  */
-extern int arm_dma_mmap(struct device *dev, struct vm_area_struct *vma,
+extern int arm_dma_mmap(struct device *dev, struct vmAreaStruct *vma,
 			void *cpu_addr, dma_addr_t dma_addr, size_t size,
 			unsigned long attrs);
 

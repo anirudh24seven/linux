@@ -15,7 +15,7 @@
 
 struct task_struct;
 struct mm_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 struct linux_hose_info;
 struct pci_dev;
 struct pci_ops;
@@ -75,7 +75,7 @@ struct alpha_machine_vector
 
 	void (*mv_flush_tlb_current)(struct mm_struct *);
 	void (*mv_flush_tlb_current_page)(struct mm_struct * mm,
-					  struct vm_area_struct *vma,
+					  struct vmAreaStruct *vma,
 					  unsigned long addr);
 
 	void (*update_irq_hw)(unsigned long, unsigned long, int);

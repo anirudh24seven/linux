@@ -42,8 +42,8 @@ void local_flush_tlb_kernel_range(unsigned long start, unsigned long end);
 
 void flush_tlb_all(void);
 void flush_tlb_mm(struct mm_struct *);
-void flush_tlb_page(struct vm_area_struct *, unsigned long);
-void flush_tlb_range(struct vm_area_struct *, unsigned long,
+void flush_tlb_page(struct vmAreaStruct *, unsigned long);
+void flush_tlb_range(struct vmAreaStruct *, unsigned long,
 		unsigned long);
 void flush_tlb_kernel_range(unsigned long start, unsigned long end);
 

@@ -190,7 +190,7 @@ struct mem_cgroup {
 	unsigned long high;
 
 	/* Range enforcement for interrupt charges */
-	struct work_struct high_work;
+	struct workStruct high_work;
 
 	unsigned long soft_limit;
 
@@ -771,8 +771,8 @@ void mem_cgroup_count_vm_event(struct mm_struct *mm, enum vm_event_item idx)
 #ifdef CONFIG_CGROUP_WRITEBACK
 
 struct list_head *mem_cgroup_cgwb_list(struct mem_cgroup *memcg);
-struct wb_domain *mem_cgroup_wb_domain(struct bdi_writeback *wb);
-void mem_cgroup_wb_stats(struct bdi_writeback *wb, unsigned long *pfilepages,
+struct wb_domain *mem_cgroup_wb_domain(struct bdiWriteback *wb);
+void mem_cgroup_wb_stats(struct bdiWriteback *wb, unsigned long *pfilepages,
 			 unsigned long *pheadroom, unsigned long *pdirty,
 			 unsigned long *pwriteback);
 

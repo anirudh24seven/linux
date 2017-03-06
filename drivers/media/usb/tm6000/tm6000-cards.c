@@ -1051,7 +1051,7 @@ static void use_alternative_detection_method(struct tm6000_core *dev)
 }
 
 #if defined(CONFIG_MODULES) && defined(MODULE)
-static void request_module_async(struct work_struct *work)
+static void request_module_async(struct workStruct *work)
 {
 	struct tm6000_core *dev = container_of(work, struct tm6000_core,
 					       request_module_wk);

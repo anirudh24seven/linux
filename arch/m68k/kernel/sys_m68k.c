@@ -388,7 +388,7 @@ sys_cacheflush (unsigned long addr, int scope, int cache, unsigned long len)
 		if (!capable(CAP_SYS_ADMIN))
 			goto out;
 	} else {
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 
 		/* Check for overflow.  */
 		if (addr + len < addr)

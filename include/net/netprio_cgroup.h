@@ -20,7 +20,7 @@
 
 #if IS_ENABLED(CONFIG_CGROUP_NET_PRIO)
 struct netprio_map {
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	u32 priomap_len;
 	u32 priomap[];
 };

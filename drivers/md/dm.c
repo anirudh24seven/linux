@@ -403,7 +403,7 @@ struct dm_stats *dm_get_stats(struct mapped_device *md)
 	return &md->stats;
 }
 
-static int dm_blk_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int dm_blk_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct mapped_device *md = bdev->bd_disk->private_data;
 
@@ -722,7 +722,7 @@ static void free_table_devices(struct list_head *devices)
 /*
  * Get the geometry associated with a dm device
  */
-int dm_get_geometry(struct mapped_device *md, struct hd_geometry *geo)
+int dm_get_geometry(struct mapped_device *md, struct hdGeometry *geo)
 {
 	*geo = md->geometry;
 
@@ -732,7 +732,7 @@ int dm_get_geometry(struct mapped_device *md, struct hd_geometry *geo)
 /*
  * Set the geometry of a device.
  */
-int dm_set_geometry(struct mapped_device *md, struct hd_geometry *geo)
+int dm_set_geometry(struct mapped_device *md, struct hdGeometry *geo)
 {
 	sector_t sz = (sector_t)geo->cylinders * geo->heads * geo->sectors;
 

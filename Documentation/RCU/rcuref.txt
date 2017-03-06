@@ -100,7 +100,7 @@ release_referenced()			    spin_lock(&list_lock);
     ...                                     call_rcu(&el->head, el_free);
 } 					    ...
 5.					}
-void el_free(struct rcu_head *rhp)
+void el_free(struct rcuHead *rhp)
 {
     release_referenced();
 }

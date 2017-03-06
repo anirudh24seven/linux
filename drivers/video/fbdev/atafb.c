@@ -325,7 +325,7 @@ extern unsigned char fontdata_8x16[];
  *			unsigned long arg);
  *
  *	* perform fb specific mmap *
- *	int (*fb_mmap)(struct fb_info *info, struct vm_area_struct *vma);
+ *	int (*fb_mmap)(struct fb_info *info, struct vmAreaStruct *vma);
  * } ;
  */
 

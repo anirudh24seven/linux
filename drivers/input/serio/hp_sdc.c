@@ -930,7 +930,7 @@ static int __init hp_sdc_init(void)
 
 #if defined(__hppa__)
 
-static void request_module_delayed(struct work_struct *work)
+static void request_module_delayed(struct workStruct *work)
 {
 	request_module("hp_sdc_mlc");
 }

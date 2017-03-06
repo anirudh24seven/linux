@@ -766,7 +766,7 @@ static void mg_request(struct request_queue *q)
 	}
 }
 
-static int mg_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int mg_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct mg_host *host = bdev->bd_disk->private_data;
 

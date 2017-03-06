@@ -415,8 +415,8 @@ int fat_cache_init(void);
 void fat_cache_destroy(void);
 
 /* fat/nfs.c */
-extern const struct export_operations fat_export_ops;
-extern const struct export_operations fat_export_ops_nostale;
+extern const struct exportOperations fat_export_ops;
+extern const struct exportOperations fat_export_ops_nostale;
 
 /* helper for printk */
 typedef unsigned long long	llu;

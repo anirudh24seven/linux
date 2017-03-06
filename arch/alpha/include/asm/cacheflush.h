@@ -59,7 +59,7 @@ flush_icache_user_range(struct vm_area_struct *vma, struct page *page,
 	}
 }
 #else
-extern void flush_icache_user_range(struct vm_area_struct *vma,
+extern void flush_icache_user_range(struct vmAreaStruct *vma,
 		struct page *page, unsigned long addr, int len);
 #endif
 

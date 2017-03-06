@@ -396,7 +396,7 @@ static bool intel_pstate_get_ppc_enable_status(void)
 #ifdef CONFIG_ACPI_CPPC_LIB
 
 /* The work item is needed to avoid CPU hotplug locking issues */
-static void intel_pstste_sched_itmt_work_fn(struct work_struct *work)
+static void intel_pstste_sched_itmt_work_fn(struct workStruct *work)
 {
 	sched_set_itmt_support();
 }

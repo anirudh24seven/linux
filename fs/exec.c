@@ -266,7 +266,7 @@ static void flush_arg_page(struct linux_binprm *bprm, unsigned long pos,
 static int __bprm_mm_init(struct linux_binprm *bprm)
 {
 	int err;
-	struct vm_area_struct *vma = NULL;
+	struct vmAreaStruct *vma = NULL;
 	struct mm_struct *mm = bprm->mm;
 
 	bprm->vma = vma = kmem_cache_zalloc(vm_area_cachep, GFP_KERNEL);
@@ -376,7 +376,7 @@ static bool valid_arg_len(struct linux_binprm *bprm, long len)
 
 /*
  * Create a new mm_struct and populate it with a temporary stack
- * vm_area_struct.  We don't have enough context at this point to set the stack
+ * vmAreaStruct.  We don't have enough context at this point to set the stack
  * flags, permissions, and offset, so we use temporary values.  We'll update
  * them later in setup_arg_pages().
  */
@@ -594,7 +594,7 @@ EXPORT_SYMBOL(copy_strings_kernel);
  * 4) Free up any cleared pgd range.
  * 5) Shrink the vma to cover only the new range.
  */
-static int shift_arg_pages(struct vm_area_struct *vma, unsigned long shift)
+static int shift_arg_pages(struct vmAreaStruct *vma, unsigned long shift)
 {
 	struct mm_struct *mm = vma->vm_mm;
 	unsigned long old_start = vma->vm_start;
@@ -656,7 +656,7 @@ static int shift_arg_pages(struct vm_area_struct *vma, unsigned long shift)
 }
 
 /*
- * Finalizes the stack vm_area_struct. The flags and permissions are updated,
+ * Finalizes the stack vmAreaStruct. The flags and permissions are updated,
  * the stack is optionally relocated, and some extra space is added.
  */
 int setup_arg_pages(struct linux_binprm *bprm,
@@ -666,8 +666,8 @@ int setup_arg_pages(struct linux_binprm *bprm,
 	unsigned long ret;
 	unsigned long stack_shift;
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma = bprm->vma;
-	struct vm_area_struct *prev = NULL;
+	struct vmAreaStruct *vma = bprm->vma;
+	struct vmAreaStruct *prev = NULL;
 	unsigned long vm_flags;
 	unsigned long stack_base;
 	unsigned long stack_size;

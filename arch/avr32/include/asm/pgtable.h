@@ -309,8 +309,8 @@ static inline pte_t pte_modify(pte_t pte, pgprot_t newprot)
 #define pte_offset_map(dir, address) pte_offset_kernel(dir, address)
 #define pte_unmap(pte)		do { } while (0)
 
-struct vm_area_struct;
-extern void update_mmu_cache(struct vm_area_struct * vma,
+struct vmAreaStruct;
+extern void update_mmu_cache(struct vmAreaStruct * vma,
 			     unsigned long address, pte_t *ptep);
 
 /*

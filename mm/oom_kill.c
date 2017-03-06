@@ -469,7 +469,7 @@ static DEFINE_SPINLOCK(oom_reaper_lock);
 static bool __oom_reap_task_mm(struct task_struct *tsk, struct mm_struct *mm)
 {
 	struct mmu_gather tlb;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	bool ret = true;
 
 	/*

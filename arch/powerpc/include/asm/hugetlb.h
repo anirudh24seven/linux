@@ -33,14 +33,14 @@ static inline unsigned int hugepd_shift(hugepd_t hpd)
 {
 	return mmu_psize_to_shift(hugepd_mmu_psize(hpd));
 }
-static inline void flush_hugetlb_page(struct vm_area_struct *vma,
+static inline void flush_hugetlb_page(struct vmAreaStruct *vma,
 				      unsigned long vmaddr)
 {
 	if (radix_enabled())
 		return radix__flush_hugetlb_page(vma, vmaddr);
 }
 
-static inline void __local_flush_hugetlb_page(struct vm_area_struct *vma,
+static inline void __local_flush_hugetlb_page(struct vmAreaStruct *vma,
 					      unsigned long vmaddr)
 {
 	if (radix_enabled())
@@ -107,16 +107,16 @@ static inline int is_hugepage_only_range(struct mm_struct *mm,
 }
 #endif
 
-void book3e_hugetlb_preload(struct vm_area_struct *vma, unsigned long ea,
+void book3e_hugetlb_preload(struct vmAreaStruct *vma, unsigned long ea,
 			    pte_t pte);
 #ifdef CONFIG_PPC_8xx
-static inline void flush_hugetlb_page(struct vm_area_struct *vma,
+static inline void flush_hugetlb_page(struct vmAreaStruct *vma,
 				      unsigned long vmaddr)
 {
 	flush_tlb_page(vma, vmaddr);
 }
 #else
-void flush_hugetlb_page(struct vm_area_struct *vma, unsigned long vmaddr);
+void flush_hugetlb_page(struct vmAreaStruct *vma, unsigned long vmaddr);
 #endif
 
 void hugetlb_free_pgd_range(struct mmu_gather *tlb, unsigned long addr,
@@ -160,7 +160,7 @@ static inline pte_t huge_ptep_get_and_clear(struct mm_struct *mm,
 #endif
 }
 
-static inline void huge_ptep_clear_flush(struct vm_area_struct *vma,
+static inline void huge_ptep_clear_flush(struct vmAreaStruct *vma,
 					 unsigned long addr, pte_t *ptep)
 {
 	pte_t pte;
@@ -178,7 +178,7 @@ static inline pte_t huge_pte_wrprotect(pte_t pte)
 	return pte_wrprotect(pte);
 }
 
-static inline int huge_ptep_set_access_flags(struct vm_area_struct *vma,
+static inline int huge_ptep_set_access_flags(struct vmAreaStruct *vma,
 					     unsigned long addr, pte_t *ptep,
 					     pte_t pte, int dirty)
 {

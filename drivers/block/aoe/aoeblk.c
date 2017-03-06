@@ -294,7 +294,7 @@ aoeblk_request(struct request_queue *q)
 }
 
 static int
-aoeblk_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+aoeblk_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct aoedev *d = bdev->bd_disk->private_data;
 

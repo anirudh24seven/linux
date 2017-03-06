@@ -1433,7 +1433,7 @@ out:
 	return changed;
 }
 
-static void topology_work_fn(struct work_struct *work)
+static void topology_work_fn(struct workStruct *work)
 {
 	rebuild_sched_domains();
 }

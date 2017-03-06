@@ -216,7 +216,7 @@ unsigned long hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
 {
 	struct hstate *h = hstate_file(file);
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	if (len & ~huge_page_mask(h))
 		return -EINVAL;

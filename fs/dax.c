@@ -1330,7 +1330,7 @@ fallback:
 static int dax_iomap_pmd_fault(struct vm_fault *vmf,
 			       const struct iomap_ops *ops)
 {
-	struct vm_area_struct *vma = vmf->vma;
+	struct vmAreaStruct *vma = vmf->vma;
 	struct address_space *mapping = vma->vm_file->f_mapping;
 	unsigned long pmd_addr = vmf->address & PMD_MASK;
 	bool write = vmf->flags & FAULT_FLAG_WRITE;

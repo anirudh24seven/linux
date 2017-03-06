@@ -174,12 +174,12 @@ enum {
  *
  * The data field stores next cluster if the cluster is free or cluster usage
  * counter otherwise. The flags field determines if a cluster is free. This is
- * protected by swap_info_struct.lock.
+ * protected by swapInfoStruct.lock.
  */
 struct swap_cluster_info {
 	spinlock_t lock;	/*
 				 * Protect swap_cluster_info fields
-				 * and swap_info_struct->swap_map
+				 * and swapInfoStruct->swap_map
 				 * elements correspond to the swap
 				 * cluster
 				 */
@@ -207,7 +207,7 @@ struct swap_cluster_list {
 /*
  * The in-memory structure used to track swap areas.
  */
-struct swap_info_struct {
+struct swapInfoStruct {
 	unsigned long	flags;		/* SWP_USED etc: see above */
 	signed short	prio;		/* swap priority of this type */
 	struct plist_node list;		/* entry in swap_active_head */
@@ -246,7 +246,7 @@ struct swap_info_struct {
 					 * both locks need hold, hold swap_lock
 					 * first.
 					 */
-	struct work_struct discard_work; /* discard worker */
+	struct workStruct discard_work; /* discard worker */
 	struct swap_cluster_list discard_clusters; /* discard clusters list */
 };
 
@@ -285,7 +285,7 @@ extern void swap_setup(void);
 extern void add_page_to_unevictable_list(struct page *page);
 
 extern void lru_cache_add_active_or_unevictable(struct page *page,
-						struct vm_area_struct *vma);
+						struct vmAreaStruct *vma);
 
 /* linux/mm/vmscan.c */
 extern unsigned long zone_reclaimable_pages(struct zone *zone);
@@ -338,9 +338,9 @@ extern int __swap_writepage(struct page *page, struct writeback_control *wbc,
 	bio_end_io_t end_write_func);
 extern int swap_set_page_dirty(struct page *page);
 
-int add_swap_extent(struct swap_info_struct *sis, unsigned long start_page,
+int add_swap_extent(struct swapInfoStruct *sis, unsigned long start_page,
 		unsigned long nr_pages, sector_t start_block);
-int generic_swapfile_activate(struct swap_info_struct *, struct file *,
+int generic_swapfile_activate(struct swapInfoStruct *, struct file *,
 		sector_t *);
 
 /* linux/mm/swap_state.c */
@@ -362,12 +362,12 @@ extern void free_page_and_swap_cache(struct page *);
 extern void free_pages_and_swap_cache(struct page **, int);
 extern struct page *lookup_swap_cache(swp_entry_t);
 extern struct page *read_swap_cache_async(swp_entry_t, gfp_t,
-			struct vm_area_struct *vma, unsigned long addr);
+			struct vmAreaStruct *vma, unsigned long addr);
 extern struct page *__read_swap_cache_async(swp_entry_t, gfp_t,
-			struct vm_area_struct *vma, unsigned long addr,
+			struct vmAreaStruct *vma, unsigned long addr,
 			bool *new_page_allocated);
 extern struct page *swapin_readahead(swp_entry_t, gfp_t,
-			struct vm_area_struct *vma, unsigned long addr);
+			struct vmAreaStruct *vma, unsigned long addr);
 
 /* linux/mm/swapfile.c */
 extern atomic_long_t nr_swap_pages;
@@ -404,10 +404,10 @@ extern sector_t swapdev_block(int, pgoff_t);
 extern int page_swapcount(struct page *);
 extern int __swp_swapcount(swp_entry_t entry);
 extern int swp_swapcount(swp_entry_t entry);
-extern struct swap_info_struct *page_swap_info(struct page *);
+extern struct swapInfoStruct *page_swap_info(struct page *);
 extern bool reuse_swap_page(struct page *, int *);
 extern int try_to_free_swap(struct page *);
-struct backing_dev_info;
+struct backingDevInfo;
 extern int init_swap_address_space(unsigned int type, unsigned long nr_pages);
 extern void exit_swap_address_space(unsigned int type);
 
@@ -461,7 +461,7 @@ static inline void swapcache_free(swp_entry_t swp)
 }
 
 static inline struct page *swapin_readahead(swp_entry_t swp, gfp_t gfp_mask,
-			struct vm_area_struct *vma, unsigned long addr)
+			struct vmAreaStruct *vma, unsigned long addr)
 {
 	return NULL;
 }

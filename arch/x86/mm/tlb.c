@@ -371,7 +371,7 @@ out:
 	preempt_enable();
 }
 
-void flush_tlb_page(struct vm_area_struct *vma, unsigned long start)
+void flush_tlb_page(struct vmAreaStruct *vma, unsigned long start)
 {
 	struct mm_struct *mm = vma->vm_mm;
 

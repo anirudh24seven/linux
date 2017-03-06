@@ -2111,7 +2111,7 @@ static int dasd_eckd_basic_to_known(struct dasd_device *device)
 };
 
 static int
-dasd_eckd_fill_geometry(struct dasd_block *block, struct hd_geometry *geo)
+dasd_eckd_fill_geometry(struct dasd_block *block, struct hdGeometry *geo)
 {
 	struct dasd_eckd_private *private = block->base->private;
 

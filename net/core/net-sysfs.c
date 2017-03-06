@@ -776,7 +776,7 @@ static ssize_t show_rps_dev_flow_table_cnt(struct netdev_rx_queue *queue,
 	return sprintf(buf, "%lu\n", val);
 }
 
-static void rps_dev_flow_table_release(struct rcu_head *rcu)
+static void rps_dev_flow_table_release(struct rcuHead *rcu)
 {
 	struct rps_dev_flow_table *table = container_of(rcu,
 	    struct rps_dev_flow_table, rcu);

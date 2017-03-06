@@ -405,7 +405,7 @@ static int ssfdcr_readsect(struct mtd_blktrans_dev *dev,
 	return 0;
 }
 
-static int ssfdcr_getgeo(struct mtd_blktrans_dev *dev,  struct hd_geometry *geo)
+static int ssfdcr_getgeo(struct mtd_blktrans_dev *dev,  struct hdGeometry *geo)
 {
 	struct ssfdcr_record *ssfdc = (struct ssfdcr_record *)dev;
 

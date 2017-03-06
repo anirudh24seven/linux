@@ -158,7 +158,7 @@ extern int rw_verify_area(int, struct file *, const loff_t *, size_t);
 extern const struct file_operations pipefifo_fops;
 
 /*
- * fs_pin.c
+ * fsPin.c
  */
 extern void group_pin_kill(struct hlist_head *p);
 extern void mnt_pin_kill(struct mount *m);

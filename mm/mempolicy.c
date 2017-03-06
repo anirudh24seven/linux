@@ -601,7 +601,7 @@ unlock:
  * an architecture makes a different choice, it will need further
  * changes to the core.
  */
-unsigned long change_prot_numa(struct vm_area_struct *vma,
+unsigned long change_prot_numa(struct vmAreaStruct *vma,
 			unsigned long addr, unsigned long end)
 {
 	int nr_updated;
@@ -1130,7 +1130,7 @@ int do_migrate_pages(struct mm_struct *mm, const nodemask_t *from,
  */
 static struct page *new_page(struct page *page, unsigned long start, int **x)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long uninitialized_var(address);
 
 	vma = find_vma(current->mm, start);
@@ -1817,7 +1817,7 @@ static inline unsigned interleave_nid(struct mempolicy *pol,
  *
  * Must be protected by read_mems_allowed_begin()
  */
-struct zonelist *huge_zonelist(struct vm_area_struct *vma, unsigned long addr,
+struct zonelist *huge_zonelist(struct vmAreaStruct *vma, unsigned long addr,
 				gfp_t gfp_flags, struct mempolicy **mpol,
 				nodemask_t **nodemask)
 {

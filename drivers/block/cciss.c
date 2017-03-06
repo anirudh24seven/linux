@@ -169,7 +169,7 @@ static int cciss_unlocked_open(struct block_device *bdev, fmode_t mode);
 static void cciss_release(struct gendisk *disk, fmode_t mode);
 static int cciss_ioctl(struct block_device *bdev, fmode_t mode,
 		       unsigned int cmd, unsigned long arg);
-static int cciss_getgeo(struct block_device *bdev, struct hd_geometry *geo);
+static int cciss_getgeo(struct block_device *bdev, struct hdGeometry *geo);
 
 static int cciss_revalidate(struct gendisk *disk);
 static int rebuild_lun_table(ctlr_info_t *h, int first_time, int via_ioctl);
@@ -1278,7 +1278,7 @@ static int cciss_ioctl32_big_passthru(struct block_device *bdev, fmode_t mode,
 }
 #endif
 
-static int cciss_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int cciss_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	drive_info_struct *drv = get_drv(bdev->bd_disk);
 

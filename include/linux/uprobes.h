@@ -29,7 +29,7 @@
 #include <linux/types.h>
 #include <linux/wait.h>
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct mm_struct;
 struct inode;
 struct notifier_block;
@@ -125,8 +125,8 @@ extern int uprobe_write_opcode(struct mm_struct *mm, unsigned long vaddr, uprobe
 extern int uprobe_register(struct inode *inode, loff_t offset, struct uprobe_consumer *uc);
 extern int uprobe_apply(struct inode *inode, loff_t offset, struct uprobe_consumer *uc, bool);
 extern void uprobe_unregister(struct inode *inode, loff_t offset, struct uprobe_consumer *uc);
-extern int uprobe_mmap(struct vm_area_struct *vma);
-extern void uprobe_munmap(struct vm_area_struct *vma, unsigned long start, unsigned long end);
+extern int uprobe_mmap(struct vmAreaStruct *vma);
+extern void uprobe_munmap(struct vmAreaStruct *vma, unsigned long start, unsigned long end);
 extern void uprobe_start_dup_mmap(void);
 extern void uprobe_end_dup_mmap(void);
 extern void uprobe_dup_mmap(struct mm_struct *oldmm, struct mm_struct *newmm);
@@ -169,12 +169,12 @@ static inline void
 uprobe_unregister(struct inode *inode, loff_t offset, struct uprobe_consumer *uc)
 {
 }
-static inline int uprobe_mmap(struct vm_area_struct *vma)
+static inline int uprobe_mmap(struct vmAreaStruct *vma)
 {
 	return 0;
 }
 static inline void
-uprobe_munmap(struct vm_area_struct *vma, unsigned long start, unsigned long end)
+uprobe_munmap(struct vmAreaStruct *vma, unsigned long start, unsigned long end)
 {
 }
 static inline void uprobe_start_dup_mmap(void)

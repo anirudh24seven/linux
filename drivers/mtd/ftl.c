@@ -974,7 +974,7 @@ static int ftl_write(partition_t *part, caddr_t buffer,
     return 0;
 } /* ftl_write */
 
-static int ftl_getgeo(struct mtd_blktrans_dev *dev, struct hd_geometry *geo)
+static int ftl_getgeo(struct mtd_blktrans_dev *dev, struct hdGeometry *geo)
 {
 	partition_t *part = (void *)dev;
 	u_long sect;

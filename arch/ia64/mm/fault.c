@@ -82,7 +82,7 @@ void __kprobes
 ia64_do_page_fault (unsigned long address, unsigned long isr, struct pt_regs *regs)
 {
 	int signal = SIGSEGV, code = SEGV_MAPERR;
-	struct vm_area_struct *vma, *prev_vma;
+	struct vmAreaStruct *vma, *prev_vma;
 	struct mm_struct *mm = current->mm;
 	struct siginfo si;
 	unsigned long mask;

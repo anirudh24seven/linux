@@ -623,12 +623,12 @@ static int setup_cxl_bars(struct pci_dev *dev)
 
 struct cxl_switch_work {
 	struct pci_dev *dev;
-	struct work_struct work;
+	struct workStruct work;
 	int vsec;
 	int mode;
 };
 
-static void switch_card_to_cxl(struct work_struct *work)
+static void switch_card_to_cxl(struct workStruct *work)
 {
 	struct cxl_switch_work *switch_work =
 		container_of(work, struct cxl_switch_work, work);

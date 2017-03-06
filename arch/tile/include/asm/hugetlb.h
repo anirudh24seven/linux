@@ -99,7 +99,7 @@ static inline void arch_clear_hugepage_flags(struct page *page)
 }
 
 #ifdef CONFIG_HUGETLB_SUPER_PAGES
-static inline pte_t arch_make_huge_pte(pte_t entry, struct vm_area_struct *vma,
+static inline pte_t arch_make_huge_pte(pte_t entry, struct vmAreaStruct *vma,
 				       struct page *page, int writable)
 {
 	size_t pagesize = huge_page_size(hstate_vma(vma));

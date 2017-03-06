@@ -28,7 +28,7 @@ unsigned afs_vnode_update_timeout = 10;
 	CIRC_SPACE((server)->cb_break_head, (server)->cb_break_tail,	\
 		   ARRAY_SIZE((server)->cb_break))
 
-//static void afs_callback_updater(struct work_struct *);
+//static void afs_callback_updater(struct workStruct *);
 
 static struct workqueue_struct *afs_callback_update_worker;
 
@@ -358,7 +358,7 @@ void afs_flush_callback_breaks(struct afs_server *server)
 /*
  * update a bunch of callbacks
  */
-static void afs_callback_updater(struct work_struct *work)
+static void afs_callback_updater(struct workStruct *work)
 {
 	struct afs_server *server;
 	struct afs_vnode *vnode, *xvnode;

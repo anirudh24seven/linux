@@ -743,7 +743,7 @@ err:
 	return rc;
 }
 
-static int rfd_ftl_getgeo(struct mtd_blktrans_dev *dev, struct hd_geometry *geo)
+static int rfd_ftl_getgeo(struct mtd_blktrans_dev *dev, struct hdGeometry *geo)
 {
 	struct partition *part = (struct partition*)dev;
 

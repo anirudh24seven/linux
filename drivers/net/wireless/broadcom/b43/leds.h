@@ -37,7 +37,7 @@ struct b43_leds {
 	struct b43_led led_assoc;
 
 	bool stop;
-	struct work_struct work;
+	struct workStruct work;
 };
 
 #define B43_MAX_NR_LEDS			4

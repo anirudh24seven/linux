@@ -373,12 +373,12 @@ void __wait_rcu_gp(bool checktiny, int n, call_rcu_func_t *crcu_array,
 EXPORT_SYMBOL_GPL(__wait_rcu_gp);
 
 #ifdef CONFIG_DEBUG_OBJECTS_RCU_HEAD
-void init_rcu_head(struct rcu_head *head)
+void init_rcu_head(struct rcuHead *head)
 {
 	debug_object_init(head, &rcuhead_debug_descr);
 }
 
-void destroy_rcu_head(struct rcu_head *head)
+void destroy_rcu_head(struct rcuHead *head)
 {
 	debug_object_free(head, &rcuhead_debug_descr);
 }
@@ -389,47 +389,47 @@ static bool rcuhead_is_static_object(void *addr)
 }
 
 /**
- * init_rcu_head_on_stack() - initialize on-stack rcu_head for debugobjects
- * @head: pointer to rcu_head structure to be initialized
+ * init_rcu_head_on_stack() - initialize on-stack rcuHead for debugobjects
+ * @head: pointer to rcuHead structure to be initialized
  *
- * This function informs debugobjects of a new rcu_head structure that
+ * This function informs debugobjects of a new rcuHead structure that
  * has been allocated as an auto variable on the stack.  This function
- * is not required for rcu_head structures that are statically defined or
+ * is not required for rcuHead structures that are statically defined or
  * that are dynamically allocated on the heap.  This function has no
  * effect for !CONFIG_DEBUG_OBJECTS_RCU_HEAD kernel builds.
  */
-void init_rcu_head_on_stack(struct rcu_head *head)
+void init_rcu_head_on_stack(struct rcuHead *head)
 {
 	debug_object_init_on_stack(head, &rcuhead_debug_descr);
 }
 EXPORT_SYMBOL_GPL(init_rcu_head_on_stack);
 
 /**
- * destroy_rcu_head_on_stack() - destroy on-stack rcu_head for debugobjects
- * @head: pointer to rcu_head structure to be initialized
+ * destroy_rcu_head_on_stack() - destroy on-stack rcuHead for debugobjects
+ * @head: pointer to rcuHead structure to be initialized
  *
- * This function informs debugobjects that an on-stack rcu_head structure
+ * This function informs debugobjects that an on-stack rcuHead structure
  * is about to go out of scope.  As with init_rcu_head_on_stack(), this
- * function is not required for rcu_head structures that are statically
+ * function is not required for rcuHead structures that are statically
  * defined or that are dynamically allocated on the heap.  Also as with
  * init_rcu_head_on_stack(), this function has no effect for
  * !CONFIG_DEBUG_OBJECTS_RCU_HEAD kernel builds.
  */
-void destroy_rcu_head_on_stack(struct rcu_head *head)
+void destroy_rcu_head_on_stack(struct rcuHead *head)
 {
 	debug_object_free(head, &rcuhead_debug_descr);
 }
 EXPORT_SYMBOL_GPL(destroy_rcu_head_on_stack);
 
 struct debug_obj_descr rcuhead_debug_descr = {
-	.name = "rcu_head",
+	.name = "rcuHead",
 	.is_static_object = rcuhead_is_static_object,
 };
 EXPORT_SYMBOL_GPL(rcuhead_debug_descr);
 #endif /* #ifdef CONFIG_DEBUG_OBJECTS_RCU_HEAD */
 
 #if defined(CONFIG_TREE_RCU) || defined(CONFIG_PREEMPT_RCU) || defined(CONFIG_RCU_TRACE)
-void do_trace_rcu_torture_read(const char *rcutorturename, struct rcu_head *rhp,
+void do_trace_rcu_torture_read(const char *rcutorturename, struct rcuHead *rhp,
 			       unsigned long secs,
 			       unsigned long c_old, unsigned long c)
 {
@@ -518,8 +518,8 @@ early_initcall(check_cpu_stall_init);
  */
 
 /* Global list of callbacks and associated lock. */
-static struct rcu_head *rcu_tasks_cbs_head;
-static struct rcu_head **rcu_tasks_cbs_tail = &rcu_tasks_cbs_head;
+static struct rcuHead *rcu_tasks_cbs_head;
+static struct rcuHead **rcu_tasks_cbs_tail = &rcu_tasks_cbs_head;
 static DECLARE_WAIT_QUEUE_HEAD(rcu_tasks_cbs_wq);
 static DEFINE_RAW_SPINLOCK(rcu_tasks_cbs_lock);
 
@@ -537,7 +537,7 @@ static struct task_struct *rcu_tasks_kthread_ptr;
  * Post an RCU-tasks callback.  First call must be from process context
  * after the scheduler if fully operational.
  */
-void call_rcu_tasks(struct rcu_head *rhp, rcu_callback_t func)
+void call_rcu_tasks(struct rcuHead *rhp, rcu_callback_t func)
 {
 	unsigned long flags;
 	bool needwake;
@@ -653,8 +653,8 @@ static int __noreturn rcu_tasks_kthread(void *arg)
 	unsigned long flags;
 	struct task_struct *g, *t;
 	unsigned long lastreport;
-	struct rcu_head *list;
-	struct rcu_head *next;
+	struct rcuHead *list;
+	struct rcuHead *next;
 	LIST_HEAD(rcu_tasks_holdouts);
 
 	/* Run on housekeeping CPUs by default.  Sysadm can move if desired. */
@@ -849,7 +849,7 @@ module_param(rcu_self_test_sched, bool, 0444);
 
 static int rcu_self_test_counter;
 
-static void test_callback(struct rcu_head *r)
+static void test_callback(struct rcuHead *r)
 {
 	rcu_self_test_counter++;
 	pr_info("RCU test callback executed %d\n", rcu_self_test_counter);
@@ -857,21 +857,21 @@ static void test_callback(struct rcu_head *r)
 
 static void early_boot_test_call_rcu(void)
 {
-	static struct rcu_head head;
+	static struct rcuHead head;
 
 	call_rcu(&head, test_callback);
 }
 
 static void early_boot_test_call_rcu_bh(void)
 {
-	static struct rcu_head head;
+	static struct rcuHead head;
 
 	call_rcu_bh(&head, test_callback);
 }
 
 static void early_boot_test_call_rcu_sched(void)
 {
-	static struct rcu_head head;
+	static struct rcuHead head;
 
 	call_rcu_sched(&head, test_callback);
 }

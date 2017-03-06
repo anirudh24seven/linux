@@ -378,7 +378,7 @@ static inline bool ksm_test_exit(struct mm_struct *mm)
  * of the process that owns 'vma'.  We also do not want to enforce
  * protection keys here anyway.
  */
-static int break_ksm(struct vm_area_struct *vma, unsigned long addr)
+static int break_ksm(struct vmAreaStruct *vma, unsigned long addr)
 {
 	struct page *page;
 	int ret = 0;
@@ -427,10 +427,10 @@ static int break_ksm(struct vm_area_struct *vma, unsigned long addr)
 	return (ret & VM_FAULT_OOM) ? -ENOMEM : 0;
 }
 
-static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
+static struct vmAreaStruct *find_mergeable_vma(struct mm_struct *mm,
 		unsigned long addr)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	if (ksm_test_exit(mm))
 		return NULL;
 	vma = find_vma(mm, addr);
@@ -445,7 +445,7 @@ static void break_cow(struct rmap_item *rmap_item)
 {
 	struct mm_struct *mm = rmap_item->mm;
 	unsigned long addr = rmap_item->address;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	/*
 	 * It is not an accident that whenever we want to break COW
@@ -464,7 +464,7 @@ static struct page *get_mergeable_page(struct rmap_item *rmap_item)
 {
 	struct mm_struct *mm = rmap_item->mm;
 	unsigned long addr = rmap_item->address;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct page *page;
 
 	down_read(&mm->mmap_sem);
@@ -684,7 +684,7 @@ static void remove_trailing_rmap_items(struct mm_slot *mm_slot,
  * to the next pass of ksmd - consider, for example, how ksmd might be
  * in cmp_and_merge_page on one of the rmap_items we would be removing.
  */
-static int unmerge_ksm_pages(struct vm_area_struct *vma,
+static int unmerge_ksm_pages(struct vmAreaStruct *vma,
 			     unsigned long start, unsigned long end)
 {
 	unsigned long addr;
@@ -772,7 +772,7 @@ static int unmerge_and_remove_all_rmap_items(void)
 {
 	struct mm_slot *mm_slot;
 	struct mm_struct *mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int err = 0;
 
 	spin_lock(&ksm_mmlist_lock);
@@ -854,7 +854,7 @@ static inline int pages_identical(struct page *page1, struct page *page2)
 	return !memcmp_pages(page1, page2);
 }
 
-static int write_protect_page(struct vm_area_struct *vma, struct page *page,
+static int write_protect_page(struct vmAreaStruct *vma, struct page *page,
 			      pte_t *orig_pte)
 {
 	struct mm_struct *mm = vma->vm_mm;
@@ -935,7 +935,7 @@ out:
  *
  * Returns 0 on success, -EFAULT on failure.
  */
-static int replace_page(struct vm_area_struct *vma, struct page *page,
+static int replace_page(struct vmAreaStruct *vma, struct page *page,
 			struct page *kpage, pte_t orig_pte)
 {
 	struct mm_struct *mm = vma->vm_mm;
@@ -1005,7 +1005,7 @@ out:
  *
  * This function returns 0 if the pages were merged, -EFAULT otherwise.
  */
-static int try_to_merge_one_page(struct vm_area_struct *vma,
+static int try_to_merge_one_page(struct vmAreaStruct *vma,
 				 struct page *page, struct page *kpage)
 {
 	pte_t orig_pte = __pte(0);
@@ -1085,7 +1085,7 @@ static int try_to_merge_with_ksm_page(struct rmap_item *rmap_item,
 				      struct page *page, struct page *kpage)
 {
 	struct mm_struct *mm = rmap_item->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int err = -EFAULT;
 
 	down_read(&mm->mmap_sem);
@@ -1498,7 +1498,7 @@ static void cmp_and_merge_page(struct page *page, struct rmap_item *rmap_item)
 	 * appropriate zero page if the user enabled this via sysfs.
 	 */
 	if (ksm_use_zero_pages && (checksum == zero_checksum)) {
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 
 		vma = find_mergeable_vma(rmap_item->mm, rmap_item->address);
 		err = try_to_merge_one_page(vma, page,
@@ -1575,7 +1575,7 @@ static struct rmap_item *scan_get_next_rmap_item(struct page **page)
 {
 	struct mm_struct *mm;
 	struct mm_slot *slot;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct rmap_item *rmap_item;
 	int nid;
 
@@ -1778,7 +1778,7 @@ static int ksm_scan_thread(void *nothing)
 	return 0;
 }
 
-int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+int ksm_madvise(struct vmAreaStruct *vma, unsigned long start,
 		unsigned long end, int advice, unsigned long *vm_flags)
 {
 	struct mm_struct *mm = vma->vm_mm;
@@ -1903,7 +1903,7 @@ void __ksm_exit(struct mm_struct *mm)
 }
 
 struct page *ksm_might_need_to_copy(struct page *page,
-			struct vm_area_struct *vma, unsigned long address)
+			struct vmAreaStruct *vma, unsigned long address)
 {
 	struct anon_vma *anon_vma = page_anon_vma(page);
 	struct page *new_page;
@@ -1955,7 +1955,7 @@ again:
 	hlist_for_each_entry(rmap_item, &stable_node->hlist, hlist) {
 		struct anon_vma *anon_vma = rmap_item->anon_vma;
 		struct anon_vma_chain *vmac;
-		struct vm_area_struct *vma;
+		struct vmAreaStruct *vma;
 
 		cond_resched();
 		anon_vma_lock_read(anon_vma);

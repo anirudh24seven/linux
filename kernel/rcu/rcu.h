@@ -68,7 +68,7 @@
 
 extern struct debug_obj_descr rcuhead_debug_descr;
 
-static inline int debug_rcu_head_queue(struct rcu_head *head)
+static inline int debug_rcu_head_queue(struct rcuHead *head)
 {
 	int r1;
 
@@ -79,7 +79,7 @@ static inline int debug_rcu_head_queue(struct rcu_head *head)
 	return r1;
 }
 
-static inline void debug_rcu_head_unqueue(struct rcu_head *head)
+static inline void debug_rcu_head_unqueue(struct rcuHead *head)
 {
 	debug_object_active_state(head, &rcuhead_debug_descr,
 				  STATE_RCU_HEAD_QUEUED,

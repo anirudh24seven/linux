@@ -276,7 +276,7 @@ void pSeries_log_error(char *buf, unsigned int err_type, int fatal)
 #ifdef CONFIG_PPC_PSERIES
 static s32 prrn_update_scope;
 
-static void prrn_work_fn(struct work_struct *work)
+static void prrn_work_fn(struct workStruct *work)
 {
 	/*
 	 * For PRRN, we must pass the negative of the scope value in

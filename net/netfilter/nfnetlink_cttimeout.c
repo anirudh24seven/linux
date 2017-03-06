@@ -551,7 +551,7 @@ err:
 static void ctnl_timeout_put(struct ctnl_timeout *timeout)
 {
 	if (atomic_dec_and_test(&timeout->refcnt))
-		kfree_rcu(timeout, rcu_head);
+		kfree_rcu(timeout, rcuHead);
 
 	module_put(THIS_MODULE);
 }

@@ -1271,7 +1271,7 @@ static struct dentry *f2fs_fh_to_parent(struct super_block *sb, struct fid *fid,
 				    f2fs_nfs_get_inode);
 }
 
-static const struct export_operations f2fs_export_ops = {
+static const struct exportOperations f2fs_export_ops = {
 	.fh_to_dentry = f2fs_fh_to_dentry,
 	.fh_to_parent = f2fs_fh_to_parent,
 	.get_parent = f2fs_get_parent,

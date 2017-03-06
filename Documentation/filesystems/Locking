@@ -409,7 +409,7 @@ prototypes:
 	int (*media_changed) (struct gendisk *);
 	void (*unlock_native_capacity) (struct gendisk *);
 	int (*revalidate_disk) (struct gendisk *);
-	int (*getgeo)(struct block_device *, struct hd_geometry *);
+	int (*getgeo)(struct block_device *, struct hdGeometry *);
 	void (*swap_slot_free_notify) (struct block_device *, unsigned long);
 
 locking rules:
@@ -440,10 +440,10 @@ prototypes:
 	ssize_t (*read_iter) (struct kiocb *, struct iov_iter *);
 	ssize_t (*write_iter) (struct kiocb *, struct iov_iter *);
 	int (*iterate) (struct file *, struct dir_context *);
-	unsigned int (*poll) (struct file *, struct poll_table_struct *);
+	unsigned int (*poll) (struct file *, struct pollTableStruct *);
 	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
 	long (*compat_ioctl) (struct file *, unsigned int, unsigned long);
-	int (*mmap) (struct file *, struct vm_area_struct *);
+	int (*mmap) (struct file *, struct vmAreaStruct *);
 	int (*open) (struct inode *, struct file *);
 	int (*flush) (struct file *);
 	int (*release) (struct inode *, struct file *);
@@ -462,9 +462,9 @@ prototypes:
 			unsigned long, unsigned long, unsigned long);
 	int (*check_flags)(int);
 	int (*flock) (struct file *, int, struct file_lock *);
-	ssize_t (*splice_write)(struct pipe_inode_info *, struct file *, loff_t *,
+	ssize_t (*splice_write)(struct pipeInodeInfo *, struct file *, loff_t *,
 			size_t, unsigned int);
-	ssize_t (*splice_read)(struct file *, loff_t *, struct pipe_inode_info *,
+	ssize_t (*splice_read)(struct file *, loff_t *, struct pipeInodeInfo *,
 			size_t, unsigned int);
 	int (*setlease)(struct file *, long, struct file_lock **, void **);
 	long (*fallocate)(struct file *, int, loff_t, loff_t);
@@ -526,12 +526,12 @@ More details about quota locking can be found in fs/dquot.c.
 
 --------------------------- vm_operations_struct -----------------------------
 prototypes:
-	void (*open)(struct vm_area_struct*);
-	void (*close)(struct vm_area_struct*);
-	int (*fault)(struct vm_area_struct*, struct vm_fault *);
-	int (*page_mkwrite)(struct vm_area_struct *, struct vm_fault *);
-	int (*pfn_mkwrite)(struct vm_area_struct *, struct vm_fault *);
-	int (*access)(struct vm_area_struct *, unsigned long, void*, int, int);
+	void (*open)(struct vmAreaStruct*);
+	void (*close)(struct vmAreaStruct*);
+	int (*fault)(struct vmAreaStruct*, struct vm_fault *);
+	int (*page_mkwrite)(struct vmAreaStruct *, struct vm_fault *);
+	int (*pfn_mkwrite)(struct vmAreaStruct *, struct vm_fault *);
+	int (*access)(struct vmAreaStruct *, unsigned long, void*, int, int);
 
 locking rules:
 		mmap_sem	PageLocked(page)

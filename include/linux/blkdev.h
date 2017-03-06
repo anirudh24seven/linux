@@ -434,7 +434,7 @@ struct request_queue {
 	 */
 	struct delayed_work	delay_work;
 
-	struct backing_dev_info	*backing_dev_info;
+	struct backingDevInfo	*backingDevInfo;
 	struct disk_devt	*disk_devt;
 
 	/*
@@ -518,7 +518,7 @@ struct request_queue {
 	unsigned int		rq_timeout;
 	int			poll_nsec;
 	struct timer_list	timeout;
-	struct work_struct	timeout_work;
+	struct workStruct	timeout_work;
 	struct list_head	timeout_list;
 
 	struct list_head	icq_list;
@@ -563,7 +563,7 @@ struct request_queue {
 	/* Throttle data */
 	struct throtl_data *td;
 #endif
-	struct rcu_head		rcu_head;
+	struct rcuHead		rcuHead;
 	wait_queue_head_t	mq_freeze_wq;
 	struct percpu_ref	q_usage_counter;
 	struct list_head	all_q_node;
@@ -1700,8 +1700,8 @@ static inline bool req_gap_front_merge(struct request *req, struct bio *bio)
 	return bio_will_gap(req->q, bio, req->bio);
 }
 
-int kblockd_schedule_work(struct work_struct *work);
-int kblockd_schedule_work_on(int cpu, struct work_struct *work);
+int kblockd_schedule_work(struct workStruct *work);
+int kblockd_schedule_work_on(int cpu, struct workStruct *work);
 int kblockd_schedule_delayed_work(struct delayed_work *dwork, unsigned long delay);
 int kblockd_schedule_delayed_work_on(int cpu, struct delayed_work *dwork, unsigned long delay);
 
@@ -1945,7 +1945,7 @@ struct block_device_operations {
 	int (*media_changed) (struct gendisk *);
 	void (*unlock_native_capacity) (struct gendisk *);
 	int (*revalidate_disk) (struct gendisk *);
-	int (*getgeo)(struct block_device *, struct hd_geometry *);
+	int (*getgeo)(struct block_device *, struct hdGeometry *);
 	/* this callback is with swap_lock and sometimes page table lock held */
 	void (*swap_slot_free_notify) (struct block_device *, unsigned long);
 	struct module *owner;

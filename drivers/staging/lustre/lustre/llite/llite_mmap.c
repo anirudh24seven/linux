@@ -48,7 +48,7 @@
 static const struct vm_operations_struct ll_file_vm_ops;
 
 void policy_from_vma(union ldlm_policy_data *policy,
-		     struct vm_area_struct *vma, unsigned long addr,
+		     struct vmAreaStruct *vma, unsigned long addr,
 		     size_t count)
 {
 	policy->l_extent.start = ((addr - vma->vm_start) & PAGE_MASK) +
@@ -57,10 +57,10 @@ void policy_from_vma(union ldlm_policy_data *policy,
 			       ~PAGE_MASK;
 }
 
-struct vm_area_struct *our_vma(struct mm_struct *mm, unsigned long addr,
+struct vmAreaStruct *our_vma(struct mm_struct *mm, unsigned long addr,
 			       size_t count)
 {
-	struct vm_area_struct *vma, *ret = NULL;
+	struct vmAreaStruct *vma, *ret = NULL;
 
 	/* mmap_sem must have been held by caller. */
 	LASSERT(!down_write_trylock(&mm->mmap_sem));
@@ -86,7 +86,7 @@ struct vm_area_struct *our_vma(struct mm_struct *mm, unsigned long addr,
  * \return error codes from cl_io_init.
  */
 static struct cl_io *
-ll_fault_io_init(struct lu_env *env, struct vm_area_struct *vma,
+ll_fault_io_init(struct lu_env *env, struct vmAreaStruct *vma,
 		 pgoff_t index, unsigned long *ra_flags)
 {
 	struct file	       *file = vma->vm_file;
@@ -143,7 +143,7 @@ restart:
 }
 
 /* Sharing code of page_mkwrite method for rhel5 and rhel6 */
-static int ll_page_mkwrite0(struct vm_area_struct *vma, struct page *vmpage,
+static int ll_page_mkwrite0(struct vmAreaStruct *vma, struct page *vmpage,
 			    bool *retry)
 {
 	struct lu_env	   *env;
@@ -259,7 +259,7 @@ static inline int to_fault_error(int result)
  * \retval VM_FAULT_ERROR on general error
  * \retval NOPAGE_OOM not have memory for allocate new page
  */
-static int ll_fault0(struct vm_area_struct *vma, struct vm_fault *vmf)
+static int ll_fault0(struct vmAreaStruct *vma, struct vm_fault *vmf)
 {
 	struct lu_env	   *env;
 	struct cl_io	    *io;
@@ -364,7 +364,7 @@ restart:
 
 static int ll_page_mkwrite(struct vm_fault *vmf)
 {
-	struct vm_area_struct *vma = vmf->vma;
+	struct vmAreaStruct *vma = vmf->vma;
 	int count = 0;
 	bool printed = false;
 	bool retry;
@@ -410,7 +410,7 @@ static int ll_page_mkwrite(struct vm_fault *vmf)
  *  To avoid cancel the locks covering mmapped region for lock cache pressure,
  *  we track the mapped vma count in vvp_object::vob_mmap_cnt.
  */
-static void ll_vm_open(struct vm_area_struct *vma)
+static void ll_vm_open(struct vmAreaStruct *vma)
 {
 	struct inode *inode    = file_inode(vma->vm_file);
 	struct vvp_object *vob = cl_inode2vvp(inode);
@@ -422,7 +422,7 @@ static void ll_vm_open(struct vm_area_struct *vma)
 /**
  * Dual to ll_vm_open().
  */
-static void ll_vm_close(struct vm_area_struct *vma)
+static void ll_vm_close(struct vmAreaStruct *vma)
 {
 	struct inode      *inode = file_inode(vma->vm_file);
 	struct vvp_object *vob   = cl_inode2vvp(inode);
@@ -455,7 +455,7 @@ static const struct vm_operations_struct ll_file_vm_ops = {
 	.close			= ll_vm_close,
 };
 
-int ll_file_mmap(struct file *file, struct vm_area_struct *vma)
+int ll_file_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	struct inode *inode = file_inode(file);
 	int rc;

@@ -144,7 +144,7 @@ struct sci_port {
 	struct scatterlist		sg_rx[2];
 	void				*rx_buf[2];
 	size_t				buf_len_rx;
-	struct work_struct		work_tx;
+	struct workStruct		work_tx;
 	struct timer_list		rx_timer;
 	unsigned int			rx_timeout;
 #endif
@@ -1302,7 +1302,7 @@ fail:
 	sci_rx_dma_release(s, true);
 }
 
-static void work_fn_tx(struct work_struct *work)
+static void work_fn_tx(struct workStruct *work)
 {
 	struct sci_port *s = container_of(work, struct sci_port, work_tx);
 	struct dma_async_tx_descriptor *desc;

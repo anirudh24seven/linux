@@ -63,7 +63,7 @@ struct rtsx_usb_sdmmc {
 #ifdef RTSX_USB_USE_LEDS_CLASS
 	struct led_classdev	led;
 	char			led_name[32];
-	struct work_struct	led_work;
+	struct workStruct	led_work;
 #endif
 };
 
@@ -1303,7 +1303,7 @@ static void rtsx_usb_led_control(struct led_classdev *led,
 	schedule_work(&host->led_work);
 }
 
-static void rtsx_usb_update_led(struct work_struct *work)
+static void rtsx_usb_update_led(struct workStruct *work)
 {
 	struct rtsx_usb_sdmmc *host =
 		container_of(work, struct rtsx_usb_sdmmc, led_work);

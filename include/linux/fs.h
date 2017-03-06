@@ -35,21 +35,21 @@
 #include <asm/byteorder.h>
 #include <uapi/linux/fs.h>
 
-struct backing_dev_info;
-struct bdi_writeback;
+struct backingDevInfo;
+struct bdiWriteback;
 struct bio;
-struct export_operations;
-struct hd_geometry;
+struct exportOperations;
+struct hdGeometry;
 struct iovec;
 struct kiocb;
 struct kobject;
-struct pipe_inode_info;
-struct poll_table_struct;
+struct pipeInodeInfo;
+struct pollTableStruct;
 struct kstatfs;
-struct vm_area_struct;
+struct vmAreaStruct;
 struct vfsmount;
 struct cred;
-struct swap_info_struct;
+struct swapInfoStruct;
 struct seq_file;
 struct workqueue_struct;
 struct iov_iter;
@@ -357,7 +357,7 @@ struct address_space_operations {
 	int (*error_remove_page)(struct address_space *, struct page *);
 
 	/* swapfile support */
-	int (*swap_activate)(struct swap_info_struct *sis, struct file *file,
+	int (*swap_activate)(struct swapInfoStruct *sis, struct file *file,
 				sector_t *span);
 	void (*swap_deactivate)(struct file *file);
 };
@@ -423,7 +423,7 @@ struct block_device {
 	int			bd_invalidated;
 	struct gendisk *	bd_disk;
 	struct request_queue *  bd_queue;
-	struct backing_dev_info *bd_bdi;
+	struct backingDevInfo *bd_bdi;
 	struct list_head	bd_list;
 	/*
 	 * Private data.  You must have bd_claim'ed the block_device
@@ -608,7 +608,7 @@ struct inode {
 	struct hlist_node	i_hash;
 	struct list_head	i_io_list;	/* backing dev IO list */
 #ifdef CONFIG_CGROUP_WRITEBACK
-	struct bdi_writeback	*i_wb;		/* the associated cgroup wb */
+	struct bdiWriteback	*i_wb;		/* the associated cgroup wb */
 
 	/* foreign inode detection, see wbc_detach_inode() */
 	int			i_wb_frn_winner;
@@ -634,7 +634,7 @@ struct inode {
 	struct address_space	i_data;
 	struct list_head	i_devices;
 	union {
-		struct pipe_inode_info	*i_pipe;
+		struct pipeInodeInfo	*i_pipe;
 		struct block_device	*i_bdev;
 		struct cdev		*i_cdev;
 		char			*i_link;
@@ -1300,7 +1300,7 @@ struct super_block {
 	const struct super_operations	*s_op;
 	const struct dquot_operations	*dq_op;
 	const struct quotactl_ops	*s_qcop;
-	const struct export_operations *s_export_op;
+	const struct exportOperations *s_export_op;
 	unsigned long		s_flags;
 	unsigned long		s_iflags;	/* internal SB_I_* flags */
 	unsigned long		s_magic;
@@ -1318,7 +1318,7 @@ struct super_block {
 	struct hlist_bl_head	s_anon;		/* anonymous dentries for (nfs) exporting */
 	struct list_head	s_mounts;	/* list of mounts; _not_ for fs use */
 	struct block_device	*s_bdev;
-	struct backing_dev_info *s_bdi;
+	struct backingDevInfo *s_bdi;
 	struct mtd_info		*s_mtd;
 	struct hlist_node	s_instances;
 	unsigned int		s_quota_types;	/* Bitmask of supported quota types */
@@ -1660,10 +1660,10 @@ struct file_operations {
 	ssize_t (*write_iter) (struct kiocb *, struct iov_iter *);
 	int (*iterate) (struct file *, struct dir_context *);
 	int (*iterate_shared) (struct file *, struct dir_context *);
-	unsigned int (*poll) (struct file *, struct poll_table_struct *);
+	unsigned int (*poll) (struct file *, struct pollTableStruct *);
 	long (*unlocked_ioctl) (struct file *, unsigned int, unsigned long);
 	long (*compat_ioctl) (struct file *, unsigned int, unsigned long);
-	int (*mmap) (struct file *, struct vm_area_struct *);
+	int (*mmap) (struct file *, struct vmAreaStruct *);
 	int (*open) (struct inode *, struct file *);
 	int (*flush) (struct file *, fl_owner_t id);
 	int (*release) (struct inode *, struct file *);
@@ -1674,8 +1674,8 @@ struct file_operations {
 	unsigned long (*get_unmapped_area)(struct file *, unsigned long, unsigned long, unsigned long, unsigned long);
 	int (*check_flags)(int);
 	int (*flock) (struct file *, int, struct file_lock *);
-	ssize_t (*splice_write)(struct pipe_inode_info *, struct file *, loff_t *, size_t, unsigned int);
-	ssize_t (*splice_read)(struct file *, loff_t *, struct pipe_inode_info *, size_t, unsigned int);
+	ssize_t (*splice_write)(struct pipeInodeInfo *, struct file *, loff_t *, size_t, unsigned int);
+	ssize_t (*splice_read)(struct file *, loff_t *, struct pipeInodeInfo *, size_t, unsigned int);
 	int (*setlease)(struct file *, long, struct file_lock **, void **);
 	long (*fallocate)(struct file *file, int mode, loff_t offset,
 			  loff_t len);
@@ -1733,7 +1733,7 @@ static inline ssize_t call_write_iter(struct file *file, struct kiocb *kio,
 	return file->f_op->write_iter(kio, iter);
 }
 
-static inline int call_mmap(struct file *file, struct vm_area_struct *vma)
+static inline int call_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	return file->f_op->mmap(file, vma);
 }
@@ -1923,7 +1923,7 @@ static inline bool HAS_UNMAPPED_ID(struct inode *inode)
  *
  * I_DIO_WAKEUP		Never set.  Only used as a key for wait_on_bit().
  *
- * I_WB_SWITCH		Cgroup bdi_writeback switching in progress.  Used to
+ * I_WB_SWITCH		Cgroup bdiWriteback switching in progress.  Used to
  *			synchronize competing switching instances and to tell
  *			wb stat updates to grab mapping->tree_lock.  See
  *			inode_switch_wb_work_fn() for details.
@@ -2776,8 +2776,8 @@ extern int set_blocksize(struct block_device *, int);
 extern int sb_set_blocksize(struct super_block *, int);
 extern int sb_min_blocksize(struct super_block *, int);
 
-extern int generic_file_mmap(struct file *, struct vm_area_struct *);
-extern int generic_file_readonly_mmap(struct file *, struct vm_area_struct *);
+extern int generic_file_mmap(struct file *, struct vmAreaStruct *);
+extern int generic_file_readonly_mmap(struct file *, struct vmAreaStruct *);
 extern ssize_t generic_write_checks(struct kiocb *, struct iov_iter *);
 extern ssize_t generic_file_read_iter(struct kiocb *, struct iov_iter *);
 extern ssize_t __generic_file_write_iter(struct kiocb *, struct iov_iter *);
@@ -2797,10 +2797,10 @@ extern void block_sync_page(struct page *page);
 
 /* fs/splice.c */
 extern ssize_t generic_file_splice_read(struct file *, loff_t *,
-		struct pipe_inode_info *, size_t, unsigned int);
-extern ssize_t iter_file_splice_write(struct pipe_inode_info *,
+		struct pipeInodeInfo *, size_t, unsigned int);
+extern ssize_t iter_file_splice_write(struct pipeInodeInfo *,
 		struct file *, loff_t *, size_t, unsigned int);
-extern ssize_t generic_splice_sendpage(struct pipe_inode_info *pipe,
+extern ssize_t generic_splice_sendpage(struct pipeInodeInfo *pipe,
 		struct file *out, loff_t *, size_t len, unsigned int flags);
 extern long do_splice_direct(struct file *in, loff_t *ppos, struct file *out,
 		loff_t *opos, size_t len, unsigned int flags);

@@ -3,7 +3,7 @@ Date:		January 2008
 Contact:	Peter Zijlstra <a.p.zijlstra@chello.nl>
 Description:
 
-Provide a place in sysfs for the backing_dev_info object.  This allows
+Provide a place in sysfs for the backingDevInfo object.  This allows
 setting and retrieving various BDI specific variables.
 
 The <bdi> identifier can be either of the following:

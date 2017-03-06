@@ -375,7 +375,7 @@ static inline pgprot_t pgprot_noncached(pgprot_t prot)
 #define pgprot_noncached pgprot_noncached
 
 #if defined(CONFIG_HUGETLB_PAGE) || defined(CONFIG_TRANSPARENT_HUGEPAGE)
-extern pte_t arch_make_huge_pte(pte_t entry, struct vm_area_struct *vma,
+extern pte_t arch_make_huge_pte(pte_t entry, struct vmAreaStruct *vma,
 				struct page *page, int writable);
 #define arch_make_huge_pte arch_make_huge_pte
 static inline unsigned long __pte_default_huge_mask(void)
@@ -954,14 +954,14 @@ unsigned long find_ecache_flush_span(unsigned long size);
 struct seq_file;
 void mmu_info(struct seq_file *);
 
-struct vm_area_struct;
-void update_mmu_cache(struct vm_area_struct *, unsigned long, pte_t *);
+struct vmAreaStruct;
+void update_mmu_cache(struct vmAreaStruct *, unsigned long, pte_t *);
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-void update_mmu_cache_pmd(struct vm_area_struct *vma, unsigned long addr,
+void update_mmu_cache_pmd(struct vmAreaStruct *vma, unsigned long addr,
 			  pmd_t *pmd);
 
 #define __HAVE_ARCH_PMDP_INVALIDATE
-extern void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
+extern void pmdp_invalidate(struct vmAreaStruct *vma, unsigned long address,
 			    pmd_t *pmdp);
 
 #define __HAVE_ARCH_PGTABLE_DEPOSIT
@@ -994,10 +994,10 @@ int page_in_phys_avail(unsigned long paddr);
 #define GET_IOSPACE(pfn)		(pfn >> (BITS_PER_LONG - 4))
 #define GET_PFN(pfn)			(pfn & 0x0fffffffffffffffUL)
 
-int remap_pfn_range(struct vm_area_struct *, unsigned long, unsigned long,
+int remap_pfn_range(struct vmAreaStruct *, unsigned long, unsigned long,
 		    unsigned long, pgprot_t);
 
-static inline int io_remap_pfn_range(struct vm_area_struct *vma,
+static inline int io_remap_pfn_range(struct vmAreaStruct *vma,
 				     unsigned long from, unsigned long pfn,
 				     unsigned long size, pgprot_t prot)
 {

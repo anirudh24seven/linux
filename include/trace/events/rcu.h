@@ -501,7 +501,7 @@ TRACE_EVENT(rcu_prep_idle,
  */
 TRACE_EVENT(rcu_callback,
 
-	TP_PROTO(const char *rcuname, struct rcu_head *rhp, long qlen_lazy,
+	TP_PROTO(const char *rcuname, struct rcuHead *rhp, long qlen_lazy,
 		 long qlen),
 
 	TP_ARGS(rcuname, rhp, qlen_lazy, qlen),
@@ -537,7 +537,7 @@ TRACE_EVENT(rcu_callback,
  */
 TRACE_EVENT(rcu_kfree_callback,
 
-	TP_PROTO(const char *rcuname, struct rcu_head *rhp, unsigned long offset,
+	TP_PROTO(const char *rcuname, struct rcuHead *rhp, unsigned long offset,
 		 long qlen_lazy, long qlen),
 
 	TP_ARGS(rcuname, rhp, offset, qlen_lazy, qlen),
@@ -602,7 +602,7 @@ TRACE_EVENT(rcu_batch_start,
  */
 TRACE_EVENT(rcu_invoke_callback,
 
-	TP_PROTO(const char *rcuname, struct rcu_head *rhp),
+	TP_PROTO(const char *rcuname, struct rcuHead *rhp),
 
 	TP_ARGS(rcuname, rhp),
 
@@ -631,7 +631,7 @@ TRACE_EVENT(rcu_invoke_callback,
  */
 TRACE_EVENT(rcu_invoke_kfree_callback,
 
-	TP_PROTO(const char *rcuname, struct rcu_head *rhp, unsigned long offset),
+	TP_PROTO(const char *rcuname, struct rcuHead *rhp, unsigned long offset),
 
 	TP_ARGS(rcuname, rhp, offset),
 
@@ -705,14 +705,14 @@ TRACE_EVENT(rcu_batch_end,
  */
 TRACE_EVENT(rcu_torture_read,
 
-	TP_PROTO(const char *rcutorturename, struct rcu_head *rhp,
+	TP_PROTO(const char *rcutorturename, struct rcuHead *rhp,
 		 unsigned long secs, unsigned long c_old, unsigned long c),
 
 	TP_ARGS(rcutorturename, rhp, secs, c_old, c),
 
 	TP_STRUCT__entry(
 		__field(const char *, rcutorturename)
-		__field(struct rcu_head *, rhp)
+		__field(struct rcuHead *, rhp)
 		__field(unsigned long, secs)
 		__field(unsigned long, c_old)
 		__field(unsigned long, c)

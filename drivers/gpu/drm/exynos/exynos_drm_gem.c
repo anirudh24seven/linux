@@ -515,7 +515,7 @@ int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
 	struct drm_gem_object *obj;
 	int ret;
 
-	/* set vm_area_struct. */
+	/* set vmAreaStruct. */
 	ret = drm_gem_mmap(filp, vma);
 	if (ret < 0) {
 		DRM_ERROR("failed to mmap.\n");

@@ -355,7 +355,7 @@ int exofs_sbi_write_stats(struct exofs_sb_info *sbi)
  * SUPERBLOCK FUNCTIONS
  *****************************************************************************/
 static const struct super_operations exofs_sops;
-static const struct export_operations exofs_export_ops;
+static const struct exportOperations exofs_export_ops;
 
 /*
  * Write the superblock to the OSD
@@ -991,7 +991,7 @@ static struct dentry *exofs_fh_to_parent(struct super_block *sb,
 				    exofs_nfs_get_inode);
 }
 
-static const struct export_operations exofs_export_ops = {
+static const struct exportOperations exofs_export_ops = {
 	.fh_to_dentry = exofs_fh_to_dentry,
 	.fh_to_parent = exofs_fh_to_parent,
 	.get_parent = exofs_get_parent,

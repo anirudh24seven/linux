@@ -137,7 +137,7 @@ static void _brcmf_set_multicast_list(struct work_struct *work)
 }
 
 #if IS_ENABLED(CONFIG_IPV6)
-static void _brcmf_update_ndtable(struct work_struct *work)
+static void _brcmf_update_ndtable(struct workStruct *work)
 {
 	struct brcmf_if *ifp;
 	int i, ret;

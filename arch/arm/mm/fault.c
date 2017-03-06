@@ -208,7 +208,7 @@ void do_bad_area(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
  * If we encountered a write fault, we must have write permission, otherwise
  * we allow any permission.
  */
-static inline bool access_error(unsigned int fsr, struct vm_area_struct *vma)
+static inline bool access_error(unsigned int fsr, struct vmAreaStruct *vma)
 {
 	unsigned int mask = VM_READ | VM_WRITE | VM_EXEC;
 
@@ -224,7 +224,7 @@ static int __kprobes
 __do_page_fault(struct mm_struct *mm, unsigned long addr, unsigned int fsr,
 		unsigned int flags, struct task_struct *tsk)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int fault;
 
 	vma = find_vma(mm, addr);

@@ -17,7 +17,7 @@ struct device;
 struct dentry;
 
 /*
- * Bits in bdi_writeback.state
+ * Bits in bdiWriteback.state
  */
 enum wb_state {
 	WB_registered,		/* bdi_register() was done */
@@ -54,16 +54,16 @@ struct bdi_writeback_congested {
 	atomic_t refcnt;		/* nr of attached wb's and blkg */
 
 #ifdef CONFIG_CGROUP_WRITEBACK
-	struct backing_dev_info *bdi;	/* the associated bdi */
+	struct backingDevInfo *bdi;	/* the associated bdi */
 	int blkcg_id;			/* ID of the associated blkcg */
 	struct rb_node rb_node;		/* on bdi->cgwb_congestion_tree */
 #endif
 };
 
 /*
- * Each wb (bdi_writeback) can perform writeback operations, is measured
+ * Each wb (bdiWriteback) can perform writeback operations, is measured
  * and throttled, independently.  Without cgroup writeback, each bdi
- * (bdi_writeback) is served by its embedded bdi->wb.
+ * (bdiWriteback) is served by its embedded bdi->wb.
  *
  * On the default hierarchy, blkcg implicitly enables memcg.  This allows
  * using memcg's page ownership for attributing writeback IOs, and every
@@ -79,8 +79,8 @@ struct bdi_writeback_congested {
  * is tested for blkcg after lookup and removed from index on mismatch so
  * that a new wb for the combination can be created.
  */
-struct bdi_writeback {
-	struct backing_dev_info *bdi;	/* our parent bdi */
+struct bdiWriteback {
+	struct backingDevInfo *bdi;	/* our parent bdi */
 
 	unsigned long state;		/* Always use atomic bitops on this */
 	unsigned long last_old_flush;	/* last old data flush */
@@ -130,13 +130,13 @@ struct bdi_writeback {
 	struct list_head blkcg_node;	/* anchored at blkcg->cgwb_list */
 
 	union {
-		struct work_struct release_work;
-		struct rcu_head rcu;
+		struct workStruct release_work;
+		struct rcuHead rcu;
 	};
 #endif
 };
 
-struct backing_dev_info {
+struct backingDevInfo {
 	struct list_head bdi_list;
 	unsigned long ra_pages;	/* max readahead in PAGE_SIZE units */
 	unsigned long io_pages;	/* max allowed IO size */
@@ -156,7 +156,7 @@ struct backing_dev_info {
 	 */
 	atomic_long_t tot_write_bandwidth;
 
-	struct bdi_writeback wb;  /* the root writeback info for this bdi */
+	struct bdiWriteback wb;  /* the root writeback info for this bdi */
 	struct list_head wb_list; /* list of all wbs */
 #ifdef CONFIG_CGROUP_WRITEBACK
 	struct radix_tree_root cgwb_tree; /* radix tree of active cgroup wbs */
@@ -186,12 +186,12 @@ enum {
 void clear_wb_congested(struct bdi_writeback_congested *congested, int sync);
 void set_wb_congested(struct bdi_writeback_congested *congested, int sync);
 
-static inline void clear_bdi_congested(struct backing_dev_info *bdi, int sync)
+static inline void clear_bdi_congested(struct backingDevInfo *bdi, int sync)
 {
 	clear_wb_congested(bdi->wb.congested, sync);
 }
 
-static inline void set_bdi_congested(struct backing_dev_info *bdi, int sync)
+static inline void set_bdi_congested(struct backingDevInfo *bdi, int sync)
 {
 	set_wb_congested(bdi->wb.congested, sync);
 }
@@ -200,9 +200,9 @@ static inline void set_bdi_congested(struct backing_dev_info *bdi, int sync)
 
 /**
  * wb_tryget - try to increment a wb's refcount
- * @wb: bdi_writeback to get
+ * @wb: bdiWriteback to get
  */
-static inline bool wb_tryget(struct bdi_writeback *wb)
+static inline bool wb_tryget(struct bdiWriteback *wb)
 {
 	if (wb != &wb->bdi->wb)
 		return percpu_ref_tryget(&wb->refcnt);
@@ -211,9 +211,9 @@ static inline bool wb_tryget(struct bdi_writeback *wb)
 
 /**
  * wb_get - increment a wb's refcount
- * @wb: bdi_writeback to get
+ * @wb: bdiWriteback to get
  */
-static inline void wb_get(struct bdi_writeback *wb)
+static inline void wb_get(struct bdiWriteback *wb)
 {
 	if (wb != &wb->bdi->wb)
 		percpu_ref_get(&wb->refcnt);
@@ -221,9 +221,9 @@ static inline void wb_get(struct bdi_writeback *wb)
 
 /**
  * wb_put - decrement a wb's refcount
- * @wb: bdi_writeback to put
+ * @wb: bdiWriteback to put
  */
-static inline void wb_put(struct bdi_writeback *wb)
+static inline void wb_put(struct bdiWriteback *wb)
 {
 	if (wb != &wb->bdi->wb)
 		percpu_ref_put(&wb->refcnt);
@@ -231,31 +231,31 @@ static inline void wb_put(struct bdi_writeback *wb)
 
 /**
  * wb_dying - is a wb dying?
- * @wb: bdi_writeback of interest
+ * @wb: bdiWriteback of interest
  *
  * Returns whether @wb is unlinked and being drained.
  */
-static inline bool wb_dying(struct bdi_writeback *wb)
+static inline bool wb_dying(struct bdiWriteback *wb)
 {
 	return percpu_ref_is_dying(&wb->refcnt);
 }
 
 #else	/* CONFIG_CGROUP_WRITEBACK */
 
-static inline bool wb_tryget(struct bdi_writeback *wb)
+static inline bool wb_tryget(struct bdiWriteback *wb)
 {
 	return true;
 }
 
-static inline void wb_get(struct bdi_writeback *wb)
+static inline void wb_get(struct bdiWriteback *wb)
 {
 }
 
-static inline void wb_put(struct bdi_writeback *wb)
+static inline void wb_put(struct bdiWriteback *wb)
 {
 }
 
-static inline bool wb_dying(struct bdi_writeback *wb)
+static inline bool wb_dying(struct bdiWriteback *wb)
 {
 	return false;
 }

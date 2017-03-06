@@ -140,7 +140,7 @@ extern const char *const qib_qsfp_devtech[16];
  * Since multiple board-types use QSFP, and their pport_data structs
  * differ (in the chip-specific section), we need a pointer to its head.
  *
- * Avoiding premature optimization, we will have one work_struct per port,
+ * Avoiding premature optimization, we will have one workStruct per port,
  * and let the (increasingly inaccurately named) eep_lock arbitrate
  * access to common resources.
  *

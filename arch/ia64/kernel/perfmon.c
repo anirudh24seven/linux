@@ -2216,7 +2216,7 @@ pfm_alloc_file(pfm_context_t *ctx)
 }
 
 static int
-pfm_remap_buffer(struct vm_area_struct *vma, unsigned long buf, unsigned long addr, unsigned long size)
+pfm_remap_buffer(struct vmAreaStruct *vma, unsigned long buf, unsigned long addr, unsigned long size)
 {
 	DPRINT(("CPU%d buf=0x%lx addr=0x%lx size=%ld\n", smp_processor_id(), buf, addr, size));
 
@@ -2241,7 +2241,7 @@ static int
 pfm_smpl_buffer_alloc(struct task_struct *task, struct file *filp, pfm_context_t *ctx, unsigned long rsize, void **user_vaddr)
 {
 	struct mm_struct *mm = task->mm;
-	struct vm_area_struct *vma = NULL;
+	struct vmAreaStruct *vma = NULL;
 	unsigned long size;
 	void *smpl_buf;
 

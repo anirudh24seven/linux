@@ -83,7 +83,7 @@ extern struct kobj_attribute shmem_enabled_attr;
 #define HPAGE_PUD_SIZE	((1UL) << HPAGE_PUD_SHIFT)
 #define HPAGE_PUD_MASK	(~(HPAGE_PUD_SIZE - 1))
 
-extern bool is_vma_temporary_stack(struct vm_area_struct *vma);
+extern bool is_vma_temporary_stack(struct vmAreaStruct *vma);
 
 #define transparent_hugepage_enabled(__vma)				\
 	((transparent_hugepage_flags &					\
@@ -120,7 +120,7 @@ static inline int split_huge_page(struct page *page)
 }
 void deferred_split_huge_page(struct page *page);
 
-void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+void __split_huge_pmd(struct vmAreaStruct *vma, pmd_t *pmd,
 		unsigned long address, bool freeze, struct page *page);
 
 #define split_huge_pmd(__vma, __pmd, __address)				\
@@ -133,10 +133,10 @@ void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
 	}  while (0)
 
 
-void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
+void split_huge_pmd_address(struct vmAreaStruct *vma, unsigned long address,
 		bool freeze, struct page *page);
 
-void __split_huge_pud(struct vm_area_struct *vma, pud_t *pud,
+void __split_huge_pud(struct vmAreaStruct *vma, pud_t *pud,
 		unsigned long address);
 
 #define split_huge_pud(__vma, __pud, __address)				\
@@ -147,19 +147,19 @@ void __split_huge_pud(struct vm_area_struct *vma, pud_t *pud,
 			__split_huge_pud(__vma, __pud, __address);	\
 	}  while (0)
 
-extern int hugepage_madvise(struct vm_area_struct *vma,
+extern int hugepage_madvise(struct vmAreaStruct *vma,
 			    unsigned long *vm_flags, int advice);
-extern void vma_adjust_trans_huge(struct vm_area_struct *vma,
+extern void vma_adjust_trans_huge(struct vmAreaStruct *vma,
 				    unsigned long start,
 				    unsigned long end,
 				    long adjust_next);
 extern spinlock_t *__pmd_trans_huge_lock(pmd_t *pmd,
-		struct vm_area_struct *vma);
+		struct vmAreaStruct *vma);
 extern spinlock_t *__pud_trans_huge_lock(pud_t *pud,
-		struct vm_area_struct *vma);
+		struct vmAreaStruct *vma);
 /* mmap_sem must be held on entry */
 static inline spinlock_t *pmd_trans_huge_lock(pmd_t *pmd,
-		struct vm_area_struct *vma)
+		struct vmAreaStruct *vma)
 {
 	VM_BUG_ON_VMA(!rwsem_is_locked(&vma->vm_mm->mmap_sem), vma);
 	if (pmd_trans_huge(*pmd) || pmd_devmap(*pmd))
@@ -168,7 +168,7 @@ static inline spinlock_t *pmd_trans_huge_lock(pmd_t *pmd,
 		return NULL;
 }
 static inline spinlock_t *pud_trans_huge_lock(pud_t *pud,
-		struct vm_area_struct *vma)
+		struct vmAreaStruct *vma)
 {
 	VM_BUG_ON_VMA(!rwsem_is_locked(&vma->vm_mm->mmap_sem), vma);
 	if (pud_trans_huge(*pud) || pud_devmap(*pud))
@@ -183,9 +183,9 @@ static inline int hpage_nr_pages(struct page *page)
 	return 1;
 }
 
-struct page *follow_devmap_pmd(struct vm_area_struct *vma, unsigned long addr,
+struct page *follow_devmap_pmd(struct vmAreaStruct *vma, unsigned long addr,
 		pmd_t *pmd, int flags);
-struct page *follow_devmap_pud(struct vm_area_struct *vma, unsigned long addr,
+struct page *follow_devmap_pud(struct vmAreaStruct *vma, unsigned long addr,
 		pud_t *pud, int flags);
 
 extern int do_huge_pmd_numa_page(struct vm_fault *vmf, pmd_t orig_pmd);

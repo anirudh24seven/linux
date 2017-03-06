@@ -22,7 +22,7 @@
 #include "rtl8187.h"
 #include "leds.h"
 
-static void led_turn_on(struct work_struct *work)
+static void led_turn_on(struct workStruct *work)
 {
 	/* As this routine does read/write operations on the hardware, it must
 	 * be run from a work queue.
@@ -60,7 +60,7 @@ static void led_turn_on(struct work_struct *work)
 	mutex_unlock(&priv->conf_mutex);
 }
 
-static void led_turn_off(struct work_struct *work)
+static void led_turn_off(struct workStruct *work)
 {
 	/* As this routine does read/write operations on the hardware, it must
 	 * be run from a work queue.

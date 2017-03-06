@@ -4,7 +4,7 @@
 #ifdef CONFIG_PLAT_VERSATILE_CLCD
 struct clcd_panel *versatile_clcd_get_panel(const char *);
 int versatile_clcd_setup_dma(struct clcd_fb *, unsigned long);
-int versatile_clcd_mmap_dma(struct clcd_fb *, struct vm_area_struct *);
+int versatile_clcd_mmap_dma(struct clcd_fb *, struct vmAreaStruct *);
 void versatile_clcd_remove_dma(struct clcd_fb *);
 #else
 static inline struct clcd_panel *versatile_clcd_get_panel(const char *s)

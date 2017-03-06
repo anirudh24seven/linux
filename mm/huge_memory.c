@@ -760,14 +760,14 @@ int vmf_insert_pfn_pmd(struct vm_area_struct *vma, unsigned long addr,
 EXPORT_SYMBOL_GPL(vmf_insert_pfn_pmd);
 
 #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
-static pud_t maybe_pud_mkwrite(pud_t pud, struct vm_area_struct *vma)
+static pud_t maybe_pud_mkwrite(pud_t pud, struct vmAreaStruct *vma)
 {
 	if (likely(vma->vm_flags & VM_WRITE))
 		pud = pud_mkwrite(pud);
 	return pud;
 }
 
-static void insert_pfn_pud(struct vm_area_struct *vma, unsigned long addr,
+static void insert_pfn_pud(struct vmAreaStruct *vma, unsigned long addr,
 		pud_t *pud, pfn_t pfn, pgprot_t prot, bool write)
 {
 	struct mm_struct *mm = vma->vm_mm;
@@ -787,7 +787,7 @@ static void insert_pfn_pud(struct vm_area_struct *vma, unsigned long addr,
 	spin_unlock(ptl);
 }
 
-int vmf_insert_pfn_pud(struct vm_area_struct *vma, unsigned long addr,
+int vmf_insert_pfn_pud(struct vmAreaStruct *vma, unsigned long addr,
 			pud_t *pud, pfn_t pfn, bool write)
 {
 	pgprot_t pgprot = vma->vm_page_prot;
@@ -944,7 +944,7 @@ out:
 }
 
 #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
-static void touch_pud(struct vm_area_struct *vma, unsigned long addr,
+static void touch_pud(struct vmAreaStruct *vma, unsigned long addr,
 		pud_t *pud)
 {
 	pud_t _pud;
@@ -962,7 +962,7 @@ static void touch_pud(struct vm_area_struct *vma, unsigned long addr,
 		update_mmu_cache_pud(vma, addr, pud);
 }
 
-struct page *follow_devmap_pud(struct vm_area_struct *vma, unsigned long addr,
+struct page *follow_devmap_pud(struct vmAreaStruct *vma, unsigned long addr,
 		pud_t *pud, int flags)
 {
 	unsigned long pfn = pud_pfn(*pud);
@@ -1003,7 +1003,7 @@ struct page *follow_devmap_pud(struct vm_area_struct *vma, unsigned long addr,
 
 int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
 		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
-		  struct vm_area_struct *vma)
+		  struct vmAreaStruct *vma)
 {
 	spinlock_t *dst_ptl, *src_ptl;
 	pud_t pud;
@@ -1792,7 +1792,7 @@ spinlock_t *__pud_trans_huge_lock(pud_t *pud, struct vm_area_struct *vma)
 }
 
 #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
-int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+int zap_huge_pud(struct mmu_gather *tlb, struct vmAreaStruct *vma,
 		 pud_t *pud, unsigned long addr)
 {
 	pud_t orig_pud;
@@ -1820,7 +1820,7 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
 	return 1;
 }
 
-static void __split_huge_pud_locked(struct vm_area_struct *vma, pud_t *pud,
+static void __split_huge_pud_locked(struct vmAreaStruct *vma, pud_t *pud,
 		unsigned long haddr)
 {
 	VM_BUG_ON(haddr & ~HPAGE_PUD_MASK);
@@ -1833,7 +1833,7 @@ static void __split_huge_pud_locked(struct vm_area_struct *vma, pud_t *pud,
 	pudp_huge_clear_flush_notify(vma, haddr, pud);
 }
 
-void __split_huge_pud(struct vm_area_struct *vma, pud_t *pud,
+void __split_huge_pud(struct vmAreaStruct *vma, pud_t *pud,
 		unsigned long address)
 {
 	spinlock_t *ptl;

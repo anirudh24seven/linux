@@ -156,7 +156,7 @@ __le64 *squashfs_read_inode_lookup_table(struct super_block *sb,
 }
 
 
-const struct export_operations squashfs_export_ops = {
+const struct exportOperations squashfs_export_ops = {
 	.fh_to_dentry = squashfs_fh_to_dentry,
 	.fh_to_parent = squashfs_fh_to_parent,
 	.get_parent = squashfs_get_parent

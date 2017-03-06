@@ -105,7 +105,7 @@ void clear_user_highpage(struct page *page, unsigned long vaddr)
 }
 
 void copy_user_highpage(struct page *dst, struct page *src,
-			unsigned long vaddr, struct vm_area_struct *vma)
+			unsigned long vaddr, struct vmAreaStruct *vma)
 {
 	unsigned long dst_paddr, src_paddr;
 	void *dst_vaddr = coherent_kvaddr(dst, TLBTEMP_BASE_1, vaddr,
@@ -182,7 +182,7 @@ void flush_dcache_page(struct page *page)
  * For now, flush the whole cache. FIXME??
  */
 
-void local_flush_cache_range(struct vm_area_struct *vma,
+void local_flush_cache_range(struct vmAreaStruct *vma,
 		       unsigned long start, unsigned long end)
 {
 	__flush_invalidate_dcache_all();
@@ -196,7 +196,7 @@ void local_flush_cache_range(struct vm_area_struct *vma,
  * alias versions of the cache flush functions.
  */
 
-void local_flush_cache_page(struct vm_area_struct *vma, unsigned long address,
+void local_flush_cache_page(struct vmAreaStruct *vma, unsigned long address,
 		      unsigned long pfn)
 {
 	/* Note that we have to use the 'alias' address to avoid multi-hit */
@@ -258,7 +258,7 @@ update_mmu_cache(struct vm_area_struct * vma, unsigned long addr, pte_t *ptep)
 
 #if (DCACHE_WAY_SIZE > PAGE_SIZE) && XCHAL_DCACHE_IS_WRITEBACK
 
-void copy_to_user_page(struct vm_area_struct *vma, struct page *page,
+void copy_to_user_page(struct vmAreaStruct *vma, struct page *page,
 		unsigned long vaddr, void *dst, const void *src,
 		unsigned long len)
 {
@@ -294,7 +294,7 @@ void copy_to_user_page(struct vm_area_struct *vma, struct page *page,
 	}
 }
 
-extern void copy_from_user_page(struct vm_area_struct *vma, struct page *page,
+extern void copy_from_user_page(struct vmAreaStruct *vma, struct page *page,
 		unsigned long vaddr, void *dst, const void *src,
 		unsigned long len)
 {

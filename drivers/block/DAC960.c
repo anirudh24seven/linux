@@ -104,7 +104,7 @@ out:
 	return ret;
 }
 
-static int DAC960_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int DAC960_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct gendisk *disk = bdev->bd_disk;
 	DAC960_Controller_T *p = disk->queue->queuedata;

@@ -190,10 +190,10 @@ struct execute_work {
 	struct delayed_work n = __DELAYED_WORK_INITIALIZER(n, f, TIMER_DEFERRABLE)
 
 #ifdef CONFIG_DEBUG_OBJECTS_WORK
-extern void __init_work(struct work_struct *work, int onstack);
-extern void destroy_work_on_stack(struct work_struct *work);
+extern void __init_work(struct workStruct *work, int onstack);
+extern void destroy_work_on_stack(struct workStruct *work);
 extern void destroy_delayed_work_on_stack(struct delayed_work *work);
-static inline unsigned int work_static(struct work_struct *work)
+static inline unsigned int work_static(struct workStruct *work)
 {
 	return *work_data_bits(work) & WORK_STRUCT_STATIC;
 }

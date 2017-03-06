@@ -29,7 +29,7 @@
 
 /* task_struct member predeclarations (sorted alphabetically): */
 struct audit_context;
-struct backing_dev_info;
+struct backingDevInfo;
 struct bio_list;
 struct blk_plug;
 struct cfs_rq;
@@ -41,7 +41,7 @@ struct nameidata;
 struct nsproxy;
 struct perf_event_context;
 struct pid_namespace;
-struct pipe_inode_info;
+struct pipeInodeInfo;
 struct rcu_node;
 struct reclaim_state;
 struct robust_list_head;
@@ -827,7 +827,7 @@ struct task_struct {
 	/* VM state: */
 	struct reclaim_state		*reclaim_state;
 
-	struct backing_dev_info		*backing_dev_info;
+	struct backingDevInfo		*backing_dev_info;
 
 	struct io_context		*io_context;
 
@@ -931,7 +931,7 @@ struct task_struct {
 	struct rcu_head			rcu;
 
 	/* Cache last used pipe for splice(): */
-	struct pipe_inode_info		*splice_pipe;
+	struct pipeInodeInfo		*splice_pipe;
 
 	struct page_frag		task_frag;
 

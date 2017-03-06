@@ -1320,7 +1320,7 @@ out:
 	ath_chanctx_event(sc, NULL, ATH_CHANCTX_EVENT_SWITCH);
 }
 
-static void ath_chanctx_work(struct work_struct *work)
+static void ath_chanctx_work(struct workStruct *work)
 {
 	struct ath_softc *sc = container_of(work, struct ath_softc,
 					    chanctx_work);

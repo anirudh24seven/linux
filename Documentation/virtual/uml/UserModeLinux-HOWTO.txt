@@ -3334,7 +3334,7 @@
 
 
        (gdb) p vma
-       $25 = (struct vm_area_struct *) 0x507d2434
+       $25 = (struct vmAreaStruct *) 0x507d2434
 
 
 

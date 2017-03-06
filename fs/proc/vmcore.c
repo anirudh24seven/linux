@@ -334,7 +334,7 @@ static inline char *alloc_elfnotes_buf(size_t notes_sz)
  * remap_oldmem_pfn_checked - do remap_oldmem_pfn_range replacing all pages
  * reported as not being ram with the zero page.
  *
- * @vma: vm_area_struct describing requested mapping
+ * @vma: vmAreaStruct describing requested mapping
  * @from: start remapping from
  * @pfn: page frame number to start remapping to
  * @size: remapping size
@@ -342,7 +342,7 @@ static inline char *alloc_elfnotes_buf(size_t notes_sz)
  *
  * Returns zero on success, -EAGAIN on failure.
  */
-static int remap_oldmem_pfn_checked(struct vm_area_struct *vma,
+static int remap_oldmem_pfn_checked(struct vmAreaStruct *vma,
 				    unsigned long from, unsigned long pfn,
 				    unsigned long size, pgprot_t prot)
 {
@@ -392,7 +392,7 @@ fail:
 	return -EAGAIN;
 }
 
-static int vmcore_remap_oldmem_pfn(struct vm_area_struct *vma,
+static int vmcore_remap_oldmem_pfn(struct vmAreaStruct *vma,
 			    unsigned long from, unsigned long pfn,
 			    unsigned long size, pgprot_t prot)
 {
@@ -406,7 +406,7 @@ static int vmcore_remap_oldmem_pfn(struct vm_area_struct *vma,
 		return remap_oldmem_pfn_range(vma, from, pfn, size, prot);
 }
 
-static int mmap_vmcore(struct file *file, struct vm_area_struct *vma)
+static int mmap_vmcore(struct file *file, struct vmAreaStruct *vma)
 {
 	size_t size = vma->vm_end - vma->vm_start;
 	u64 start, end, len, tsz;

@@ -1210,7 +1210,7 @@ static int btt_rw_page(struct block_device *bdev, sector_t sector,
 }
 
 
-static int btt_getgeo(struct block_device *bd, struct hd_geometry *geo)
+static int btt_getgeo(struct block_device *bd, struct hdGeometry *geo)
 {
 	/* some standard values */
 	geo->heads = 1 << 6;

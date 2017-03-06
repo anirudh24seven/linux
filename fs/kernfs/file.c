@@ -412,7 +412,7 @@ static int kernfs_vma_access(struct vm_area_struct *vma, unsigned long addr,
 }
 
 #ifdef CONFIG_NUMA
-static int kernfs_vma_set_policy(struct vm_area_struct *vma,
+static int kernfs_vma_set_policy(struct vmAreaStruct *vma,
 				 struct mempolicy *new)
 {
 	struct file *file = vma->vm_file;
@@ -433,7 +433,7 @@ static int kernfs_vma_set_policy(struct vm_area_struct *vma,
 	return ret;
 }
 
-static struct mempolicy *kernfs_vma_get_policy(struct vm_area_struct *vma,
+static struct mempolicy *kernfs_vma_get_policy(struct vmAreaStruct *vma,
 					       unsigned long addr)
 {
 	struct file *file = vma->vm_file;

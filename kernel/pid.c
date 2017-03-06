@@ -128,7 +128,7 @@ static int pid_before(int base, int a, int b)
 /*
  * We might be racing with someone else trying to set pid_ns->last_pid
  * at the pid allocation time (there's also a sysctl for this, but racing
- * with this one is OK, see comment in kernel/pid_namespace.c about it).
+ * with this one is OK, see comment in kernel/pidNamespace.c about it).
  * We want the winner to have the "later" value, because if the
  * "earlier" value prevails, then a pid may get reused immediately.
  *

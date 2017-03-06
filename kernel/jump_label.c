@@ -161,7 +161,7 @@ static void __static_key_slow_dec(struct static_key *key,
 	jump_label_unlock();
 }
 
-static void jump_label_update_timeout(struct work_struct *work)
+static void jump_label_update_timeout(struct workStruct *work)
 {
 	struct static_key_deferred *key =
 		container_of(work, struct static_key_deferred, work.work);

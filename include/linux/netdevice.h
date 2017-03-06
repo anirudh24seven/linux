@@ -607,7 +607,7 @@ static inline void netdev_queue_numa_node_write(struct netdev_queue *q, int node
  */
 struct rps_map {
 	unsigned int len;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	u16 cpus[0];
 };
 #define RPS_MAP_SIZE(_num) (sizeof(struct rps_map) + ((_num) * sizeof(u16)))
@@ -629,7 +629,7 @@ struct rps_dev_flow {
  */
 struct rps_dev_flow_table {
 	unsigned int mask;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	struct rps_dev_flow flows[0];
 };
 #define RPS_DEV_FLOW_TABLE_SIZE(_num) (sizeof(struct rps_dev_flow_table) + \
@@ -707,7 +707,7 @@ struct rx_queue_attribute {
 struct xps_map {
 	unsigned int len;
 	unsigned int alloc_len;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	u16 queues[0];
 };
 #define XPS_MAP_SIZE(_num) (sizeof(struct xps_map) + ((_num) * sizeof(u16)))
@@ -718,7 +718,7 @@ struct xps_map {
  * This structure holds all XPS maps for device.  Maps are indexed by CPU.
  */
 struct xps_dev_maps {
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	struct xps_map __rcu *cpu_map[0];
 };
 #define XPS_DEV_MAPS_SIZE(_tcs) (sizeof(struct xps_dev_maps) +		\

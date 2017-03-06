@@ -15,7 +15,7 @@
 #include <linux/slab.h>
 #include <asm/io.h>
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct fb_info;
 struct device;
 struct file;
@@ -308,7 +308,7 @@ struct fb_ops {
 			unsigned long arg);
 
 	/* perform fb specific mmap */
-	int (*fb_mmap)(struct fb_info *info, struct vm_area_struct *vma);
+	int (*fb_mmap)(struct fb_info *info, struct vmAreaStruct *vma);
 
 	/* get capability given var */
 	void (*fb_get_caps)(struct fb_info *info, struct fb_blit_caps *caps,
@@ -673,7 +673,7 @@ static inline void __fb_pad_aligned_buffer(u8 *dst, u32 d_pitch,
 }
 
 /* drivers/video/fb_defio.c */
-int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma);
+int fb_deferred_io_mmap(struct fb_info *info, struct vmAreaStruct *vma);
 extern void fb_deferred_io_init(struct fb_info *info);
 extern void fb_deferred_io_open(struct fb_info *info,
 				struct inode *inode,

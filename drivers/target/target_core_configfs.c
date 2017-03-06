@@ -485,7 +485,7 @@ void target_unregister_template(const struct target_core_fabric_ops *fo)
 			list_del(&t->tf_list);
 			mutex_unlock(&g_tf_lock);
 			/*
-			 * Wait for any outstanding fabric se_deve_entry->rcu_head
+			 * Wait for any outstanding fabric se_deve_entry->rcuHead
 			 * callbacks to complete post kfree_rcu(), before allowing
 			 * fabric driver unload of TFO->module to proceed.
 			 */

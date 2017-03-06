@@ -44,7 +44,7 @@ struct pipe_buffer {
  *	@bufs: the circular array of pipe buffers
  *	@user: the user who created this pipe
  **/
-struct pipe_inode_info {
+struct pipeInodeInfo {
 	struct mutex mutex;
 	wait_queue_head_t wait;
 	unsigned int nrbufs, curbuf, buffers;
@@ -86,13 +86,13 @@ struct pipe_buf_operations {
 	 * hook. Returns 0 for good, or a negative error value in case of
 	 * error.
 	 */
-	int (*confirm)(struct pipe_inode_info *, struct pipe_buffer *);
+	int (*confirm)(struct pipeInodeInfo *, struct pipe_buffer *);
 
 	/*
 	 * When the contents of this pipe buffer has been completely
 	 * consumed by a reader, ->release() is called.
 	 */
-	void (*release)(struct pipe_inode_info *, struct pipe_buffer *);
+	void (*release)(struct pipeInodeInfo *, struct pipe_buffer *);
 
 	/*
 	 * Attempt to take ownership of the pipe buffer and its contents.
@@ -102,12 +102,12 @@ struct pipe_buf_operations {
 	 * mapping, the most often used case is insertion into different
 	 * file address space cache.
 	 */
-	int (*steal)(struct pipe_inode_info *, struct pipe_buffer *);
+	int (*steal)(struct pipeInodeInfo *, struct pipe_buffer *);
 
 	/*
 	 * Get a reference to the pipe buffer.
 	 */
-	void (*get)(struct pipe_inode_info *, struct pipe_buffer *);
+	void (*get)(struct pipeInodeInfo *, struct pipe_buffer *);
 };
 
 /**
@@ -115,7 +115,7 @@ struct pipe_buf_operations {
  * @pipe:	the pipe that the buffer belongs to
  * @buf:	the buffer to get a reference to
  */
-static inline void pipe_buf_get(struct pipe_inode_info *pipe,
+static inline void pipe_buf_get(struct pipeInodeInfo *pipe,
 				struct pipe_buffer *buf)
 {
 	buf->ops->get(pipe, buf);
@@ -126,7 +126,7 @@ static inline void pipe_buf_get(struct pipe_inode_info *pipe,
  * @pipe:	the pipe that the buffer belongs to
  * @buf:	the buffer to put a reference to
  */
-static inline void pipe_buf_release(struct pipe_inode_info *pipe,
+static inline void pipe_buf_release(struct pipeInodeInfo *pipe,
 				    struct pipe_buffer *buf)
 {
 	const struct pipe_buf_operations *ops = buf->ops;
@@ -140,7 +140,7 @@ static inline void pipe_buf_release(struct pipe_inode_info *pipe,
  * @pipe:	the pipe that the buffer belongs to
  * @buf:	the buffer to confirm
  */
-static inline int pipe_buf_confirm(struct pipe_inode_info *pipe,
+static inline int pipe_buf_confirm(struct pipeInodeInfo *pipe,
 				   struct pipe_buffer *buf)
 {
 	return buf->ops->confirm(pipe, buf);
@@ -151,7 +151,7 @@ static inline int pipe_buf_confirm(struct pipe_inode_info *pipe,
  * @pipe:	the pipe that the buffer belongs to
  * @buf:	the buffer to attempt to steal
  */
-static inline int pipe_buf_steal(struct pipe_inode_info *pipe,
+static inline int pipe_buf_steal(struct pipeInodeInfo *pipe,
 				 struct pipe_buffer *buf)
 {
 	return buf->ops->steal(pipe, buf);
@@ -162,9 +162,9 @@ static inline int pipe_buf_steal(struct pipe_inode_info *pipe,
 #define PIPE_SIZE		PAGE_SIZE
 
 /* Pipe lock and unlock operations */
-void pipe_lock(struct pipe_inode_info *);
-void pipe_unlock(struct pipe_inode_info *);
-void pipe_double_lock(struct pipe_inode_info *, struct pipe_inode_info *);
+void pipe_lock(struct pipeInodeInfo *);
+void pipe_unlock(struct pipeInodeInfo *);
+void pipe_double_lock(struct pipeInodeInfo *, struct pipeInodeInfo *);
 
 extern unsigned int pipe_max_size, pipe_min_size;
 extern unsigned long pipe_user_pages_hard;
@@ -172,22 +172,22 @@ extern unsigned long pipe_user_pages_soft;
 int pipe_proc_fn(struct ctl_table *, int, void __user *, size_t *, loff_t *);
 
 /* Drop the inode semaphore and wait for a pipe event, atomically */
-void pipe_wait(struct pipe_inode_info *pipe);
+void pipe_wait(struct pipeInodeInfo *pipe);
 
-struct pipe_inode_info *alloc_pipe_info(void);
-void free_pipe_info(struct pipe_inode_info *);
+struct pipeInodeInfo *alloc_pipe_info(void);
+void free_pipe_info(struct pipeInodeInfo *);
 
 /* Generic pipe buffer ops functions */
-void generic_pipe_buf_get(struct pipe_inode_info *, struct pipe_buffer *);
-int generic_pipe_buf_confirm(struct pipe_inode_info *, struct pipe_buffer *);
-int generic_pipe_buf_steal(struct pipe_inode_info *, struct pipe_buffer *);
-void generic_pipe_buf_release(struct pipe_inode_info *, struct pipe_buffer *);
+void generic_pipe_buf_get(struct pipeInodeInfo *, struct pipe_buffer *);
+int generic_pipe_buf_confirm(struct pipeInodeInfo *, struct pipe_buffer *);
+int generic_pipe_buf_steal(struct pipeInodeInfo *, struct pipe_buffer *);
+void generic_pipe_buf_release(struct pipeInodeInfo *, struct pipe_buffer *);
 
 extern const struct pipe_buf_operations nosteal_pipe_buf_ops;
 
 /* for F_SETPIPE_SZ and F_GETPIPE_SZ */
 long pipe_fcntl(struct file *, unsigned int, unsigned long arg);
-struct pipe_inode_info *get_pipe_info(struct file *file);
+struct pipeInodeInfo *get_pipe_info(struct file *file);
 
 int create_pipe_files(struct file **, int);
 

@@ -9,7 +9,7 @@
 #include <linux/mm.h>
 #include <asm/elf.h>
 
-static struct vm_area_struct gate_vma;
+static struct vmAreaStruct gate_vma;
 
 static int __init gate_vma_init(void)
 {
@@ -26,7 +26,7 @@ static int __init gate_vma_init(void)
 }
 __initcall(gate_vma_init);
 
-struct vm_area_struct *get_gate_vma(struct mm_struct *mm)
+struct vmAreaStruct *get_gate_vma(struct mm_struct *mm)
 {
 	return FIXADDR_USER_START ? &gate_vma : NULL;
 }
@@ -44,7 +44,7 @@ int in_gate_area_no_mm(unsigned long addr)
 
 int in_gate_area(struct mm_struct *mm, unsigned long addr)
 {
-	struct vm_area_struct *vma = get_gate_vma(mm);
+	struct vmAreaStruct *vma = get_gate_vma(mm);
 
 	if (!vma)
 		return 0;

@@ -957,7 +957,7 @@ extern void ceph_readdir_cache_release(struct ceph_readdir_cache_control *ctl);
 extern long ceph_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
 /* export.c */
-extern const struct export_operations ceph_export_ops;
+extern const struct exportOperations ceph_export_ops;
 
 /* locks.c */
 extern __init void ceph_flock_init(void);

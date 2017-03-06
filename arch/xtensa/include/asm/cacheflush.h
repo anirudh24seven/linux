@@ -96,9 +96,9 @@ static inline void __invalidate_icache_page_alias(unsigned long virt,
 
 #ifdef CONFIG_SMP
 void flush_cache_all(void);
-void flush_cache_range(struct vm_area_struct*, ulong, ulong);
+void flush_cache_range(struct vmAreaStruct*, ulong, ulong);
 void flush_icache_range(unsigned long start, unsigned long end);
-void flush_cache_page(struct vm_area_struct*,
+void flush_cache_page(struct vmAreaStruct*,
 			     unsigned long, unsigned long);
 #else
 #define flush_cache_all local_flush_cache_all
@@ -122,9 +122,9 @@ void flush_cache_page(struct vm_area_struct*,
 #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
 extern void flush_dcache_page(struct page*);
 
-void local_flush_cache_range(struct vm_area_struct *vma,
+void local_flush_cache_range(struct vmAreaStruct *vma,
 		unsigned long start, unsigned long end);
-void local_flush_cache_page(struct vm_area_struct *vma,
+void local_flush_cache_page(struct vmAreaStruct *vma,
 		unsigned long address, unsigned long pfn);
 
 #else
@@ -160,9 +160,9 @@ void local_flush_cache_page(struct vm_area_struct *vma,
 
 #if defined(CONFIG_MMU) && (DCACHE_WAY_SIZE > PAGE_SIZE)
 
-extern void copy_to_user_page(struct vm_area_struct*, struct page*,
+extern void copy_to_user_page(struct vmAreaStruct*, struct page*,
 		unsigned long, void*, const void*, unsigned long);
-extern void copy_from_user_page(struct vm_area_struct*, struct page*,
+extern void copy_from_user_page(struct vmAreaStruct*, struct page*,
 		unsigned long, void*, const void*, unsigned long);
 
 #else

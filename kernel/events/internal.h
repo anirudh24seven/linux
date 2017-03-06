@@ -12,7 +12,7 @@ struct ring_buffer {
 	atomic_t			refcount;
 	struct rcu_head			rcu_head;
 #ifdef CONFIG_PERF_USE_VMALLOC
-	struct work_struct		work;
+	struct workStruct		work;
 	int				page_order;	/* allocation order  */
 #endif
 	int				nr_pages;	/* nr of data pages  */

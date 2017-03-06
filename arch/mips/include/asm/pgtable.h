@@ -21,7 +21,7 @@
 #include <asm/pgtable-bits.h>
 
 struct mm_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 #define PAGE_NONE	__pgprot(_PAGE_PRESENT | _PAGE_NO_READ | \
 				 _page_cachable_default)
@@ -497,17 +497,17 @@ static inline pte_t pte_modify(pte_t pte, pgprot_t newprot)
 #endif
 
 
-extern void __update_tlb(struct vm_area_struct *vma, unsigned long address,
+extern void __update_tlb(struct vmAreaStruct *vma, unsigned long address,
 	pte_t pte);
 
-static inline void update_mmu_cache(struct vm_area_struct *vma,
+static inline void update_mmu_cache(struct vmAreaStruct *vma,
 	unsigned long address, pte_t *ptep)
 {
 	pte_t pte = *ptep;
 	__update_tlb(vma, address, pte);
 }
 
-static inline void update_mmu_cache_pmd(struct vm_area_struct *vma,
+static inline void update_mmu_cache_pmd(struct vmAreaStruct *vma,
 	unsigned long address, pmd_t *pmdp)
 {
 	pte_t pte = *(pte_t *)pmdp;
@@ -518,9 +518,9 @@ static inline void update_mmu_cache_pmd(struct vm_area_struct *vma,
 #define kern_addr_valid(addr)	(1)
 
 #ifdef CONFIG_PHYS_ADDR_T_64BIT
-extern int remap_pfn_range(struct vm_area_struct *vma, unsigned long from, unsigned long pfn, unsigned long size, pgprot_t prot);
+extern int remap_pfn_range(struct vmAreaStruct *vma, unsigned long from, unsigned long pfn, unsigned long size, pgprot_t prot);
 
-static inline int io_remap_pfn_range(struct vm_area_struct *vma,
+static inline int io_remap_pfn_range(struct vmAreaStruct *vma,
 		unsigned long vaddr,
 		unsigned long pfn,
 		unsigned long size,

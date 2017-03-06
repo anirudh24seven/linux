@@ -472,7 +472,7 @@ out:
 /* Fill in virtual disk geometry for device. Return zero on success, non-zero
  * otherwise. */
 static int
-dasd_diag_fill_geometry(struct dasd_block *block, struct hd_geometry *geo)
+dasd_diag_fill_geometry(struct dasd_block *block, struct hdGeometry *geo)
 {
 	if (dasd_check_blocksize(block->bp_block) != 0)
 		return -EINVAL;

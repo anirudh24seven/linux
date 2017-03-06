@@ -26,28 +26,28 @@
 #endif
 
 #ifndef __HAVE_ARCH_PTEP_SET_ACCESS_FLAGS
-extern int ptep_set_access_flags(struct vm_area_struct *vma,
+extern int ptep_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pte_t *ptep,
 				 pte_t entry, int dirty);
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_SET_ACCESS_FLAGS
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-extern int pmdp_set_access_flags(struct vm_area_struct *vma,
+extern int pmdp_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pmd_t *pmdp,
 				 pmd_t entry, int dirty);
-extern int pudp_set_access_flags(struct vm_area_struct *vma,
+extern int pudp_set_access_flags(struct vmAreaStruct *vma,
 				 unsigned long address, pud_t *pudp,
 				 pud_t entry, int dirty);
 #else
-static inline int pmdp_set_access_flags(struct vm_area_struct *vma,
+static inline int pmdp_set_access_flags(struct vmAreaStruct *vma,
 					unsigned long address, pmd_t *pmdp,
 					pmd_t entry, int dirty)
 {
 	BUILD_BUG();
 	return 0;
 }
-static inline int pudp_set_access_flags(struct vm_area_struct *vma,
+static inline int pudp_set_access_flags(struct vmAreaStruct *vma,
 					unsigned long address, pud_t *pudp,
 					pud_t entry, int dirty)
 {
@@ -58,7 +58,7 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
 #endif
 
 #ifndef __HAVE_ARCH_PTEP_TEST_AND_CLEAR_YOUNG
-static inline int ptep_test_and_clear_young(struct vm_area_struct *vma,
+static inline int ptep_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long address,
 					    pte_t *ptep)
 {
@@ -74,7 +74,7 @@ static inline int ptep_test_and_clear_young(struct vm_area_struct *vma,
 
 #ifndef __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+static inline int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long address,
 					    pmd_t *pmdp)
 {
@@ -87,7 +87,7 @@ static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
 	return r;
 }
 #else
-static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+static inline int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long address,
 					    pmd_t *pmdp)
 {
@@ -98,20 +98,20 @@ static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
 #endif
 
 #ifndef __HAVE_ARCH_PTEP_CLEAR_YOUNG_FLUSH
-int ptep_clear_flush_young(struct vm_area_struct *vma,
+int ptep_clear_flush_young(struct vmAreaStruct *vma,
 			   unsigned long address, pte_t *ptep);
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_CLEAR_YOUNG_FLUSH
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-extern int pmdp_clear_flush_young(struct vm_area_struct *vma,
+extern int pmdp_clear_flush_young(struct vmAreaStruct *vma,
 				  unsigned long address, pmd_t *pmdp);
 #else
 /*
  * Despite relevant to THP only, this API is called from generic rmap code
  * under PageTransHuge(), hence needs a dummy implementation for !THP
  */
-static inline int pmdp_clear_flush_young(struct vm_area_struct *vma,
+static inline int pmdp_clear_flush_young(struct vmAreaStruct *vma,
 					 unsigned long address, pmd_t *pmdp)
 {
 	BUILD_BUG();
@@ -202,16 +202,16 @@ static inline void pte_clear_not_present_full(struct mm_struct *mm,
 #endif
 
 #ifndef __HAVE_ARCH_PTEP_CLEAR_FLUSH
-extern pte_t ptep_clear_flush(struct vm_area_struct *vma,
+extern pte_t ptep_clear_flush(struct vmAreaStruct *vma,
 			      unsigned long address,
 			      pte_t *ptep);
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_HUGE_CLEAR_FLUSH
-extern pmd_t pmdp_huge_clear_flush(struct vm_area_struct *vma,
+extern pmd_t pmdp_huge_clear_flush(struct vmAreaStruct *vma,
 			      unsigned long address,
 			      pmd_t *pmdp);
-extern pud_t pudp_huge_clear_flush(struct vm_area_struct *vma,
+extern pud_t pudp_huge_clear_flush(struct vmAreaStruct *vma,
 			      unsigned long address,
 			      pud_t *pudp);
 #endif
@@ -285,10 +285,10 @@ static inline void pudp_set_wrprotect(struct mm_struct *mm,
 
 #ifndef pmdp_collapse_flush
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-extern pmd_t pmdp_collapse_flush(struct vm_area_struct *vma,
+extern pmd_t pmdp_collapse_flush(struct vmAreaStruct *vma,
 				 unsigned long address, pmd_t *pmdp);
 #else
-static inline pmd_t pmdp_collapse_flush(struct vm_area_struct *vma,
+static inline pmd_t pmdp_collapse_flush(struct vmAreaStruct *vma,
 					unsigned long address,
 					pmd_t *pmdp)
 {
@@ -309,12 +309,12 @@ extern pgtable_t pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_INVALIDATE
-extern void pmdp_invalidate(struct vm_area_struct *vma, unsigned long address,
+extern void pmdp_invalidate(struct vmAreaStruct *vma, unsigned long address,
 			    pmd_t *pmdp);
 #endif
 
 #ifndef __HAVE_ARCH_PMDP_HUGE_SPLIT_PREPARE
-static inline void pmdp_huge_split_prepare(struct vm_area_struct *vma,
+static inline void pmdp_huge_split_prepare(struct vmAreaStruct *vma,
 					   unsigned long address, pmd_t *pmdp)
 {
 
@@ -674,15 +674,15 @@ static inline void untrack_pfn_moved(struct vm_area_struct *vma)
 {
 }
 #else
-extern int track_pfn_remap(struct vm_area_struct *vma, pgprot_t *prot,
+extern int track_pfn_remap(struct vmAreaStruct *vma, pgprot_t *prot,
 			   unsigned long pfn, unsigned long addr,
 			   unsigned long size);
-extern void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot,
+extern void track_pfn_insert(struct vmAreaStruct *vma, pgprot_t *prot,
 			     pfn_t pfn);
-extern int track_pfn_copy(struct vm_area_struct *vma);
-extern void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+extern int track_pfn_copy(struct vmAreaStruct *vma);
+extern void untrack_pfn(struct vmAreaStruct *vma, unsigned long pfn,
 			unsigned long size);
-extern void untrack_pfn_moved(struct vm_area_struct *vma);
+extern void untrack_pfn_moved(struct vmAreaStruct *vma);
 #endif
 
 #ifdef __HAVE_COLOR_ZERO_PAGE

@@ -297,8 +297,8 @@ made up of several fields, the more interesting ones being:
 .. code-block:: c
 
 	struct vm_operations_struct {
-		void (*open)(struct vm_area_struct * area);
-		void (*close)(struct vm_area_struct * area);
+		void (*open)(struct vmAreaStruct * area);
+		void (*close)(struct vmAreaStruct * area);
 		int (*fault)(struct vm_fault *vmf);
 	};
 

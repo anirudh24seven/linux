@@ -44,8 +44,8 @@ enum {
 
 #ifdef CONFIG_PROC_FS
 
-extern int pid_ns_prepare_proc(struct pid_namespace *ns);
-extern void pid_ns_release_proc(struct pid_namespace *ns);
+extern int pid_ns_prepare_proc(struct pidNamespace *ns);
+extern void pid_ns_release_proc(struct pidNamespace *ns);
 extern int proc_alloc_inum(unsigned int *pino);
 extern void proc_free_inum(unsigned int inum);
 

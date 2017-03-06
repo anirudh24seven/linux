@@ -383,7 +383,7 @@ static void irq_kobj_release(struct kobject *kobj)
 	kfree(desc);
 }
 
-static void delayed_free_desc(struct rcu_head *rhp)
+static void delayed_free_desc(struct rcuHead *rhp)
 {
 	struct irq_desc *desc = container_of(rhp, struct irq_desc, rcu);
 

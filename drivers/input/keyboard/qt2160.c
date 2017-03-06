@@ -58,7 +58,7 @@ static unsigned char qt2160_key2code[] = {
 struct qt2160_led {
 	struct qt2160_data *qt2160;
 	struct led_classdev cdev;
-	struct work_struct work;
+	struct workStruct work;
 	char name[32];
 	int id;
 	enum led_brightness new_brightness;
@@ -83,7 +83,7 @@ static int qt2160_write(struct i2c_client *client, u8 reg, u8 data);
 
 #ifdef CONFIG_LEDS_CLASS
 
-static void qt2160_led_work(struct work_struct *work)
+static void qt2160_led_work(struct workStruct *work)
 {
 	struct qt2160_led *led = container_of(work, struct qt2160_led, work);
 	struct qt2160_data *qt2160 = led->qt2160;

@@ -36,37 +36,37 @@ extern ssize_t mfill_zeropage(struct mm_struct *dst_mm,
 			      unsigned long len);
 
 /* mm helpers */
-static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
+static inline bool is_mergeable_vm_userfaultfd_ctx(struct vmAreaStruct *vma,
 					struct vm_userfaultfd_ctx vm_ctx)
 {
 	return vma->vm_userfaultfd_ctx.ctx == vm_ctx.ctx;
 }
 
-static inline bool userfaultfd_missing(struct vm_area_struct *vma)
+static inline bool userfaultfd_missing(struct vmAreaStruct *vma)
 {
 	return vma->vm_flags & VM_UFFD_MISSING;
 }
 
-static inline bool userfaultfd_armed(struct vm_area_struct *vma)
+static inline bool userfaultfd_armed(struct vmAreaStruct *vma)
 {
 	return vma->vm_flags & (VM_UFFD_MISSING | VM_UFFD_WP);
 }
 
-extern int dup_userfaultfd(struct vm_area_struct *, struct list_head *);
+extern int dup_userfaultfd(struct vmAreaStruct *, struct list_head *);
 extern void dup_userfaultfd_complete(struct list_head *);
 
-extern void mremap_userfaultfd_prep(struct vm_area_struct *,
+extern void mremap_userfaultfd_prep(struct vmAreaStruct *,
 				    struct vm_userfaultfd_ctx *);
 extern void mremap_userfaultfd_complete(struct vm_userfaultfd_ctx *,
 					unsigned long from, unsigned long to,
 					unsigned long len);
 
-extern void userfaultfd_remove(struct vm_area_struct *vma,
-			       struct vm_area_struct **prev,
+extern void userfaultfd_remove(struct vmAreaStruct *vma,
+			       struct vmAreaStruct **prev,
 			       unsigned long start,
 			       unsigned long end);
 
-extern int userfaultfd_unmap_prep(struct vm_area_struct *vma,
+extern int userfaultfd_unmap_prep(struct vmAreaStruct *vma,
 				  unsigned long start, unsigned long end,
 				  struct list_head *uf);
 extern void userfaultfd_unmap_complete(struct mm_struct *mm,

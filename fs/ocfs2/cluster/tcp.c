@@ -1521,7 +1521,7 @@ static void o2net_sc_connect_completed(struct work_struct *work)
 	sc_put(sc);
 }
 
-/* this is called as a work_struct func. */
+/* this is called as a workStruct func. */
 static void o2net_sc_send_keep_req(struct work_struct *work)
 {
 	struct o2net_sock_container *sc =

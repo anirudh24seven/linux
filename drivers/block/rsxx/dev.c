@@ -82,7 +82,7 @@ static int rsxx_blkdev_ioctl(struct block_device *bdev,
 	return -ENOTTY;
 }
 
-static int rsxx_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int rsxx_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct rsxx_cardinfo *card = bdev->bd_disk->private_data;
 	u64 blocks = card->size8 >> 9;

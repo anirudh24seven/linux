@@ -757,14 +757,14 @@ typedef struct _MPT_ADAPTER
 	u8			 wait_on_reset_completion;
 	MPT_SCHEDULE_TARGET_RESET schedule_target_reset;
 	MPT_FLUSH_RUNNING_CMDS schedule_dead_ioc_flush_running_cmds;
-	struct work_struct	 sas_persist_task;
+	struct workStruct	 sas_persist_task;
 
-	struct work_struct	 fc_setup_reset_work;
+	struct workStruct	 fc_setup_reset_work;
 	struct list_head	 fc_rports;
-	struct work_struct	 fc_lsc_work;
+	struct workStruct	 fc_lsc_work;
 	u8			 fc_link_speed[2];
 	spinlock_t		 fc_rescan_work_lock;
-	struct work_struct	 fc_rescan_work;
+	struct workStruct	 fc_rescan_work;
 	char			 fc_rescan_work_q_name[MPT_KOBJ_NAME_LEN];
 	struct workqueue_struct *fc_rescan_work_q;
 

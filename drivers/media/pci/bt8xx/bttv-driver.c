@@ -194,7 +194,7 @@ static DEVICE_ATTR(card, S_IRUGO, show_card, NULL);
 /* ----------------------------------------------------------------------- */
 /* dvb auto-load setup                                                     */
 #if defined(CONFIG_MODULES) && defined(MODULE)
-static void request_module_async(struct work_struct *work)
+static void request_module_async(struct workStruct *work)
 {
 	request_module("dvb-bt8xx");
 }

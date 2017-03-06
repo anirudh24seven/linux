@@ -750,7 +750,7 @@ static int pd_open(struct block_device *bdev, fmode_t mode)
 	return 0;
 }
 
-static int pd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int pd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct pd_unit *disk = bdev->bd_disk->private_data;
 

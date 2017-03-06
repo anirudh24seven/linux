@@ -18,7 +18,7 @@
 #include <asm/setup.h>
 
 struct mm_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 /* Certain architectures need to do special things when PTEs
  * within a page table are directly modified.  Thus, the following
@@ -325,7 +325,7 @@ extern pgd_t swapper_pg_dir[1024];
  * The Alpha doesn't have any external MMU info:  the kernel page
  * tables contain all the necessary information.
  */
-extern inline void update_mmu_cache(struct vm_area_struct * vma,
+extern inline void update_mmu_cache(struct vmAreaStruct * vma,
 	unsigned long address, pte_t *ptep)
 {
 }

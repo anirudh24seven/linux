@@ -384,7 +384,7 @@ out:
  * number of devices present and this will remove entitlement for devices
  * that have actually left the system after having vio_bus_remove called.
  */
-static void vio_cmo_balance(struct work_struct *work)
+static void vio_cmo_balance(struct workStruct *work)
 {
 	struct vio_cmo *cmo;
 	struct vio_dev *viodev;

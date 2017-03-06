@@ -277,11 +277,11 @@ void __vma_link_list(struct mm_struct *mm, struct vm_area_struct *vma,
 		struct vm_area_struct *prev, struct rb_node *rb_parent);
 
 #ifdef CONFIG_MMU
-extern long populate_vma_page_range(struct vm_area_struct *vma,
+extern long populate_vma_page_range(struct vmAreaStruct *vma,
 		unsigned long start, unsigned long end, int *nonblocking);
-extern void munlock_vma_pages_range(struct vm_area_struct *vma,
+extern void munlock_vma_pages_range(struct vmAreaStruct *vma,
 			unsigned long start, unsigned long end);
-static inline void munlock_vma_pages_all(struct vm_area_struct *vma)
+static inline void munlock_vma_pages_all(struct vmAreaStruct *vma)
 {
 	munlock_vma_pages_range(vma, vma->vm_start, vma->vm_end);
 }
@@ -320,20 +320,20 @@ static inline void mlock_migrate_page(struct page *newpage, struct page *page)
 	}
 }
 
-extern pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma);
+extern pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vmAreaStruct *vma);
 
 /*
  * At what user virtual address is page expected in @vma?
  */
 static inline unsigned long
-__vma_address(struct page *page, struct vm_area_struct *vma)
+__vma_address(struct page *page, struct vmAreaStruct *vma)
 {
 	pgoff_t pgoff = page_to_pgoff(page);
 	return vma->vm_start + ((pgoff - vma->vm_pgoff) << PAGE_SHIFT);
 }
 
 static inline unsigned long
-vma_address(struct page *page, struct vm_area_struct *vma)
+vma_address(struct page *page, struct vmAreaStruct *vma)
 {
 	unsigned long start, end;
 

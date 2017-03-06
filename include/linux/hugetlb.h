@@ -52,7 +52,7 @@ struct hugepage_subpool *hugepage_new_subpool(struct hstate *h, long max_hpages,
 						long min_hpages);
 void hugepage_put_subpool(struct hugepage_subpool *spool);
 
-void reset_vma_resv_huge_pages(struct vm_area_struct *vma);
+void reset_vma_resv_huge_pages(struct vmAreaStruct *vma);
 int hugetlb_sysctl_handler(struct ctl_table *, int, void __user *, size_t *, loff_t *);
 int hugetlb_overcommit_handler(struct ctl_table *, int, void __user *, size_t *, loff_t *);
 int hugetlb_treat_movable_handler(struct ctl_table *, int, void __user *, size_t *, loff_t *);
@@ -62,33 +62,33 @@ int hugetlb_mempolicy_sysctl_handler(struct ctl_table *, int,
 					void __user *, size_t *, loff_t *);
 #endif
 
-int copy_hugetlb_page_range(struct mm_struct *, struct mm_struct *, struct vm_area_struct *);
-long follow_hugetlb_page(struct mm_struct *, struct vm_area_struct *,
-			 struct page **, struct vm_area_struct **,
+int copy_hugetlb_page_range(struct mm_struct *, struct mm_struct *, struct vmAreaStruct *);
+long follow_hugetlb_page(struct mm_struct *, struct vmAreaStruct *,
+			 struct page **, struct vmAreaStruct **,
 			 unsigned long *, unsigned long *, long, unsigned int,
 			 int *);
-void unmap_hugepage_range(struct vm_area_struct *,
+void unmap_hugepage_range(struct vmAreaStruct *,
 			  unsigned long, unsigned long, struct page *);
 void __unmap_hugepage_range_final(struct mmu_gather *tlb,
-			  struct vm_area_struct *vma,
+			  struct vmAreaStruct *vma,
 			  unsigned long start, unsigned long end,
 			  struct page *ref_page);
-void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+void __unmap_hugepage_range(struct mmu_gather *tlb, struct vmAreaStruct *vma,
 				unsigned long start, unsigned long end,
 				struct page *ref_page);
 void hugetlb_report_meminfo(struct seq_file *);
 int hugetlb_report_node_meminfo(int, char *);
 void hugetlb_show_meminfo(void);
 unsigned long hugetlb_total_pages(void);
-int hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
+int hugetlb_fault(struct mm_struct *mm, struct vmAreaStruct *vma,
 			unsigned long address, unsigned int flags);
 int hugetlb_mcopy_atomic_pte(struct mm_struct *dst_mm, pte_t *dst_pte,
-				struct vm_area_struct *dst_vma,
+				struct vmAreaStruct *dst_vma,
 				unsigned long dst_addr,
 				unsigned long src_addr,
 				struct page **pagep);
 int hugetlb_reserve_pages(struct inode *inode, long from, long to,
-						struct vm_area_struct *vma,
+						struct vmAreaStruct *vma,
 						vm_flags_t vm_flags);
 long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
 						long freed);
@@ -99,7 +99,7 @@ void free_huge_page(struct page *page);
 void hugetlb_fix_reserve_counts(struct inode *inode);
 extern struct mutex *hugetlb_fault_mutex_table;
 u32 hugetlb_fault_mutex_hash(struct hstate *h, struct mm_struct *mm,
-				struct vm_area_struct *vma,
+				struct vmAreaStruct *vma,
 				struct address_space *mapping,
 				pgoff_t idx, unsigned long address);
 
@@ -123,7 +123,7 @@ struct page *follow_huge_pud(struct mm_struct *mm, unsigned long address,
 				pud_t *pud, int flags);
 int pmd_huge(pmd_t pmd);
 int pud_huge(pud_t pmd);
-unsigned long hugetlb_change_protection(struct vm_area_struct *vma,
+unsigned long hugetlb_change_protection(struct vmAreaStruct *vma,
 		unsigned long address, unsigned long end, pgprot_t newprot);
 
 #else /* !CONFIG_HUGETLB_PAGE */
@@ -335,10 +335,10 @@ struct huge_bootmem_page {
 #endif
 };
 
-struct page *alloc_huge_page(struct vm_area_struct *vma,
+struct page *alloc_huge_page(struct vmAreaStruct *vma,
 				unsigned long addr, int avoid_reserve);
 struct page *alloc_huge_page_node(struct hstate *h, int nid);
-struct page *alloc_huge_page_noerr(struct vm_area_struct *vma,
+struct page *alloc_huge_page_noerr(struct vmAreaStruct *vma,
 				unsigned long addr, int avoid_reserve);
 int huge_add_to_page_cache(struct page *page, struct address_space *mapping,
 			pgoff_t idx);
@@ -377,7 +377,7 @@ static inline struct hstate *hstate_sizelog(int page_size_log)
 	return size_to_hstate(1UL << page_size_log);
 }
 
-static inline struct hstate *hstate_vma(struct vm_area_struct *vma)
+static inline struct hstate *hstate_vma(struct vmAreaStruct *vma)
 {
 	return hstate_file(vma->vm_file);
 }
@@ -387,9 +387,9 @@ static inline unsigned long huge_page_size(struct hstate *h)
 	return (unsigned long)PAGE_SIZE << h->order;
 }
 
-extern unsigned long vma_kernel_pagesize(struct vm_area_struct *vma);
+extern unsigned long vma_kernel_pagesize(struct vmAreaStruct *vma);
 
-extern unsigned long vma_mmu_pagesize(struct vm_area_struct *vma);
+extern unsigned long vma_mmu_pagesize(struct vmAreaStruct *vma);
 
 static inline unsigned long huge_page_mask(struct hstate *h)
 {
@@ -424,7 +424,7 @@ static inline unsigned int blocks_per_huge_page(struct hstate *h)
 #include <asm/hugetlb.h>
 
 #ifndef arch_make_huge_pte
-static inline pte_t arch_make_huge_pte(pte_t entry, struct vm_area_struct *vma,
+static inline pte_t arch_make_huge_pte(pte_t entry, struct vmAreaStruct *vma,
 				       struct page *page, int writable)
 {
 	return entry;

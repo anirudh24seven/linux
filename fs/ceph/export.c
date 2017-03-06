@@ -229,7 +229,7 @@ static int ceph_get_name(struct dentry *parent, char *name,
 	return err;
 }
 
-const struct export_operations ceph_export_ops = {
+const struct exportOperations ceph_export_ops = {
 	.encode_fh = ceph_encode_fh,
 	.fh_to_dentry = ceph_fh_to_dentry,
 	.fh_to_parent = ceph_fh_to_parent,

@@ -657,7 +657,7 @@ static void do_hd_request(struct request_queue *q)
 	hd_request();
 }
 
-static int hd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int hd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct hd_i_struct *disk = bdev->bd_disk->private_data;
 

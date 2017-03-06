@@ -136,8 +136,8 @@ struct cgroup_subsys_state {
 	atomic_t online_cnt;
 
 	/* percpu_ref killing and RCU release */
-	struct rcu_head rcu_head;
-	struct work_struct destroy_work;
+	struct rcuHead rcuHead;
+	struct workStruct destroy_work;
 };
 
 /*
@@ -217,7 +217,7 @@ struct css_set {
 	bool dead;
 
 	/* For RCU-protected deletion */
-	struct rcu_head rcu_head;
+	struct rcuHead rcuHead;
 };
 
 struct cgroup {
@@ -299,7 +299,7 @@ struct cgroup {
 	wait_queue_head_t offline_waitq;
 
 	/* used to schedule release agent */
-	struct work_struct release_agent_work;
+	struct workStruct release_agent_work;
 
 	/* used to store eBPF programs */
 	struct cgroup_bpf bpf;

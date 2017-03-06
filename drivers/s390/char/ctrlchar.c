@@ -17,7 +17,7 @@
 static struct sysrq_work ctrlchar_sysrq;
 
 static void
-ctrlchar_handle_sysrq(struct work_struct *work)
+ctrlchar_handle_sysrq(struct workStruct *work)
 {
 	struct sysrq_work *sysrq = container_of(work, struct sysrq_work, work);
 

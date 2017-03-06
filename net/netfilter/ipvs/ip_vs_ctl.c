@@ -221,7 +221,7 @@ static void update_defense_level(struct netns_ipvs *ipvs)
  */
 #define DEFENSE_TIMER_PERIOD	1*HZ
 
-static void defense_work_handler(struct work_struct *work)
+static void defense_work_handler(struct workStruct *work)
 {
 	struct netns_ipvs *ipvs =
 		container_of(work, struct netns_ipvs, defense_work.work);

@@ -566,7 +566,7 @@ static void handle_error_source(struct pcie_device *aerdev,
 }
 
 #ifdef CONFIG_ACPI_APEI_PCIEAER
-static void aer_recover_work_func(struct work_struct *work);
+static void aer_recover_work_func(struct workStruct *work);
 
 #define AER_RECOVER_RING_ORDER		4
 #define AER_RECOVER_RING_SIZE		(1 << AER_RECOVER_RING_ORDER)
@@ -611,7 +611,7 @@ void aer_recover_queue(int domain, unsigned int bus, unsigned int devfn,
 }
 EXPORT_SYMBOL_GPL(aer_recover_queue);
 
-static void aer_recover_work_func(struct work_struct *work)
+static void aer_recover_work_func(struct workStruct *work)
 {
 	struct aer_recover_entry entry;
 	struct pci_dev *pdev;

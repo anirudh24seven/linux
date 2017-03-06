@@ -537,12 +537,12 @@ out:
 
 #ifdef CONFIG_IPV6_ROUTER_PREF
 struct __rt6_probe_work {
-	struct work_struct work;
+	struct workStruct work;
 	struct in6_addr target;
 	struct net_device *dev;
 };
 
-static void rt6_probe_deferred(struct work_struct *w)
+static void rt6_probe_deferred(struct workStruct *w)
 {
 	struct in6_addr mcaddr;
 	struct __rt6_probe_work *work =

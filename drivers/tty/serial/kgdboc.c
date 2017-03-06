@@ -72,7 +72,7 @@ static struct input_handler kgdboc_reset_handler = {
 
 static DEFINE_MUTEX(kgdboc_reset_mutex);
 
-static void kgdboc_restore_input_helper(struct work_struct *dummy)
+static void kgdboc_restore_input_helper(struct workStruct *dummy)
 {
 	/*
 	 * We need to take a mutex to prevent several instances of

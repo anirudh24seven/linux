@@ -29,24 +29,24 @@
  * specific tlbie's
  */
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct mm_struct;
 
 #define MMU_NO_CONTEXT      	((unsigned int)-1)
 
-extern void flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
+extern void flush_tlb_range(struct vmAreaStruct *vma, unsigned long start,
 			    unsigned long end);
 extern void flush_tlb_kernel_range(unsigned long start, unsigned long end);
 
 extern void local_flush_tlb_mm(struct mm_struct *mm);
-extern void local_flush_tlb_page(struct vm_area_struct *vma, unsigned long vmaddr);
+extern void local_flush_tlb_page(struct vmAreaStruct *vma, unsigned long vmaddr);
 
 extern void __local_flush_tlb_page(struct mm_struct *mm, unsigned long vmaddr,
 				   int tsize, int ind);
 
 #ifdef CONFIG_SMP
 extern void flush_tlb_mm(struct mm_struct *mm);
-extern void flush_tlb_page(struct vm_area_struct *vma, unsigned long vmaddr);
+extern void flush_tlb_page(struct vmAreaStruct *vma, unsigned long vmaddr);
 extern void __flush_tlb_page(struct mm_struct *mm, unsigned long vmaddr,
 			     int tsize, int ind);
 #else
@@ -62,12 +62,12 @@ extern void __flush_tlb_page(struct mm_struct *mm, unsigned long vmaddr,
  * TLB flushing for "classic" hash-MMU 32-bit CPUs, 6xx, 7xx, 7xxx
  */
 extern void flush_tlb_mm(struct mm_struct *mm);
-extern void flush_tlb_page(struct vm_area_struct *vma, unsigned long vmaddr);
-extern void flush_tlb_page_nohash(struct vm_area_struct *vma, unsigned long addr);
-extern void flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
+extern void flush_tlb_page(struct vmAreaStruct *vma, unsigned long vmaddr);
+extern void flush_tlb_page_nohash(struct vmAreaStruct *vma, unsigned long addr);
+extern void flush_tlb_range(struct vmAreaStruct *vma, unsigned long start,
 			    unsigned long end);
 extern void flush_tlb_kernel_range(unsigned long start, unsigned long end);
-static inline void local_flush_tlb_page(struct vm_area_struct *vma,
+static inline void local_flush_tlb_page(struct vmAreaStruct *vma,
 					unsigned long vmaddr)
 {
 	flush_tlb_page(vma, vmaddr);

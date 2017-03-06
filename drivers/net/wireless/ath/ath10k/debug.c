@@ -1152,7 +1152,7 @@ static int ath10k_debug_htt_stats_req(struct ath10k *ar)
 	return 0;
 }
 
-static void ath10k_debug_htt_stats_dwork(struct work_struct *work)
+static void ath10k_debug_htt_stats_dwork(struct workStruct *work)
 {
 	struct ath10k *ar = container_of(work, struct ath10k,
 					 debug.htt_stats_dwork.work);

@@ -3812,7 +3812,7 @@ backout_unlocked:
 
 #ifdef CONFIG_SMP
 u32 hugetlb_fault_mutex_hash(struct hstate *h, struct mm_struct *mm,
-			    struct vm_area_struct *vma,
+			    struct vmAreaStruct *vma,
 			    struct address_space *mapping,
 			    pgoff_t idx, unsigned long address)
 {
@@ -4444,8 +4444,8 @@ long hugetlb_unreserve_pages(struct inode *inode, long start, long end,
 }
 
 #ifdef CONFIG_ARCH_WANT_HUGE_PMD_SHARE
-static unsigned long page_table_shareable(struct vm_area_struct *svma,
-				struct vm_area_struct *vma,
+static unsigned long page_table_shareable(struct vmAreaStruct *svma,
+				struct vmAreaStruct *vma,
 				unsigned long addr, pgoff_t idx)
 {
 	unsigned long saddr = ((idx - svma->vm_pgoff) << PAGE_SHIFT) +
@@ -4469,7 +4469,7 @@ static unsigned long page_table_shareable(struct vm_area_struct *svma,
 	return saddr;
 }
 
-static bool vma_shareable(struct vm_area_struct *vma, unsigned long addr)
+static bool vma_shareable(struct vmAreaStruct *vma, unsigned long addr)
 {
 	unsigned long base = addr & PUD_MASK;
 	unsigned long end = base + PUD_SIZE;
@@ -4494,11 +4494,11 @@ static bool vma_shareable(struct vm_area_struct *vma, unsigned long addr)
  */
 pte_t *huge_pmd_share(struct mm_struct *mm, unsigned long addr, pud_t *pud)
 {
-	struct vm_area_struct *vma = find_vma(mm, addr);
+	struct vmAreaStruct *vma = find_vma(mm, addr);
 	struct address_space *mapping = vma->vm_file->f_mapping;
 	pgoff_t idx = ((addr - vma->vm_start) >> PAGE_SHIFT) +
 			vma->vm_pgoff;
-	struct vm_area_struct *svma;
+	struct vmAreaStruct *svma;
 	unsigned long saddr;
 	pte_t *spte = NULL;
 	pte_t *pte;

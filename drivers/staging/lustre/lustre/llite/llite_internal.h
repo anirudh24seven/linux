@@ -858,7 +858,7 @@ static inline ssize_t ll_lov_user_md_size(const struct lov_user_md *lum)
 }
 
 /* llite/llite_nfs.c */
-extern const struct export_operations lustre_export_operations;
+extern const struct exportOperations lustre_export_operations;
 __u32 get_uuid2int(const char *name, int len);
 void get_uuid2fsid(const char *name, int len, __kernel_fsid_t *fsid);
 struct inode *search_inode_for_lustre(struct super_block *sb,
@@ -913,10 +913,10 @@ static inline struct vvp_io_args *ll_env_args(const struct lu_env *env)
 /* llite/llite_mmap.c */
 
 int ll_teardown_mmaps(struct address_space *mapping, __u64 first, __u64 last);
-int ll_file_mmap(struct file *file, struct vm_area_struct *vma);
-void policy_from_vma(union ldlm_policy_data *policy, struct vm_area_struct *vma,
+int ll_file_mmap(struct file *file, struct vmAreaStruct *vma);
+void policy_from_vma(union ldlm_policy_data *policy, struct vmAreaStruct *vma,
 		     unsigned long addr, size_t count);
-struct vm_area_struct *our_vma(struct mm_struct *mm, unsigned long addr,
+struct vmAreaStruct *our_vma(struct mm_struct *mm, unsigned long addr,
 			       size_t count);
 
 static inline void ll_invalidate_page(struct page *vmpage)

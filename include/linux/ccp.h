@@ -571,7 +571,7 @@ enum ccp_engine {
  *     operation.
  */
 struct ccp_cmd {
-	/* The list_head, work_struct, ccp and ret variables are for use
+	/* The list_head, workStruct, ccp and ret variables are for use
 	 * by the CCP driver only.
 	 */
 	struct list_head entry;

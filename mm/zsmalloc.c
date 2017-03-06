@@ -264,7 +264,7 @@ struct zs_pool {
 #endif
 #ifdef CONFIG_COMPACTION
 	struct inode *inode;
-	struct work_struct free_work;
+	struct workStruct free_work;
 #endif
 };
 
@@ -2134,7 +2134,7 @@ static void zs_unregister_migration(struct zs_pool *pool)
  * Caller should hold page_lock of all pages in the zspage
  * In here, we cannot use zspage meta data.
  */
-static void async_free_zspage(struct work_struct *work)
+static void async_free_zspage(struct workStruct *work)
 {
 	int i;
 	struct size_class *class;

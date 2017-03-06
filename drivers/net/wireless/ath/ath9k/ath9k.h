@@ -1014,7 +1014,7 @@ struct ath_softc {
 	wait_queue_head_t tx_wait;
 
 #ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
-	struct work_struct chanctx_work;
+	struct workStruct chanctx_work;
 	struct ath_gen_timer *p2p_ps_timer;
 	struct ath_vif *p2p_ps_vif;
 	struct ath_chanctx_sched sched;
@@ -1061,7 +1061,7 @@ struct ath_softc {
 #ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
 	struct ath_btcoex btcoex;
 	struct ath_mci_coex mci_coex;
-	struct work_struct mci_work;
+	struct workStruct mci_work;
 #endif
 
 	struct ath_descdma txsdma;

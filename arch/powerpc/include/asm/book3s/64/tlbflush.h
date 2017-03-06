@@ -72,7 +72,7 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
 	return hash__flush_tlb_mm(mm);
 }
 
-static inline void flush_tlb_page(struct vm_area_struct *vma,
+static inline void flush_tlb_page(struct vmAreaStruct *vma,
 				  unsigned long vmaddr)
 {
 	if (radix_enabled())

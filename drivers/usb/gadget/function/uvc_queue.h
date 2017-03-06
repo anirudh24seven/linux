@@ -74,7 +74,7 @@ int uvcg_dequeue_buffer(struct uvc_video_queue *queue,
 unsigned int uvcg_queue_poll(struct uvc_video_queue *queue,
 			     struct file *file, poll_table *wait);
 
-int uvcg_queue_mmap(struct uvc_video_queue *queue, struct vm_area_struct *vma);
+int uvcg_queue_mmap(struct uvc_video_queue *queue, struct vmAreaStruct *vma);
 
 #ifndef CONFIG_MMU
 unsigned long uvcg_queue_get_unmapped_area(struct uvc_video_queue *queue,

@@ -134,7 +134,7 @@ static void subpage_prot_clear(unsigned long addr, unsigned long len)
 static int subpage_walk_pmd_entry(pmd_t *pmd, unsigned long addr,
 				  unsigned long end, struct mm_walk *walk)
 {
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	split_huge_pmd(vma, pmd, addr);
 	return 0;
 }
@@ -142,7 +142,7 @@ static int subpage_walk_pmd_entry(pmd_t *pmd, unsigned long addr,
 static void subpage_mark_vma_nohuge(struct mm_struct *mm, unsigned long addr,
 				    unsigned long len)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct mm_walk subpage_proto_walk = {
 		.mm = mm,
 		.pmd_entry = subpage_walk_pmd_entry,

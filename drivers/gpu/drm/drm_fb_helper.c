@@ -527,7 +527,7 @@ static bool drm_fb_helper_force_kernel_mode(void)
 	return error;
 }
 
-static void drm_fb_helper_restore_work_fn(struct work_struct *ignored)
+static void drm_fb_helper_restore_work_fn(struct workStruct *ignored)
 {
 	bool ret;
 	ret = drm_fb_helper_force_kernel_mode();

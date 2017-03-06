@@ -63,9 +63,9 @@ void dma_cache_wback(phys_addr_t start, unsigned long sz);
 
 /* To clear out stale userspace mappings */
 void flush_cache_mm(struct mm_struct *mm);
-void flush_cache_range(struct vm_area_struct *vma,
+void flush_cache_range(struct vmAreaStruct *vma,
 	unsigned long start,unsigned long end);
-void flush_cache_page(struct vm_area_struct *vma,
+void flush_cache_page(struct vmAreaStruct *vma,
 	unsigned long user_addr, unsigned long page);
 
 /*
@@ -73,7 +73,7 @@ void flush_cache_page(struct vm_area_struct *vma,
  * get_user_pages() uses a kernel mapping to access the page
  */
 #define ARCH_HAS_FLUSH_ANON_PAGE
-void flush_anon_page(struct vm_area_struct *vma,
+void flush_anon_page(struct vmAreaStruct *vma,
 	struct page *page, unsigned long u_vaddr);
 
 #endif	/* CONFIG_ARC_CACHE_VIPT_ALIASING */

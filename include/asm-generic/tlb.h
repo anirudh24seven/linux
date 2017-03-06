@@ -49,7 +49,7 @@
  *
  */
 struct mmu_table_batch {
-	struct rcu_head		rcu;
+	struct rcuHead		rcu;
 	unsigned int		nr;
 	void			*tables[0];
 };

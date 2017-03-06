@@ -1672,11 +1672,11 @@ rcu_torture_cleanup(void)
 }
 
 #ifdef CONFIG_DEBUG_OBJECTS_RCU_HEAD
-static void rcu_torture_leak_cb(struct rcu_head *rhp)
+static void rcu_torture_leak_cb(struct rcuHead *rhp)
 {
 }
 
-static void rcu_torture_err_cb(struct rcu_head *rhp)
+static void rcu_torture_err_cb(struct rcuHead *rhp)
 {
 	/*
 	 * This -might- happen due to race conditions, but is unlikely.
@@ -1699,8 +1699,8 @@ static void rcu_torture_err_cb(struct rcu_head *rhp)
 static void rcu_test_debug_objects(void)
 {
 #ifdef CONFIG_DEBUG_OBJECTS_RCU_HEAD
-	struct rcu_head rh1;
-	struct rcu_head rh2;
+	struct rcuHead rh1;
+	struct rcuHead rh2;
 
 	init_rcu_head_on_stack(&rh1);
 	init_rcu_head_on_stack(&rh2);

@@ -26,7 +26,7 @@
 #include <linux/list.h>
 #include <linux/spinlock.h>
 #include <linux/sched.h>
-struct vm_area_struct;
+struct vmAreaStruct;
 #endif
 
 #ifndef __ASSEMBLY__
@@ -385,7 +385,7 @@ static inline pte_t pte_mkyoung(pte_t pte)	{ (pte).pte |= _PAGE_ACCESSED; return
 static inline pte_t pte_mkwrite(pte_t pte)	{ (pte).pte &= ~_PAGE_WP; return pte; }
 static inline pte_t pte_mkspecial(pte_t pte)	{ return pte; }
 
-static inline int ptep_test_and_clear_young(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
+static inline int ptep_test_and_clear_young(struct vmAreaStruct *vma, unsigned long addr, pte_t *ptep)
 {
 	int i = test_and_clear_bit(_PAGE_BIT_ACCESSED, ptep);
 	asm volatile("dcf %M0" :: "U"(*ptep));
@@ -482,7 +482,7 @@ static inline pte_t pte_modify(pte_t pte, pgprot_t newprot)
 /*
  * preload information about a newly instantiated PTE into the SCR0/SCR1 PGE cache
  */
-static inline void update_mmu_cache(struct vm_area_struct *vma, unsigned long address, pte_t *ptep)
+static inline void update_mmu_cache(struct vmAreaStruct *vma, unsigned long address, pte_t *ptep)
 {
 	struct mm_struct *mm;
 	unsigned long ampr;

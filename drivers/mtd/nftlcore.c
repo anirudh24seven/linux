@@ -777,7 +777,7 @@ static int nftl_readblock(struct mtd_blktrans_dev *mbd, unsigned long block,
 	return 0;
 }
 
-static int nftl_getgeo(struct mtd_blktrans_dev *dev,  struct hd_geometry *geo)
+static int nftl_getgeo(struct mtd_blktrans_dev *dev,  struct hdGeometry *geo)
 {
 	struct NFTLrecord *nftl = (void *)dev;
 

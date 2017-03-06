@@ -2110,7 +2110,7 @@ static int page_cache_read(struct file *file, pgoff_t offset, gfp_t gfp_mask)
  * Synchronous readahead happens when we don't even find
  * a page in the page cache at all.
  */
-static void do_sync_mmap_readahead(struct vm_area_struct *vma,
+static void do_sync_mmap_readahead(struct vmAreaStruct *vma,
 				   struct file_ra_state *ra,
 				   struct file *file,
 				   pgoff_t offset)
@@ -2153,7 +2153,7 @@ static void do_sync_mmap_readahead(struct vm_area_struct *vma,
  * Asynchronous readahead happens when we find the page and PG_readahead,
  * so we want to possibly extend the readahead further..
  */
-static void do_async_mmap_readahead(struct vm_area_struct *vma,
+static void do_async_mmap_readahead(struct vmAreaStruct *vma,
 				    struct file_ra_state *ra,
 				    struct file *file,
 				    struct page *page,
@@ -2434,7 +2434,7 @@ const struct vm_operations_struct generic_file_vm_ops = {
 
 /* This is used for a general mmap of a disk file */
 
-int generic_file_mmap(struct file * file, struct vm_area_struct * vma)
+int generic_file_mmap(struct file * file, struct vmAreaStruct * vma)
 {
 	struct address_space *mapping = file->f_mapping;
 
@@ -2448,7 +2448,7 @@ int generic_file_mmap(struct file * file, struct vm_area_struct * vma)
 /*
  * This is for filesystems which do not implement ->writepage.
  */
-int generic_file_readonly_mmap(struct file *file, struct vm_area_struct *vma)
+int generic_file_readonly_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	if ((vma->vm_flags & VM_SHARED) && (vma->vm_flags & VM_MAYWRITE))
 		return -EINVAL;

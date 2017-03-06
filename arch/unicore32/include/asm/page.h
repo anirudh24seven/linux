@@ -20,7 +20,7 @@
 #ifndef __ASSEMBLY__
 
 struct page;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 #define clear_page(page)	memset((void *)(page), 0, PAGE_SIZE)
 extern void copy_page(void *to, const void *from);

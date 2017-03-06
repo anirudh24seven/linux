@@ -141,7 +141,7 @@ static void __set_sched_clock_stable(void)
 	tick_dep_clear(TICK_DEP_BIT_CLOCK_UNSTABLE);
 }
 
-static void __clear_sched_clock_stable(struct work_struct *work)
+static void __clear_sched_clock_stable(struct workStruct *work)
 {
 	struct sched_clock_data *scd = this_scd();
 

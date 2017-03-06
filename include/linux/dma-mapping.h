@@ -162,7 +162,7 @@ int dma_alloc_from_coherent(struct device *dev, ssize_t size,
 				       dma_addr_t *dma_handle, void **ret);
 int dma_release_from_coherent(struct device *dev, int order, void *vaddr);
 
-int dma_mmap_from_coherent(struct device *dev, struct vm_area_struct *vma,
+int dma_mmap_from_coherent(struct device *dev, struct vmAreaStruct *vma,
 			    void *cpu_addr, size_t size, int *ret);
 #else
 #define dma_alloc_from_coherent(dev, size, handle, ret) (0)

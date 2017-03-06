@@ -46,13 +46,13 @@ static inline void flush_cache_mm(struct mm_struct *mm)
 #define flush_cache_dup_mm(mm) flush_cache_mm(mm)
 
 /* flush a range of addresses from this mm */
-static inline void flush_cache_range(struct vm_area_struct *vma,
+static inline void flush_cache_range(struct vmAreaStruct *vma,
 				     unsigned long start, unsigned long end)
 {
 	flush_cache_mm(vma->vm_mm);
 }
 
-static inline void flush_cache_page(struct vm_area_struct *vma,
+static inline void flush_cache_page(struct vmAreaStruct *vma,
 				    unsigned long vmaddr, unsigned long pfn)
 {
 	flush_cache_mm(vma->vm_mm);
@@ -67,7 +67,7 @@ static inline void flush_dcache_page(struct page *page)
 #define flush_dcache_mmap_lock(mapping)		do { } while (0)
 #define flush_dcache_mmap_unlock(mapping)	do { } while (0)
 
-static inline void flush_icache_page(struct vm_area_struct *vma,
+static inline void flush_icache_page(struct vmAreaStruct *vma,
 				     struct page *page)
 {
 	metag_code_cache_flush(page_to_virt(page), PAGE_SIZE);

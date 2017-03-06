@@ -3614,7 +3614,7 @@ static void memcg_wb_domain_size_changed(struct mem_cgroup *memcg)
 	wb_domain_size_changed(&memcg->cgwb_domain);
 }
 
-struct wb_domain *mem_cgroup_wb_domain(struct bdi_writeback *wb)
+struct wb_domain *mem_cgroup_wb_domain(struct bdiWriteback *wb)
 {
 	struct mem_cgroup *memcg = mem_cgroup_from_css(wb->memcg_css);
 
@@ -3626,7 +3626,7 @@ struct wb_domain *mem_cgroup_wb_domain(struct bdi_writeback *wb)
 
 /**
  * mem_cgroup_wb_stats - retrieve writeback related stats from its memcg
- * @wb: bdi_writeback in question
+ * @wb: bdiWriteback in question
  * @pfilepages: out parameter for number of file pages
  * @pheadroom: out parameter for number of allocatable pages according to memcg
  * @pdirty: out parameter for number of dirty pages
@@ -3642,7 +3642,7 @@ struct wb_domain *mem_cgroup_wb_domain(struct bdi_writeback *wb)
  * available memory in the system.  The caller should further cap
  * *@pheadroom accordingly.
  */
-void mem_cgroup_wb_stats(struct bdi_writeback *wb, unsigned long *pfilepages,
+void mem_cgroup_wb_stats(struct bdiWriteback *wb, unsigned long *pfilepages,
 			 unsigned long *pheadroom, unsigned long *pdirty,
 			 unsigned long *pwriteback)
 {
@@ -4378,7 +4378,7 @@ enum mc_target_type {
 	MC_TARGET_SWAP,
 };
 
-static struct page *mc_handle_present_pte(struct vm_area_struct *vma,
+static struct page *mc_handle_present_pte(struct vmAreaStruct *vma,
 						unsigned long addr, pte_t ptent)
 {
 	struct page *page = vm_normal_page(vma, addr, ptent);
@@ -4399,7 +4399,7 @@ static struct page *mc_handle_present_pte(struct vm_area_struct *vma,
 }
 
 #ifdef CONFIG_SWAP
-static struct page *mc_handle_swap_pte(struct vm_area_struct *vma,
+static struct page *mc_handle_swap_pte(struct vmAreaStruct *vma,
 			pte_t ptent, swp_entry_t *entry)
 {
 	struct page *page = NULL;
@@ -4418,14 +4418,14 @@ static struct page *mc_handle_swap_pte(struct vm_area_struct *vma,
 	return page;
 }
 #else
-static struct page *mc_handle_swap_pte(struct vm_area_struct *vma,
+static struct page *mc_handle_swap_pte(struct vmAreaStruct *vma,
 			pte_t ptent, swp_entry_t *entry)
 {
 	return NULL;
 }
 #endif
 
-static struct page *mc_handle_file_pte(struct vm_area_struct *vma,
+static struct page *mc_handle_file_pte(struct vmAreaStruct *vma,
 			unsigned long addr, pte_t ptent, swp_entry_t *entry)
 {
 	struct page *page = NULL;
@@ -4575,7 +4575,7 @@ out:
  * Called with pte lock held.
  */
 
-static enum mc_target_type get_mctgt_type(struct vm_area_struct *vma,
+static enum mc_target_type get_mctgt_type(struct vmAreaStruct *vma,
 		unsigned long addr, pte_t ptent, union mc_target *target)
 {
 	struct page *page = NULL;
@@ -4621,7 +4621,7 @@ static enum mc_target_type get_mctgt_type(struct vm_area_struct *vma,
  * support them for now.
  * Caller should make sure that pmd_trans_huge(pmd) is true.
  */
-static enum mc_target_type get_mctgt_type_thp(struct vm_area_struct *vma,
+static enum mc_target_type get_mctgt_type_thp(struct vmAreaStruct *vma,
 		unsigned long addr, pmd_t pmd, union mc_target *target)
 {
 	struct page *page = NULL;
@@ -4641,7 +4641,7 @@ static enum mc_target_type get_mctgt_type_thp(struct vm_area_struct *vma,
 	return ret;
 }
 #else
-static inline enum mc_target_type get_mctgt_type_thp(struct vm_area_struct *vma,
+static inline enum mc_target_type get_mctgt_type_thp(struct vmAreaStruct *vma,
 		unsigned long addr, pmd_t pmd, union mc_target *target)
 {
 	return MC_TARGET_NONE;
@@ -4652,7 +4652,7 @@ static int mem_cgroup_count_precharge_pte_range(pmd_t *pmd,
 					unsigned long addr, unsigned long end,
 					struct mm_walk *walk)
 {
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	pte_t *pte;
 	spinlock_t *ptl;
 
@@ -4848,7 +4848,7 @@ static int mem_cgroup_move_charge_pte_range(pmd_t *pmd,
 				struct mm_walk *walk)
 {
 	int ret = 0;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	pte_t *pte;
 	spinlock_t *ptl;
 	enum mc_target_type target_type;

@@ -274,7 +274,7 @@ static int peak_pciec_write_pca9553(struct peak_pciec_card *card,
 /*
  * delayed work callback used to control the LEDs
  */
-static void peak_pciec_led_work(struct work_struct *work)
+static void peak_pciec_led_work(struct workStruct *work)
 {
 	struct peak_pciec_card *card =
 		container_of(work, struct peak_pciec_card, led_work.work);

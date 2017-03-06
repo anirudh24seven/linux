@@ -555,7 +555,7 @@ struct mport_dma_req {
 };
 
 struct mport_faf_work {
-	struct work_struct work;
+	struct workStruct work;
 	struct mport_dma_req *req;
 };
 
@@ -613,7 +613,7 @@ static void dma_xfer_callback(void *param)
 	complete(&req->req_comp);
 }
 
-static void dma_faf_cleanup(struct work_struct *_work)
+static void dma_faf_cleanup(struct workStruct *_work)
 {
 	struct mport_faf_work *work = container_of(_work,
 						struct mport_faf_work, work);

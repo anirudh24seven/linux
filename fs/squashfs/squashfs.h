@@ -94,7 +94,7 @@ extern ssize_t squashfs_listxattr(struct dentry *, char *, size_t);
 extern const struct file_operations squashfs_dir_ops;
 
 /* export.c */
-extern const struct export_operations squashfs_export_ops;
+extern const struct exportOperations squashfs_export_ops;
 
 /* file.c */
 extern const struct address_space_operations squashfs_aops;

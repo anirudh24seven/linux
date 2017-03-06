@@ -55,7 +55,7 @@ struct arfs_tuple {
 
 struct arfs_rule {
 	struct mlx5e_priv	*priv;
-	struct work_struct      arfs_work;
+	struct workStruct      arfs_work;
 	struct mlx5_flow_handle *rule;
 	struct hlist_node	hlist;
 	int			rxq;
@@ -579,7 +579,7 @@ static void arfs_modify_rule_rq(struct mlx5e_priv *priv,
 			    "Failed to modfiy aRFS rule destination to rq=%d\n", rxq);
 }
 
-static void arfs_handle_work(struct work_struct *work)
+static void arfs_handle_work(struct workStruct *work)
 {
 	struct arfs_rule *arfs_rule = container_of(work,
 						   struct arfs_rule,

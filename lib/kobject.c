@@ -653,7 +653,7 @@ static void kobject_cleanup(struct kobject *kobj)
 }
 
 #ifdef CONFIG_DEBUG_KOBJECT_RELEASE
-static void kobject_delayed_cleanup(struct work_struct *work)
+static void kobject_delayed_cleanup(struct workStruct *work)
 {
 	kobject_cleanup(container_of(to_delayed_work(work),
 				     struct kobject, release));

@@ -149,7 +149,7 @@ static pmd_t *mm_alloc_pmd(struct mm_struct *mm, unsigned long address)
  * called with mmap_sem held, it will release mmap_sem before returning.
  */
 static __always_inline ssize_t __mcopy_atomic_hugetlb(struct mm_struct *dst_mm,
-					      struct vm_area_struct *dst_vma,
+					      struct vmAreaStruct *dst_vma,
 					      unsigned long dst_start,
 					      unsigned long src_start,
 					      unsigned long len,
@@ -374,7 +374,7 @@ static __always_inline ssize_t __mcopy_atomic(struct mm_struct *dst_mm,
 					      unsigned long len,
 					      bool zeropage)
 {
-	struct vm_area_struct *dst_vma;
+	struct vmAreaStruct *dst_vma;
 	ssize_t err;
 	pmd_t *dst_pmd;
 	unsigned long src_addr, dst_addr;

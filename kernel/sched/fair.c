@@ -1142,7 +1142,7 @@ struct numa_group {
 	pid_t gid;
 	int active_nodes;
 
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	unsigned long total_faults;
 	unsigned long max_faults_cpu;
 	/*
@@ -2421,7 +2421,7 @@ void task_numa_work(struct callback_head *work)
 	struct task_struct *p = current;
 	struct mm_struct *mm = p->mm;
 	u64 runtime = p->se.sum_exec_runtime;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long start, end;
 	unsigned long nr_pte_updates = 0;
 	long pages, virtpages;

@@ -22,7 +22,7 @@
 #include <asm/cpu_type.h>
 
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct page;
 
 void load_mmu(void);
@@ -406,10 +406,10 @@ extern unsigned long *sparc_valid_addr_bitmap;
 #define GET_IOSPACE(pfn)		(pfn >> (BITS_PER_LONG - 4))
 #define GET_PFN(pfn)			(pfn & 0x0fffffffUL)
 
-int remap_pfn_range(struct vm_area_struct *, unsigned long, unsigned long,
+int remap_pfn_range(struct vmAreaStruct *, unsigned long, unsigned long,
 		    unsigned long, pgprot_t);
 
-static inline int io_remap_pfn_range(struct vm_area_struct *vma,
+static inline int io_remap_pfn_range(struct vmAreaStruct *vma,
 				     unsigned long from, unsigned long pfn,
 				     unsigned long size, pgprot_t prot)
 {

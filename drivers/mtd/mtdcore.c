@@ -46,7 +46,7 @@
 
 #include "mtdcore.h"
 
-static struct backing_dev_info *mtd_bdi;
+static struct backingDevInfo *mtd_bdi;
 
 #ifdef CONFIG_PM_SLEEP
 
@@ -1770,9 +1770,9 @@ static const struct file_operations mtd_proc_ops = {
 /*====================================================================*/
 /* Init code */
 
-static struct backing_dev_info * __init mtd_bdi_init(char *name)
+static struct backingDevInfo * __init mtd_bdi_init(char *name)
 {
-	struct backing_dev_info *bdi;
+	struct backingDevInfo *bdi;
 	int ret;
 
 	bdi = kzalloc(sizeof(*bdi), GFP_KERNEL);

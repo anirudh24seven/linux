@@ -2714,7 +2714,7 @@ void __cpuset_memory_pressure_bump(void)
  *    and we take cpuset_mutex, keeping cpuset_attach() from changing it
  *    anyway.
  */
-int proc_cpuset_show(struct seq_file *m, struct pid_namespace *ns,
+int proc_cpuset_show(struct seq_file *m, struct pidNamespace *ns,
 		     struct pid *pid, struct task_struct *tsk)
 {
 	char *buf;

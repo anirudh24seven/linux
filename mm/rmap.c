@@ -1747,7 +1747,7 @@ int rmap_walk_locked(struct page *page, struct rmap_walk_control *rwc)
  * and no lru code, because we handle hugepages differently from common pages.
  */
 static void __hugepage_set_anon_rmap(struct page *page,
-	struct vm_area_struct *vma, unsigned long address, int exclusive)
+	struct vmAreaStruct *vma, unsigned long address, int exclusive)
 {
 	struct anon_vma *anon_vma = vma->anon_vma;
 
@@ -1764,7 +1764,7 @@ static void __hugepage_set_anon_rmap(struct page *page,
 }
 
 void hugepage_add_anon_rmap(struct page *page,
-			    struct vm_area_struct *vma, unsigned long address)
+			    struct vmAreaStruct *vma, unsigned long address)
 {
 	struct anon_vma *anon_vma = vma->anon_vma;
 	int first;
@@ -1778,7 +1778,7 @@ void hugepage_add_anon_rmap(struct page *page,
 }
 
 void hugepage_add_new_anon_rmap(struct page *page,
-			struct vm_area_struct *vma, unsigned long address)
+			struct vmAreaStruct *vma, unsigned long address)
 {
 	BUG_ON(address < vma->vm_start || address >= vma->vm_end);
 	atomic_set(compound_mapcount_ptr(page), 0);

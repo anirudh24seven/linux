@@ -417,7 +417,7 @@ void local_flush_tlb_page(struct vm_area_struct *vma, unsigned long page)
 #ifdef CONFIG_SMP
 
 struct tlb_args {
-	struct vm_area_struct *ta_vma;
+	struct vmAreaStruct *ta_vma;
 	unsigned long ta_start;
 	unsigned long ta_end;
 };
@@ -463,7 +463,7 @@ void flush_tlb_mm(struct mm_struct *mm)
 			 mm, 1);
 }
 
-void flush_tlb_page(struct vm_area_struct *vma, unsigned long uaddr)
+void flush_tlb_page(struct vmAreaStruct *vma, unsigned long uaddr)
 {
 	struct tlb_args ta = {
 		.ta_vma = vma,
@@ -473,7 +473,7 @@ void flush_tlb_page(struct vm_area_struct *vma, unsigned long uaddr)
 	on_each_cpu_mask(mm_cpumask(vma->vm_mm), ipi_flush_tlb_page, &ta, 1);
 }
 
-void flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
+void flush_tlb_range(struct vmAreaStruct *vma, unsigned long start,
 		     unsigned long end)
 {
 	struct tlb_args ta = {
@@ -486,7 +486,7 @@ void flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
 }
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-void flush_pmd_tlb_range(struct vm_area_struct *vma, unsigned long start,
+void flush_pmd_tlb_range(struct vmAreaStruct *vma, unsigned long start,
 			 unsigned long end)
 {
 	struct tlb_args ta = {
@@ -654,7 +654,7 @@ void update_mmu_cache(struct vm_area_struct *vma, unsigned long vaddr_unaligned,
  * Thus THP PMD accessors are implemented in terms of PTE (just like sparc)
  */
 
-void update_mmu_cache_pmd(struct vm_area_struct *vma, unsigned long addr,
+void update_mmu_cache_pmd(struct vmAreaStruct *vma, unsigned long addr,
 				 pmd_t *pmd)
 {
 	pte_t pte = __pte(pmd_val(*pmd));
@@ -698,7 +698,7 @@ pgtable_t pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp)
 	return pgtable;
 }
 
-void local_flush_pmd_tlb_range(struct vm_area_struct *vma, unsigned long start,
+void local_flush_pmd_tlb_range(struct vmAreaStruct *vma, unsigned long start,
 			       unsigned long end)
 {
 	unsigned int cpu;

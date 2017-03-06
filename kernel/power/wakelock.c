@@ -84,7 +84,7 @@ static inline void decrement_wakelocks_number(void) {}
 #define WL_GC_COUNT_MAX	100
 #define WL_GC_TIME_SEC	300
 
-static void __wakelocks_gc(struct work_struct *work);
+static void __wakelocks_gc(struct workStruct *work);
 static LIST_HEAD(wakelocks_lru_list);
 static DECLARE_WORK(wakelock_work, __wakelocks_gc);
 static unsigned int wakelocks_gc_count;
@@ -99,7 +99,7 @@ static inline void wakelocks_lru_most_recent(struct wakelock *wl)
 	list_move(&wl->lru, &wakelocks_lru_list);
 }
 
-static void __wakelocks_gc(struct work_struct *work)
+static void __wakelocks_gc(struct workStruct *work)
 {
 	struct wakelock *wl, *aux;
 	ktime_t now;

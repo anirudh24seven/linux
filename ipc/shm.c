@@ -65,8 +65,8 @@ static const struct vm_operations_struct shm_vm_ops;
 	ipc_unlock(&(shp)->shm_perm)
 
 static int newseg(struct ipc_namespace *, struct ipc_params *);
-static void shm_open(struct vm_area_struct *vma);
-static void shm_close(struct vm_area_struct *vma);
+static void shm_open(struct vmAreaStruct *vma);
+static void shm_close(struct vmAreaStruct *vma);
 static void shm_destroy(struct ipc_namespace *ns, struct shmid_kernel *shp);
 #ifdef CONFIG_PROC_FS
 static int sysvipc_shm_proc_show(struct seq_file *s, void *it);
@@ -188,7 +188,7 @@ static inline void shm_rmid(struct ipc_namespace *ns, struct shmid_kernel *s)
 }
 
 
-static int __shm_open(struct vm_area_struct *vma)
+static int __shm_open(struct vmAreaStruct *vma)
 {
 	struct file *file = vma->vm_file;
 	struct shm_file_data *sfd = shm_file_data(file);
@@ -207,7 +207,7 @@ static int __shm_open(struct vm_area_struct *vma)
 }
 
 /* This is called by fork, once for every shm attach. */
-static void shm_open(struct vm_area_struct *vma)
+static void shm_open(struct vmAreaStruct *vma)
 {
 	int err = __shm_open(vma);
 	/*
@@ -267,7 +267,7 @@ static bool shm_may_destroy(struct ipc_namespace *ns, struct shmid_kernel *shp)
  * The descriptor has already been removed from the current->mm->mmap list
  * and will later be kfree()d.
  */
-static void shm_close(struct vm_area_struct *vma)
+static void shm_close(struct vmAreaStruct *vma)
 {
 	struct file *file = vma->vm_file;
 	struct shm_file_data *sfd = shm_file_data(file);
@@ -383,7 +383,7 @@ static int shm_fault(struct vm_fault *vmf)
 }
 
 #ifdef CONFIG_NUMA
-static int shm_set_policy(struct vm_area_struct *vma, struct mempolicy *new)
+static int shm_set_policy(struct vmAreaStruct *vma, struct mempolicy *new)
 {
 	struct file *file = vma->vm_file;
 	struct shm_file_data *sfd = shm_file_data(file);
@@ -394,7 +394,7 @@ static int shm_set_policy(struct vm_area_struct *vma, struct mempolicy *new)
 	return err;
 }
 
-static struct mempolicy *shm_get_policy(struct vm_area_struct *vma,
+static struct mempolicy *shm_get_policy(struct vmAreaStruct *vma,
 					unsigned long addr)
 {
 	struct file *file = vma->vm_file;
@@ -410,7 +410,7 @@ static struct mempolicy *shm_get_policy(struct vm_area_struct *vma,
 }
 #endif
 
-static int shm_mmap(struct file *file, struct vm_area_struct *vma)
+static int shm_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	struct shm_file_data *sfd = shm_file_data(file);
 	int ret;
@@ -1276,13 +1276,13 @@ SYSCALL_DEFINE3(shmat, int, shmid, char __user *, shmaddr, int, shmflg)
 SYSCALL_DEFINE1(shmdt, char __user *, shmaddr)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long addr = (unsigned long)shmaddr;
 	int retval = -EINVAL;
 #ifdef CONFIG_MMU
 	loff_t size = 0;
 	struct file *file;
-	struct vm_area_struct *next;
+	struct vmAreaStruct *next;
 #endif
 
 	if (addr & ~PAGE_MASK)

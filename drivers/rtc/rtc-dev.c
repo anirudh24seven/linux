@@ -53,7 +53,7 @@ static int rtc_dev_open(struct inode *inode, struct file *file)
  * Routine to poll RTC seconds field for change as often as possible,
  * after first RTC_UIE use timer to reduce polling
  */
-static void rtc_uie_task(struct work_struct *work)
+static void rtc_uie_task(struct workStruct *work)
 {
 	struct rtc_device *rtc =
 		container_of(work, struct rtc_device, uie_task);

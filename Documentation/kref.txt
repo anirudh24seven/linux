@@ -258,7 +258,7 @@ locking for lookups in the above example:
 
 struct my_data
 {
-	struct rcu_head rhead;
+	struct rcuHead rhead;
 	.
 	struct kref refcount;
 	.

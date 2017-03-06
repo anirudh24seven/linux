@@ -2865,7 +2865,7 @@ void pgtable_free(void *table, bool is_page)
 }
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-void update_mmu_cache_pmd(struct vm_area_struct *vma, unsigned long addr,
+void update_mmu_cache_pmd(struct vmAreaStruct *vma, unsigned long addr,
 			  pmd_t *pmd)
 {
 	unsigned long pte, flags;

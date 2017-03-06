@@ -138,12 +138,12 @@ static inline void anon_vma_unlock_read(struct anon_vma *anon_vma)
  * anon_vma helper functions.
  */
 void anon_vma_init(void);	/* create anon_vma_cachep */
-int  __anon_vma_prepare(struct vm_area_struct *);
-void unlink_anon_vmas(struct vm_area_struct *);
-int anon_vma_clone(struct vm_area_struct *, struct vm_area_struct *);
-int anon_vma_fork(struct vm_area_struct *, struct vm_area_struct *);
+int  __anon_vma_prepare(struct vmAreaStruct *);
+void unlink_anon_vmas(struct vmAreaStruct *);
+int anon_vma_clone(struct vmAreaStruct *, struct vmAreaStruct *);
+int anon_vma_fork(struct vmAreaStruct *, struct vmAreaStruct *);
 
-static inline int anon_vma_prepare(struct vm_area_struct *vma)
+static inline int anon_vma_prepare(struct vmAreaStruct *vma)
 {
 	if (likely(vma->anon_vma))
 		return 0;
@@ -151,8 +151,8 @@ static inline int anon_vma_prepare(struct vm_area_struct *vma)
 	return __anon_vma_prepare(vma);
 }
 
-static inline void anon_vma_merge(struct vm_area_struct *vma,
-				  struct vm_area_struct *next)
+static inline void anon_vma_merge(struct vmAreaStruct *vma,
+				  struct vmAreaStruct *next)
 {
 	VM_BUG_ON_VMA(vma->anon_vma != next->anon_vma, vma);
 	unlink_anon_vmas(next);
@@ -167,19 +167,19 @@ struct anon_vma *page_get_anon_vma(struct page *page);
 /*
  * rmap interfaces called when adding or removing pte of page
  */
-void page_move_anon_rmap(struct page *, struct vm_area_struct *);
-void page_add_anon_rmap(struct page *, struct vm_area_struct *,
+void page_move_anon_rmap(struct page *, struct vmAreaStruct *);
+void page_add_anon_rmap(struct page *, struct vmAreaStruct *,
 		unsigned long, bool);
-void do_page_add_anon_rmap(struct page *, struct vm_area_struct *,
+void do_page_add_anon_rmap(struct page *, struct vmAreaStruct *,
 			   unsigned long, int);
-void page_add_new_anon_rmap(struct page *, struct vm_area_struct *,
+void page_add_new_anon_rmap(struct page *, struct vmAreaStruct *,
 		unsigned long, bool);
 void page_add_file_rmap(struct page *, bool);
 void page_remove_rmap(struct page *, bool);
 
-void hugepage_add_anon_rmap(struct page *, struct vm_area_struct *,
+void hugepage_add_anon_rmap(struct page *, struct vmAreaStruct *,
 			    unsigned long);
-void hugepage_add_new_anon_rmap(struct page *, struct vm_area_struct *,
+void hugepage_add_new_anon_rmap(struct page *, struct vmAreaStruct *,
 				unsigned long);
 
 static inline void page_dup_rmap(struct page *page, bool compound)
@@ -204,7 +204,7 @@ int try_to_unmap(struct page *, enum ttu_flags flags);
 
 struct page_vma_mapped_walk {
 	struct page *page;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long address;
 	pmd_t *pmd;
 	pte_t *pte;
@@ -225,7 +225,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw);
 /*
  * Used by swapoff to help locate where page is expected in vma.
  */
-unsigned long page_address_in_vma(struct page *, struct vm_area_struct *);
+unsigned long page_address_in_vma(struct page *, struct vmAreaStruct *);
 
 /*
  * Cleans the PTEs of shared mappings.
@@ -248,7 +248,7 @@ void remove_migration_ptes(struct page *old, struct page *new, bool locked);
  */
 struct anon_vma *page_lock_anon_vma_read(struct page *page);
 void page_unlock_anon_vma_read(struct anon_vma *anon_vma);
-int page_mapped_in_vma(struct page *page, struct vm_area_struct *vma);
+int page_mapped_in_vma(struct page *page, struct vmAreaStruct *vma);
 
 /*
  * rmap_walk_control: To control rmap traversing for specific needs
@@ -261,11 +261,11 @@ int page_mapped_in_vma(struct page *page, struct vm_area_struct *vma);
  */
 struct rmap_walk_control {
 	void *arg;
-	int (*rmap_one)(struct page *page, struct vm_area_struct *vma,
+	int (*rmap_one)(struct page *page, struct vmAreaStruct *vma,
 					unsigned long addr, void *arg);
 	int (*done)(struct page *page);
 	struct anon_vma *(*anon_lock)(struct page *page);
-	bool (*invalid_vma)(struct vm_area_struct *vma, void *arg);
+	bool (*invalid_vma)(struct vmAreaStruct *vma, void *arg);
 };
 
 int rmap_walk(struct page *page, struct rmap_walk_control *rwc);

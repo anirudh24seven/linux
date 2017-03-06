@@ -58,7 +58,7 @@ static inline bool vmacache_valid_mm(struct mm_struct *mm)
 	return current->mm == mm && !(current->flags & PF_KTHREAD);
 }
 
-void vmacache_update(unsigned long addr, struct vm_area_struct *newvma)
+void vmacache_update(unsigned long addr, struct vmAreaStruct *newvma)
 {
 	if (vmacache_valid_mm(newvma->vm_mm))
 		current->vmacache.vmas[VMACACHE_HASH(addr)] = newvma;
@@ -84,7 +84,7 @@ static bool vmacache_valid(struct mm_struct *mm)
 	return true;
 }
 
-struct vm_area_struct *vmacache_find(struct mm_struct *mm, unsigned long addr)
+struct vmAreaStruct *vmacache_find(struct mm_struct *mm, unsigned long addr)
 {
 	int i;
 
@@ -94,7 +94,7 @@ struct vm_area_struct *vmacache_find(struct mm_struct *mm, unsigned long addr)
 		return NULL;
 
 	for (i = 0; i < VMACACHE_SIZE; i++) {
-		struct vm_area_struct *vma = current->vmacache.vmas[i];
+		struct vmAreaStruct *vma = current->vmacache.vmas[i];
 
 		if (!vma)
 			continue;
@@ -110,7 +110,7 @@ struct vm_area_struct *vmacache_find(struct mm_struct *mm, unsigned long addr)
 }
 
 #ifndef CONFIG_MMU
-struct vm_area_struct *vmacache_find_exact(struct mm_struct *mm,
+struct vmAreaStruct *vmacache_find_exact(struct mm_struct *mm,
 					   unsigned long start,
 					   unsigned long end)
 {
@@ -122,7 +122,7 @@ struct vm_area_struct *vmacache_find_exact(struct mm_struct *mm,
 		return NULL;
 
 	for (i = 0; i < VMACACHE_SIZE; i++) {
-		struct vm_area_struct *vma = current->vmacache.vmas[i];
+		struct vmAreaStruct *vma = current->vmacache.vmas[i];
 
 		if (vma && vma->vm_start == start && vma->vm_end == end) {
 			count_vm_vmacache_event(VMACACHE_FIND_HITS);

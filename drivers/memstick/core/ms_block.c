@@ -1993,7 +1993,7 @@ static void msb_bd_release(struct gendisk *disk, fmode_t mode)
 }
 
 static int msb_bd_getgeo(struct block_device *bdev,
-				 struct hd_geometry *geo)
+				 struct hdGeometry *geo)
 {
 	struct msb_data *msb = bdev->bd_disk->private_data;
 	*geo = msb->geometry;

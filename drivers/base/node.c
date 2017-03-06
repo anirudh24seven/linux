@@ -510,7 +510,7 @@ static int link_mem_sections(int nid)
  * Handle per node hstate attribute [un]registration on transistions
  * to/from memoryless state.
  */
-static void node_hugetlb_work(struct work_struct *work)
+static void node_hugetlb_work(struct workStruct *work)
 {
 	struct node *node = container_of(work, struct node, node_work);
 

@@ -8,7 +8,7 @@
 #include <asm/page.h>		/* pgprot_t */
 #include <linux/rbtree.h>
 
-struct vm_area_struct;		/* vma defining user mapping in mm_types.h */
+struct vmAreaStruct;		/* vma defining user mapping in mm_types.h */
 struct notifier_block;		/* in notifier.h */
 
 /* bits in flags of vmalloc's vm_struct below */
@@ -88,11 +88,11 @@ extern void *vmap(struct page **pages, unsigned int count,
 			unsigned long flags, pgprot_t prot);
 extern void vunmap(const void *addr);
 
-extern int remap_vmalloc_range_partial(struct vm_area_struct *vma,
+extern int remap_vmalloc_range_partial(struct vmAreaStruct *vma,
 				       unsigned long uaddr, void *kaddr,
 				       unsigned long size);
 
-extern int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
+extern int remap_vmalloc_range(struct vmAreaStruct *vma, void *addr,
 							unsigned long pgoff);
 void vmalloc_sync_all(void);
  

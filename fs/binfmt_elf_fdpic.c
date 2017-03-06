@@ -1183,7 +1183,7 @@ static int elf_fdpic_map_file_by_direct_mmap(struct elf_fdpic_params *params,
  *
  * I think we should skip something. But I am not sure how. H.J.
  */
-static int maydump(struct vm_area_struct *vma, unsigned long mm_flags)
+static int maydump(struct vmAreaStruct *vma, unsigned long mm_flags)
 {
 	int dump_ok;
 
@@ -1485,7 +1485,7 @@ static void fill_extnum_info(struct elfhdr *elf, struct elf_shdr *shdr4extnum,
  */
 static bool elf_fdpic_dump_segments(struct coredump_params *cprm)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	for (vma = current->mm->mmap; vma; vma = vma->vm_next) {
 		unsigned long addr;
@@ -1520,7 +1520,7 @@ static bool elf_fdpic_dump_segments(struct coredump_params *cprm)
 
 static size_t elf_core_vma_data_size(unsigned long mm_flags)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	size_t size = 0;
 
 	for (vma = current->mm->mmap; vma; vma = vma->vm_next)
@@ -1543,7 +1543,7 @@ static int elf_fdpic_core_dump(struct coredump_params *cprm)
 	mm_segment_t fs;
 	int segs;
 	int i;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct elfhdr *elf = NULL;
 	loff_t offset = 0, dataoff;
 	int numnote;

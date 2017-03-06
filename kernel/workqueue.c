@@ -193,7 +193,7 @@ struct worker_pool {
 
 /*
  * The per-pool workqueue.  While queued, the lower WORK_STRUCT_FLAG_BITS
- * of work_struct->data are used for flags and the remaining high bits
+ * of workStruct->data are used for flags and the remaining high bits
  * point to the pwq; thus, pwqs need to be aligned at two's power of the
  * number of flag bits.
  */
@@ -432,12 +432,12 @@ static struct debug_obj_descr work_debug_descr;
 
 static void *work_debug_hint(void *addr)
 {
-	return ((struct work_struct *) addr)->func;
+	return ((struct workStruct *) addr)->func;
 }
 
 static bool work_is_static_object(void *addr)
 {
-	struct work_struct *work = addr;
+	struct workStruct *work = addr;
 
 	return test_bit(WORK_STRUCT_STATIC_BIT, work_data_bits(work));
 }
@@ -448,7 +448,7 @@ static bool work_is_static_object(void *addr)
  */
 static bool work_fixup_init(void *addr, enum debug_obj_state state)
 {
-	struct work_struct *work = addr;
+	struct workStruct *work = addr;
 
 	switch (state) {
 	case ODEBUG_STATE_ACTIVE:
@@ -466,7 +466,7 @@ static bool work_fixup_init(void *addr, enum debug_obj_state state)
  */
 static bool work_fixup_free(void *addr, enum debug_obj_state state)
 {
-	struct work_struct *work = addr;
+	struct workStruct *work = addr;
 
 	switch (state) {
 	case ODEBUG_STATE_ACTIVE:
@@ -479,24 +479,24 @@ static bool work_fixup_free(void *addr, enum debug_obj_state state)
 }
 
 static struct debug_obj_descr work_debug_descr = {
-	.name		= "work_struct",
+	.name		= "workStruct",
 	.debug_hint	= work_debug_hint,
 	.is_static_object = work_is_static_object,
 	.fixup_init	= work_fixup_init,
 	.fixup_free	= work_fixup_free,
 };
 
-static inline void debug_work_activate(struct work_struct *work)
+static inline void debug_work_activate(struct workStruct *work)
 {
 	debug_object_activate(work, &work_debug_descr);
 }
 
-static inline void debug_work_deactivate(struct work_struct *work)
+static inline void debug_work_deactivate(struct workStruct *work)
 {
 	debug_object_deactivate(work, &work_debug_descr);
 }
 
-void __init_work(struct work_struct *work, int onstack)
+void __init_work(struct workStruct *work, int onstack)
 {
 	if (onstack)
 		debug_object_init_on_stack(work, &work_debug_descr);
@@ -505,7 +505,7 @@ void __init_work(struct work_struct *work, int onstack)
 }
 EXPORT_SYMBOL_GPL(__init_work);
 
-void destroy_work_on_stack(struct work_struct *work)
+void destroy_work_on_stack(struct workStruct *work)
 {
 	debug_object_free(work, &work_debug_descr);
 }
@@ -2025,7 +2025,7 @@ __acquires(&pool->lock)
 	struct worker *collision;
 #ifdef CONFIG_LOCKDEP
 	/*
-	 * It is permissible to free the struct work_struct from
+	 * It is permissible to free the struct workStruct from
 	 * inside the function that is called from it, this we need to
 	 * take into account for lockdep too.  To avoid bogus "held
 	 * lock freed" warnings as well as problems when looking into
@@ -4699,13 +4699,13 @@ int workqueue_offline_cpu(unsigned int cpu)
 #ifdef CONFIG_SMP
 
 struct work_for_cpu {
-	struct work_struct work;
+	struct workStruct work;
 	long (*fn)(void *);
 	void *arg;
 	long ret;
 };
 
-static void work_for_cpu_fn(struct work_struct *work)
+static void work_for_cpu_fn(struct workStruct *work)
 {
 	struct work_for_cpu *wfc = container_of(work, struct work_for_cpu, work);
 

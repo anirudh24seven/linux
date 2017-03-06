@@ -1181,9 +1181,9 @@ struct batadv_bla_backbone_gw {
 	atomic_t request_sent;
 	u16 crc;
 	spinlock_t crc_lock; /* protects crc */
-	struct work_struct report_work;
+	struct workStruct report_work;
 	struct kref refcount;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 };
 
 /**
@@ -1204,7 +1204,7 @@ struct batadv_bla_claim {
 	spinlock_t backbone_lock; /* protects backbone_gw */
 	unsigned long lasttime;
 	struct hlist_node hash_entry;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	struct kref refcount;
 };
 #endif

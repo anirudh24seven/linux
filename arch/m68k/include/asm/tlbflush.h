@@ -81,7 +81,7 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
 		__flush_tlb();
 }
 
-static inline void flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
+static inline void flush_tlb_page(struct vmAreaStruct *vma, unsigned long addr)
 {
 	if (vma->vm_mm == current->active_mm) {
 		mm_segment_t old_fs = get_fs();
@@ -91,7 +91,7 @@ static inline void flush_tlb_page(struct vm_area_struct *vma, unsigned long addr
 	}
 }
 
-static inline void flush_tlb_range(struct vm_area_struct *vma,
+static inline void flush_tlb_range(struct vmAreaStruct *vma,
 				   unsigned long start, unsigned long end)
 {
 	if (vma->vm_mm == current->active_mm)
@@ -167,7 +167,7 @@ static inline void flush_tlb_mm (struct mm_struct *mm)
 
 /* Flush a single TLB page. In this case, we're limited to flushing a
    single PMEG */
-static inline void flush_tlb_page (struct vm_area_struct *vma,
+static inline void flush_tlb_page (struct vmAreaStruct *vma,
 				   unsigned long addr)
 {
 	unsigned char oldctx;
@@ -188,7 +188,7 @@ static inline void flush_tlb_page (struct vm_area_struct *vma,
 }
 /* Flush a range of pages from TLB. */
 
-static inline void flush_tlb_range (struct vm_area_struct *vma,
+static inline void flush_tlb_range (struct vmAreaStruct *vma,
 		      unsigned long start, unsigned long end)
 {
 	struct mm_struct *mm = vma->vm_mm;

@@ -1142,7 +1142,7 @@ access the data:
      to set the pointer and dispose of the old contents after a grace period.
      Note that only the key type should ever modify a key's payload.
 
-     Furthermore, an RCU controlled payload must hold a struct rcu_head for the
+     Furthermore, an RCU controlled payload must hold a struct rcuHead for the
      use of call_rcu() and, if the payload is of variable size, the length of
      the payload. key->datalen cannot be relied upon to be consistent with the
      payload just dereferenced if the key's semaphore is not held.

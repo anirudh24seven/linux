@@ -425,7 +425,7 @@ int ptep_set_access_flags(struct vm_area_struct *vma,
 }
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-int pmdp_set_access_flags(struct vm_area_struct *vma,
+int pmdp_set_access_flags(struct vmAreaStruct *vma,
 			  unsigned long address, pmd_t *pmdp,
 			  pmd_t entry, int dirty)
 {
@@ -446,7 +446,7 @@ int pmdp_set_access_flags(struct vm_area_struct *vma,
 	return changed;
 }
 
-int pudp_set_access_flags(struct vm_area_struct *vma, unsigned long address,
+int pudp_set_access_flags(struct vmAreaStruct *vma, unsigned long address,
 			  pud_t *pudp, pud_t entry, int dirty)
 {
 	int changed = !pud_same(*pudp, entry);
@@ -483,7 +483,7 @@ int ptep_test_and_clear_young(struct vm_area_struct *vma,
 }
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 			      unsigned long addr, pmd_t *pmdp)
 {
 	int ret = 0;
@@ -494,7 +494,7 @@ int pmdp_test_and_clear_young(struct vm_area_struct *vma,
 
 	return ret;
 }
-int pudp_test_and_clear_young(struct vm_area_struct *vma,
+int pudp_test_and_clear_young(struct vmAreaStruct *vma,
 			      unsigned long addr, pud_t *pudp)
 {
 	int ret = 0;
@@ -527,7 +527,7 @@ int ptep_clear_flush_young(struct vm_area_struct *vma,
 }
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-int pmdp_clear_flush_young(struct vm_area_struct *vma,
+int pmdp_clear_flush_young(struct vmAreaStruct *vma,
 			   unsigned long address, pmd_t *pmdp)
 {
 	int young;

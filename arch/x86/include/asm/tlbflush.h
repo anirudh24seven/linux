@@ -304,7 +304,7 @@ static inline void flush_tlb_kernel_range(unsigned long start,
 
 extern void flush_tlb_all(void);
 extern void flush_tlb_current_task(void);
-extern void flush_tlb_page(struct vm_area_struct *, unsigned long);
+extern void flush_tlb_page(struct vmAreaStruct *, unsigned long);
 extern void flush_tlb_mm_range(struct mm_struct *mm, unsigned long start,
 				unsigned long end, unsigned long vmflag);
 extern void flush_tlb_kernel_range(unsigned long start, unsigned long end);

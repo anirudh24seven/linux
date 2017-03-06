@@ -94,7 +94,7 @@ radix__arch_get_unmapped_area(struct file *filp, unsigned long addr,
 			     unsigned long flags)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct vm_unmapped_area_info info;
 
 	if (len > TASK_SIZE - mmap_min_addr)
@@ -126,7 +126,7 @@ radix__arch_get_unmapped_area_topdown(struct file *filp,
 				     const unsigned long pgoff,
 				     const unsigned long flags)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct mm_struct *mm = current->mm;
 	unsigned long addr = addr0;
 	struct vm_unmapped_area_info info;

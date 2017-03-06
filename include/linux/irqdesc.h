@@ -89,7 +89,7 @@ struct irq_desc {
 	struct proc_dir_entry	*dir;
 #endif
 #ifdef CONFIG_SPARSE_IRQ
-	struct rcu_head		rcu;
+	struct rcuHead		rcu;
 	struct kobject		kobj;
 #endif
 	int			parent_irq;

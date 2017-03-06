@@ -82,7 +82,7 @@ struct unmap_notify {
 
 struct grant_map {
 	struct list_head next;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int index;
 	int count;
 	int flags;
@@ -395,7 +395,7 @@ static int unmap_grant_pages(struct grant_map *map, int offset, int pages)
 
 /* ------------------------------------------------------------------ */
 
-static void gntdev_vma_open(struct vm_area_struct *vma)
+static void gntdev_vma_open(struct vmAreaStruct *vma)
 {
 	struct grant_map *map = vma->vm_private_data;
 
@@ -403,7 +403,7 @@ static void gntdev_vma_open(struct vm_area_struct *vma)
 	atomic_inc(&map->users);
 }
 
-static void gntdev_vma_close(struct vm_area_struct *vma)
+static void gntdev_vma_close(struct vmAreaStruct *vma)
 {
 	struct grant_map *map = vma->vm_private_data;
 	struct file *file = vma->vm_file;
@@ -426,7 +426,7 @@ static void gntdev_vma_close(struct vm_area_struct *vma)
 	gntdev_put_map(priv, map);
 }
 
-static struct page *gntdev_vma_find_special_page(struct vm_area_struct *vma,
+static struct page *gntdev_vma_find_special_page(struct vmAreaStruct *vma,
 						 unsigned long addr)
 {
 	struct grant_map *map = vma->vm_private_data;
@@ -654,7 +654,7 @@ static long gntdev_ioctl_get_offset_for_vaddr(struct gntdev_priv *priv,
 					      struct ioctl_gntdev_get_offset_for_vaddr __user *u)
 {
 	struct ioctl_gntdev_get_offset_for_vaddr op;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	struct grant_map *map;
 	int rv = -EINVAL;
 
@@ -979,7 +979,7 @@ static long gntdev_ioctl(struct file *flip,
 	return 0;
 }
 
-static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
+static int gntdev_mmap(struct file *flip, struct vmAreaStruct *vma)
 {
 	struct gntdev_priv *priv = flip->private_data;
 	int index = vma->vm_pgoff;

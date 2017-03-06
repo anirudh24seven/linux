@@ -284,7 +284,7 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION(IVTV_VERSION);
 
 #if defined(CONFIG_MODULES) && defined(MODULE)
-static void request_module_async(struct work_struct *work)
+static void request_module_async(struct workStruct *work)
 {
 	struct ivtv *dev = container_of(work, struct ivtv, request_module_wk);
 

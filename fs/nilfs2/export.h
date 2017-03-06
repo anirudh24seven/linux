@@ -3,7 +3,7 @@
 
 #include <linux/exportfs.h>
 
-extern const struct export_operations nilfs_export_ops;
+extern const struct exportOperations nilfs_export_ops;
 
 /**
  * struct nilfs_fid - NILFS file id type

@@ -494,7 +494,7 @@ static const struct intel_th_subdevice {
 };
 
 #ifdef CONFIG_MODULES
-static void __intel_th_request_hub_module(struct work_struct *work)
+static void __intel_th_request_hub_module(struct workStruct *work)
 {
 	struct intel_th *th = container_of(work, struct intel_th,
 					   request_module_work);

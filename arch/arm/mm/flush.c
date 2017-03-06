@@ -79,7 +79,7 @@ void flush_cache_mm(struct mm_struct *mm)
 	}
 }
 
-void flush_cache_range(struct vm_area_struct *vma, unsigned long start, unsigned long end)
+void flush_cache_range(struct vmAreaStruct *vma, unsigned long start, unsigned long end)
 {
 	if (cache_is_vivt()) {
 		vivt_flush_cache_range(vma, start, end);
@@ -98,7 +98,7 @@ void flush_cache_range(struct vm_area_struct *vma, unsigned long start, unsigned
 		__flush_icache_all();
 }
 
-void flush_cache_page(struct vm_area_struct *vma, unsigned long user_addr, unsigned long pfn)
+void flush_cache_page(struct vmAreaStruct *vma, unsigned long user_addr, unsigned long pfn)
 {
 	if (cache_is_vivt()) {
 		vivt_flush_cache_page(vma, user_addr, pfn);

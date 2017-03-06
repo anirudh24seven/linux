@@ -120,7 +120,7 @@ static int shmem_replace_page(struct page **pagep, gfp_t gfp,
 				struct shmem_inode_info *info, pgoff_t index);
 static int shmem_getpage_gfp(struct inode *inode, pgoff_t index,
 		struct page **pagep, enum sgp_type sgp,
-		gfp_t gfp, struct vm_area_struct *vma,
+		gfp_t gfp, struct vmAreaStruct *vma,
 		struct vm_fault *vmf, int *fault_type);
 
 int shmem_getpage(struct inode *inode, pgoff_t index,
@@ -196,7 +196,7 @@ static const struct inode_operations shmem_special_inode_operations;
 static const struct vm_operations_struct shmem_vm_ops;
 static struct file_system_type shmem_fs_type;
 
-bool vma_is_shmem(struct vm_area_struct *vma)
+bool vma_is_shmem(struct vmAreaStruct *vma)
 {
 	return vma->vm_ops == &shmem_vm_ops;
 }
@@ -696,7 +696,7 @@ unsigned long shmem_partial_swap_usage(struct address_space *mapping,
  * This is safe to call without i_mutex or mapping->tree_lock thanks to RCU,
  * as long as the inode doesn't go away and racy results are not a problem.
  */
-unsigned long shmem_swap_usage(struct vm_area_struct *vma)
+unsigned long shmem_swap_usage(struct vmAreaStruct *vma)
 {
 	struct inode *inode = file_inode(vma->vm_file);
 	struct shmem_inode_info *info = SHMEM_I(inode);
@@ -1372,7 +1372,7 @@ static inline struct mempolicy *shmem_get_sbmpol(struct shmem_sb_info *sbinfo)
 #define vm_policy vm_private_data
 #endif
 
-static void shmem_pseudo_vma_init(struct vm_area_struct *vma,
+static void shmem_pseudo_vma_init(struct vmAreaStruct *vma,
 		struct shmem_inode_info *info, pgoff_t index)
 {
 	/* Create a pseudo vma that just contains the policy */
@@ -1383,7 +1383,7 @@ static void shmem_pseudo_vma_init(struct vm_area_struct *vma,
 	vma->vm_policy = mpol_shared_policy_lookup(&info->policy, index);
 }
 
-static void shmem_pseudo_vma_destroy(struct vm_area_struct *vma)
+static void shmem_pseudo_vma_destroy(struct vmAreaStruct *vma)
 {
 	/* Drop reference taken by mpol_shared_policy_lookup() */
 	mpol_cond_put(vma->vm_policy);
@@ -1392,7 +1392,7 @@ static void shmem_pseudo_vma_destroy(struct vm_area_struct *vma)
 static struct page *shmem_swapin(swp_entry_t swap, gfp_t gfp,
 			struct shmem_inode_info *info, pgoff_t index)
 {
-	struct vm_area_struct pvma;
+	struct vmAreaStruct pvma;
 	struct page *page;
 
 	shmem_pseudo_vma_init(&pvma, info, index);
@@ -1405,7 +1405,7 @@ static struct page *shmem_swapin(swp_entry_t swap, gfp_t gfp,
 static struct page *shmem_alloc_hugepage(gfp_t gfp,
 		struct shmem_inode_info *info, pgoff_t index)
 {
-	struct vm_area_struct pvma;
+	struct vmAreaStruct pvma;
 	struct inode *inode = &info->vfs_inode;
 	struct address_space *mapping = inode->i_mapping;
 	pgoff_t idx, hindex;
@@ -1436,7 +1436,7 @@ static struct page *shmem_alloc_hugepage(gfp_t gfp,
 static struct page *shmem_alloc_page(gfp_t gfp,
 			struct shmem_inode_info *info, pgoff_t index)
 {
-	struct vm_area_struct pvma;
+	struct vmAreaStruct pvma;
 	struct page *page;
 
 	shmem_pseudo_vma_init(&pvma, info, index);
@@ -1581,7 +1581,7 @@ static int shmem_replace_page(struct page **pagep, gfp_t gfp,
  */
 static int shmem_getpage_gfp(struct inode *inode, pgoff_t index,
 	struct page **pagep, enum sgp_type sgp, gfp_t gfp,
-	struct vm_area_struct *vma, struct vm_fault *vmf, int *fault_type)
+	struct vmAreaStruct *vma, struct vm_fault *vmf, int *fault_type)
 {
 	struct address_space *mapping = inode->i_mapping;
 	struct shmem_inode_info *info = SHMEM_I(inode);
@@ -1911,7 +1911,7 @@ static int synchronous_wake_function(wait_queue_t *wait, unsigned mode, int sync
 
 static int shmem_fault(struct vm_fault *vmf)
 {
-	struct vm_area_struct *vma = vmf->vma;
+	struct vmAreaStruct *vma = vmf->vma;
 	struct inode *inode = file_inode(vma->vm_file);
 	gfp_t gfp = mapping_gfp_mask(inode->i_mapping);
 	enum sgp_type sgp;
@@ -2078,13 +2078,13 @@ unsigned long shmem_get_unmapped_area(struct file *file,
 }
 
 #ifdef CONFIG_NUMA
-static int shmem_set_policy(struct vm_area_struct *vma, struct mempolicy *mpol)
+static int shmem_set_policy(struct vmAreaStruct *vma, struct mempolicy *mpol)
 {
 	struct inode *inode = file_inode(vma->vm_file);
 	return mpol_set_shared_policy(&SHMEM_I(inode)->policy, vma, mpol);
 }
 
-static struct mempolicy *shmem_get_policy(struct vm_area_struct *vma,
+static struct mempolicy *shmem_get_policy(struct vmAreaStruct *vma,
 					  unsigned long addr)
 {
 	struct inode *inode = file_inode(vma->vm_file);
@@ -2120,7 +2120,7 @@ out_nomem:
 	return retval;
 }
 
-static int shmem_mmap(struct file *file, struct vm_area_struct *vma)
+static int shmem_mmap(struct file *file, struct vmAreaStruct *vma)
 {
 	file_accessed(file);
 	vma->vm_ops = &shmem_vm_ops;
@@ -2198,7 +2198,7 @@ bool shmem_mapping(struct address_space *mapping)
 
 int shmem_mcopy_atomic_pte(struct mm_struct *dst_mm,
 			   pmd_t *dst_pmd,
-			   struct vm_area_struct *dst_vma,
+			   struct vmAreaStruct *dst_vma,
 			   unsigned long dst_addr,
 			   unsigned long src_addr,
 			   struct page **pagep)
@@ -3429,7 +3429,7 @@ static int shmem_encode_fh(struct inode *inode, __u32 *fh, int *len,
 	return 1;
 }
 
-static const struct export_operations shmem_export_ops = {
+static const struct exportOperations shmem_export_ops = {
 	.get_parent     = shmem_get_parent,
 	.encode_fh      = shmem_encode_fh,
 	.fh_to_dentry	= shmem_fh_to_dentry,
@@ -3788,7 +3788,7 @@ static struct inode *shmem_alloc_inode(struct super_block *sb)
 	return &info->vfs_inode;
 }
 
-static void shmem_destroy_callback(struct rcu_head *head)
+static void shmem_destroy_callback(struct rcuHead *head)
 {
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	if (S_ISLNK(inode->i_mode))
@@ -4027,7 +4027,7 @@ struct kobj_attribute shmem_enabled_attr =
 #endif /* CONFIG_TRANSPARENT_HUGE_PAGECACHE && CONFIG_SYSFS */
 
 #ifdef CONFIG_TRANSPARENT_HUGE_PAGECACHE
-bool shmem_huge_enabled(struct vm_area_struct *vma)
+bool shmem_huge_enabled(struct vmAreaStruct *vma)
 {
 	struct inode *inode = file_inode(vma->vm_file);
 	struct shmem_sb_info *sbinfo = SHMEM_SB(inode->i_sb);

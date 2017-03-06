@@ -198,7 +198,7 @@ function:
 .. code-block:: c
 
 	int vme_master_mmap(struct vme_resource *resource,
-		struct vm_area_struct *vma)
+		struct vmAreaStruct *vma)
 
 
 Slave windows

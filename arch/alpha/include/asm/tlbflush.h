@@ -137,8 +137,8 @@ flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
 
 extern void flush_tlb_all(void);
 extern void flush_tlb_mm(struct mm_struct *);
-extern void flush_tlb_page(struct vm_area_struct *, unsigned long);
-extern void flush_tlb_range(struct vm_area_struct *, unsigned long,
+extern void flush_tlb_page(struct vmAreaStruct *, unsigned long);
+extern void flush_tlb_range(struct vmAreaStruct *, unsigned long,
 			    unsigned long);
 
 #endif /* CONFIG_SMP */

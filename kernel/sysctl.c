@@ -683,7 +683,7 @@ static struct ctl_table kern_table[] = {
 #ifdef CONFIG_BSD_PROCESS_ACCT
 	{
 		.procname	= "acct",
-		.data		= &acct_parm,
+		.data		= &acctParam,
 		.maxlen		= 3*sizeof(int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec,

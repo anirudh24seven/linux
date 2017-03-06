@@ -1304,7 +1304,7 @@ void pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
 pgtable_t pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
 
 #define  __HAVE_ARCH_PMDP_SET_ACCESS_FLAGS
-static inline int pmdp_set_access_flags(struct vm_area_struct *vma,
+static inline int pmdp_set_access_flags(struct vmAreaStruct *vma,
 					unsigned long addr, pmd_t *pmdp,
 					pmd_t entry, int dirty)
 {
@@ -1320,7 +1320,7 @@ static inline int pmdp_set_access_flags(struct vm_area_struct *vma,
 }
 
 #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+static inline int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long addr, pmd_t *pmdp)
 {
 	pmd_t pmd = *pmdp;
@@ -1330,7 +1330,7 @@ static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
 }
 
 #define __HAVE_ARCH_PMDP_CLEAR_YOUNG_FLUSH
-static inline int pmdp_clear_flush_young(struct vm_area_struct *vma,
+static inline int pmdp_clear_flush_young(struct vmAreaStruct *vma,
 					 unsigned long addr, pmd_t *pmdp)
 {
 	VM_BUG_ON(addr & ~HPAGE_MASK);
@@ -1374,14 +1374,14 @@ static inline pmd_t pmdp_huge_get_and_clear_full(struct mm_struct *mm,
 }
 
 #define __HAVE_ARCH_PMDP_HUGE_CLEAR_FLUSH
-static inline pmd_t pmdp_huge_clear_flush(struct vm_area_struct *vma,
+static inline pmd_t pmdp_huge_clear_flush(struct vmAreaStruct *vma,
 					  unsigned long addr, pmd_t *pmdp)
 {
 	return pmdp_huge_get_and_clear(vma->vm_mm, addr, pmdp);
 }
 
 #define __HAVE_ARCH_PMDP_INVALIDATE
-static inline void pmdp_invalidate(struct vm_area_struct *vma,
+static inline void pmdp_invalidate(struct vmAreaStruct *vma,
 				   unsigned long addr, pmd_t *pmdp)
 {
 	pmdp_xchg_direct(vma->vm_mm, addr, pmdp, __pmd(_SEGMENT_ENTRY_EMPTY));
@@ -1397,7 +1397,7 @@ static inline void pmdp_set_wrprotect(struct mm_struct *mm,
 		pmd = pmdp_xchg_lazy(mm, addr, pmdp, pmd_wrprotect(pmd));
 }
 
-static inline pmd_t pmdp_collapse_flush(struct vm_area_struct *vma,
+static inline pmd_t pmdp_collapse_flush(struct vmAreaStruct *vma,
 					unsigned long address,
 					pmd_t *pmdp)
 {

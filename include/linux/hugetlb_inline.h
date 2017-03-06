@@ -5,7 +5,7 @@
 
 #include <linux/mm.h>
 
-static inline bool is_vm_hugetlb_page(struct vm_area_struct *vma)
+static inline bool is_vm_hugetlb_page(struct vmAreaStruct *vma)
 {
 	return !!(vma->vm_flags & VM_HUGETLB);
 }

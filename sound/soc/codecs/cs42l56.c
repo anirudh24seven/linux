@@ -58,7 +58,7 @@ struct  cs42l56_private {
 	u8 iface_inv;
 #if IS_ENABLED(CONFIG_INPUT)
 	struct input_dev *beep;
-	struct work_struct beep_work;
+	struct workStruct beep_work;
 	int beep_rate;
 #endif
 };

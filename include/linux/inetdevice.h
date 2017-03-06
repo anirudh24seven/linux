@@ -43,7 +43,7 @@ struct in_device {
 
 	struct neigh_parms	*arp_parms;
 	struct ipv4_devconf	cnf;
-	struct rcu_head		rcu_head;
+	struct rcuHead		rcuHead;
 };
 
 #define IPV4_DEVCONF(cnf, attr) ((cnf).data[IPV4_DEVCONF_ ## attr - 1])
@@ -133,7 +133,7 @@ struct in_ifaddr {
 	struct hlist_node	hash;
 	struct in_ifaddr	*ifa_next;
 	struct in_device	*ifa_dev;
-	struct rcu_head		rcu_head;
+	struct rcuHead		rcuHead;
 	__be32			ifa_local;
 	__be32			ifa_address;
 	__be32			ifa_mask;

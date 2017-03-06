@@ -123,7 +123,7 @@ static unsigned long
 hugetlb_get_unmapped_area_existing(unsigned long len)
 {
 	struct mm_struct *mm = current->mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long start_addr, addr;
 	int after_huge;
 

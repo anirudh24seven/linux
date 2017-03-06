@@ -104,7 +104,7 @@ static inline void local_flush_tlb_all(void)
  *  - flush_tlb_kernel_range(start, end) flushes a range of kernel pages
  *  - flush_tlb_others(cpumask, mm, va) flushes TLBs on other cpus
  *
- * Here (as in vm_area_struct), "end" means the first byte after
+ * Here (as in vmAreaStruct), "end" means the first byte after
  * our end address.
  */
 

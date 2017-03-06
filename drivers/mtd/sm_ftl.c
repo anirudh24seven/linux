@@ -1117,7 +1117,7 @@ static void sm_release(struct mtd_blktrans_dev *dev)
 }
 
 /* outside interface: get geometry */
-static int sm_getgeo(struct mtd_blktrans_dev *dev, struct hd_geometry *geo)
+static int sm_getgeo(struct mtd_blktrans_dev *dev, struct hdGeometry *geo)
 {
 	struct sm_ftl *ftl = dev->priv;
 	geo->heads = ftl->heads;

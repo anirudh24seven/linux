@@ -575,7 +575,7 @@ struct dev_pm_info {
 #ifdef CONFIG_PM
 	struct timer_list	suspend_timer;
 	unsigned long		timer_expires;
-	struct work_struct	work;
+	struct workStruct	work;
 	wait_queue_head_t	wait_queue;
 	struct wake_irq		*wakeirq;
 	atomic_t		usage_count;

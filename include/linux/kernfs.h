@@ -21,7 +21,7 @@ struct file;
 struct dentry;
 struct iattr;
 struct seq_file;
-struct vm_area_struct;
+struct vmAreaStruct;
 struct super_block;
 struct file_system_type;
 
@@ -238,7 +238,7 @@ struct kernfs_ops {
 	ssize_t (*write)(struct kernfs_open_file *of, char *buf, size_t bytes,
 			 loff_t off);
 
-	int (*mmap)(struct kernfs_open_file *of, struct vm_area_struct *vma);
+	int (*mmap)(struct kernfs_open_file *of, struct vmAreaStruct *vma);
 
 #ifdef CONFIG_DEBUG_LOCK_ALLOC
 	struct lock_class_key	lockdep_key;

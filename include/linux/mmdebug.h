@@ -5,12 +5,12 @@
 #include <linux/stringify.h>
 
 struct page;
-struct vm_area_struct;
+struct vmAreaStruct;
 struct mm_struct;
 
 extern void dump_page(struct page *page, const char *reason);
 extern void __dump_page(struct page *page, const char *reason);
-void dump_vma(const struct vm_area_struct *vma);
+void dump_vma(const struct vmAreaStruct *vma);
 void dump_mm(const struct mm_struct *mm);
 
 #ifdef CONFIG_DEBUG_VM

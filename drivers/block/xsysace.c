@@ -934,7 +934,7 @@ static void ace_release(struct gendisk *disk, fmode_t mode)
 	mutex_unlock(&xsysace_mutex);
 }
 
-static int ace_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int ace_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct ace_device *ace = bdev->bd_disk->private_data;
 	u16 *cf_id = ace->cf_id;

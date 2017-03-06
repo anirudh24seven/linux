@@ -102,7 +102,7 @@ static int ubd_open(struct block_device *bdev, fmode_t mode);
 static void ubd_release(struct gendisk *disk, fmode_t mode);
 static int ubd_ioctl(struct block_device *bdev, fmode_t mode,
 		     unsigned int cmd, unsigned long arg);
-static int ubd_getgeo(struct block_device *bdev, struct hd_geometry *geo);
+static int ubd_getgeo(struct block_device *bdev, struct hdGeometry *geo);
 
 #define MAX_DEV (16)
 
@@ -1421,7 +1421,7 @@ static void do_ubd_request(struct request_queue *q)
 	}
 }
 
-static int ubd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int ubd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct ubd *ubd_dev = bdev->bd_disk->private_data;
 

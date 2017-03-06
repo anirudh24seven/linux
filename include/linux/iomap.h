@@ -7,7 +7,7 @@ struct fiemap_extent_info;
 struct inode;
 struct iov_iter;
 struct kiocb;
-struct vm_area_struct;
+struct vmAreaStruct;
 struct vm_fault;
 
 /*

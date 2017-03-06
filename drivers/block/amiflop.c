@@ -1450,7 +1450,7 @@ static void do_fd_request(struct request_queue * q)
 	redo_fd_request();
 }
 
-static int fd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int fd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	int drive = MINOR(bdev->bd_dev) & 3;
 

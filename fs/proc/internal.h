@@ -274,7 +274,7 @@ struct proc_maps_private {
 	struct task_struct *task;
 	struct mm_struct *mm;
 #ifdef CONFIG_MMU
-	struct vm_area_struct *tail_vma;
+	struct vmAreaStruct *tail_vma;
 #endif
 #ifdef CONFIG_NUMA
 	struct mempolicy *task_mempolicy;

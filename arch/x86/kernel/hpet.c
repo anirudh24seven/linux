@@ -696,7 +696,7 @@ struct hpet_work_struct {
 	struct completion complete;
 };
 
-static void hpet_work(struct work_struct *w)
+static void hpet_work(struct workStruct *w)
 {
 	struct hpet_dev *hdev;
 	int cpu = smp_processor_id();

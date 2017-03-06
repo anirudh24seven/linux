@@ -4,7 +4,7 @@ TODO:
 - remove custom debug and tracing functions
 - rework comments and function headers(also coding style)
 - Move handling for each individual members of 'union message_body' out
-  into a separate 'struct work_struct' and completely remove the multiplexer
+  into a separate 'struct workStruct' and completely remove the multiplexer
   that is currently part of host_if_work(), allowing movement of the
   implementation of each message handler into the callsite of the function
   that currently queues the 'host_if_msg'.

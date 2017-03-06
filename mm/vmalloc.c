@@ -612,7 +612,7 @@ static DEFINE_MUTEX(vmap_purge_lock);
 static void purge_fragmented_blocks_allcpus(void);
 
 /*
- * called before a call to iounmap() if the caller wants vm_area_struct's
+ * called before a call to iounmap() if the caller wants vmAreaStruct's
  * immediately freed.
  */
 void set_iounmap_nonlazy(void)

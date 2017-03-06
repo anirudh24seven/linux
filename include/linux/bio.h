@@ -316,7 +316,7 @@ struct bio_integrity_payload {
 	unsigned short		bip_max_vcnt;	/* integrity bio_vec slots */
 	unsigned short		bip_flags;	/* control flags */
 
-	struct work_struct	bip_work;	/* I/O completion */
+	struct workStruct	bip_work;	/* I/O completion */
 
 	struct bio_vec		*bip_vec;
 	struct bio_vec		bip_inline_vecs[0];/* embedded bvec array */
@@ -699,7 +699,7 @@ struct bio_set {
 	 */
 	spinlock_t		rescue_lock;
 	struct bio_list		rescue_list;
-	struct work_struct	rescue_work;
+	struct workStruct	rescue_work;
 	struct workqueue_struct	*rescue_workqueue;
 };
 

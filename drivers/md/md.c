@@ -6738,7 +6738,7 @@ static int set_disk_faulty(struct mddev *mddev, dev_t dev)
  * 4 sectors (with a BIG number of cylinders...). This drives
  * dosfs just mad... ;-)
  */
-static int md_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int md_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct mddev *mddev = bdev->bd_disk->private_data;
 

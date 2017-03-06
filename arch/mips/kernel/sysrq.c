@@ -35,7 +35,7 @@ static void sysrq_tlbdump_single(void *dummy)
 }
 
 #ifdef CONFIG_SMP
-static void sysrq_tlbdump_othercpus(struct work_struct *dummy)
+static void sysrq_tlbdump_othercpus(struct workStruct *dummy)
 {
 	smp_call_function(sysrq_tlbdump_single, NULL, 0);
 }

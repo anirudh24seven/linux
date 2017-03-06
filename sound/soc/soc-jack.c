@@ -285,7 +285,7 @@ static irqreturn_t gpio_handler(int irq, void *data)
 }
 
 /* gpio work */
-static void gpio_work(struct work_struct *work)
+static void gpio_work(struct workStruct *work)
 {
 	struct snd_soc_jack_gpio *gpio;
 

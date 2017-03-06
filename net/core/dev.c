@@ -1699,7 +1699,7 @@ static struct static_key netstamp_needed __read_mostly;
 #ifdef HAVE_JUMP_LABEL
 static atomic_t netstamp_needed_deferred;
 static atomic_t netstamp_wanted;
-static void netstamp_clear(struct work_struct *work)
+static void netstamp_clear(struct workStruct *work)
 {
 	int deferred = atomic_xchg(&netstamp_needed_deferred, 0);
 	int wanted;

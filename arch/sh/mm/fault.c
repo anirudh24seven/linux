@@ -402,7 +402,7 @@ asmlinkage void __kprobes do_page_fault(struct pt_regs *regs,
 	unsigned long vec;
 	struct task_struct *tsk;
 	struct mm_struct *mm;
-	struct vm_area_struct * vma;
+	struct vmAreaStruct * vma;
 	int fault;
 	unsigned int flags = FAULT_FLAG_ALLOW_RETRY | FAULT_FLAG_KILLABLE;
 

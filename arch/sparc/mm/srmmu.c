@@ -574,7 +574,7 @@ extern void swift_flush_tlb_range(struct vm_area_struct *vma,
 extern void swift_flush_tlb_page(struct vm_area_struct *vma, unsigned long page);
 
 #if 0  /* P3: deadwood to debug precise flushes on Swift. */
-void swift_flush_tlb_page(struct vm_area_struct *vma, unsigned long page)
+void swift_flush_tlb_page(struct vmAreaStruct *vma, unsigned long page)
 {
 	int cctx, ctx1;
 
@@ -1670,7 +1670,7 @@ static void smp_flush_tlb_mm(struct mm_struct *mm)
 	}
 }
 
-static void smp_flush_cache_range(struct vm_area_struct *vma,
+static void smp_flush_cache_range(struct vmAreaStruct *vma,
 				  unsigned long start,
 				  unsigned long end)
 {
@@ -1687,7 +1687,7 @@ static void smp_flush_cache_range(struct vm_area_struct *vma,
 	}
 }
 
-static void smp_flush_tlb_range(struct vm_area_struct *vma,
+static void smp_flush_tlb_range(struct vmAreaStruct *vma,
 				unsigned long start,
 				unsigned long end)
 {
@@ -1704,7 +1704,7 @@ static void smp_flush_tlb_range(struct vm_area_struct *vma,
 	}
 }
 
-static void smp_flush_cache_page(struct vm_area_struct *vma, unsigned long page)
+static void smp_flush_cache_page(struct vmAreaStruct *vma, unsigned long page)
 {
 	struct mm_struct *mm = vma->vm_mm;
 
@@ -1719,7 +1719,7 @@ static void smp_flush_cache_page(struct vm_area_struct *vma, unsigned long page)
 	}
 }
 
-static void smp_flush_tlb_page(struct vm_area_struct *vma, unsigned long page)
+static void smp_flush_tlb_page(struct vmAreaStruct *vma, unsigned long page)
 {
 	struct mm_struct *mm = vma->vm_mm;
 

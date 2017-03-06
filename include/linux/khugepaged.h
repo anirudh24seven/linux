@@ -12,7 +12,7 @@ extern void khugepaged_destroy(void);
 extern int start_stop_khugepaged(void);
 extern int __khugepaged_enter(struct mm_struct *mm);
 extern void __khugepaged_exit(struct mm_struct *mm);
-extern int khugepaged_enter_vma_merge(struct vm_area_struct *vma,
+extern int khugepaged_enter_vma_merge(struct vmAreaStruct *vma,
 				      unsigned long vm_flags);
 
 #define khugepaged_enabled()					       \
@@ -42,7 +42,7 @@ static inline void khugepaged_exit(struct mm_struct *mm)
 		__khugepaged_exit(mm);
 }
 
-static inline int khugepaged_enter(struct vm_area_struct *vma,
+static inline int khugepaged_enter(struct vmAreaStruct *vma,
 				   unsigned long vm_flags)
 {
 	if (!test_bit(MMF_VM_HUGEPAGE, &vma->vm_mm->flags))

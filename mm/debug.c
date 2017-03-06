@@ -81,7 +81,7 @@ EXPORT_SYMBOL(dump_page);
 
 #ifdef CONFIG_DEBUG_VM
 
-void dump_vma(const struct vm_area_struct *vma)
+void dump_vma(const struct vmAreaStruct *vma)
 {
 	pr_emerg("vma %p start %p end %p\n"
 		"next %p prev %p mm %p\n"

@@ -414,7 +414,7 @@ static void __synchronize_srcu(struct srcu_struct *sp, int trycount)
 			rcu_batch_dequeue(&sp->batch_done);
 			done = true;
 		}
-		/* give the processing owner to work_struct */
+		/* give the processing owner to workStruct */
 		srcu_reschedule(sp);
 	} else {
 		rcu_batch_queue(&sp->batch_queue, head);

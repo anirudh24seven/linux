@@ -93,7 +93,7 @@ void rcutorture_get_gp_data(enum rcutorture_type test_type, int *flags,
 void rcutorture_record_test_transition(void);
 void rcutorture_record_progress(unsigned long vernum);
 void do_trace_rcu_torture_read(const char *rcutorturename,
-			       struct rcu_head *rhp,
+			       struct rcuHead *rhp,
 			       unsigned long secs,
 			       unsigned long c_old,
 			       unsigned long c);
@@ -115,7 +115,7 @@ static inline void rcutorture_record_progress(unsigned long vernum)
 }
 #ifdef CONFIG_RCU_TRACE
 void do_trace_rcu_torture_read(const char *rcutorturename,
-			       struct rcu_head *rhp,
+			       struct rcuHead *rhp,
 			       unsigned long secs,
 			       unsigned long c_old,
 			       unsigned long c);
@@ -167,7 +167,7 @@ void do_trace_rcu_torture_read(const char *rcutorturename,
  * if CPU A and CPU B are the same CPU (but again only if the system has
  * more than one CPU).
  */
-void call_rcu(struct rcu_head *head,
+void call_rcu(struct rcuHead *head,
 	      rcu_callback_t func);
 
 #else /* #ifdef CONFIG_PREEMPT_RCU */
@@ -410,15 +410,15 @@ bool __rcu_is_watching(void);
 
 /*
  * init_rcu_head_on_stack()/destroy_rcu_head_on_stack() are needed for dynamic
- * initialization and destruction of rcu_head on the stack. rcu_head structures
+ * initialization and destruction of rcuHead on the stack. rcuHead structures
  * allocated dynamically in the heap or defined statically don't need any
  * initialization.
  */
 #ifdef CONFIG_DEBUG_OBJECTS_RCU_HEAD
-void init_rcu_head(struct rcu_head *head);
-void destroy_rcu_head(struct rcu_head *head);
-void init_rcu_head_on_stack(struct rcu_head *head);
-void destroy_rcu_head_on_stack(struct rcu_head *head);
+void init_rcu_head(struct rcuHead *head);
+void destroy_rcu_head(struct rcuHead *head);
+void init_rcu_head_on_stack(struct rcuHead *head);
+void destroy_rcu_head_on_stack(struct rcuHead *head);
 #else /* !CONFIG_DEBUG_OBJECTS_RCU_HEAD */
 static inline void init_rcu_head(struct rcu_head *head)
 {
@@ -1031,7 +1031,7 @@ static inline notrace void rcu_read_unlock_sched_notrace(void)
 		.p = RCU_INITIALIZER(v)
 
 /*
- * Does the specified offset indicate that the corresponding rcu_head
+ * Does the specified offset indicate that the corresponding rcuHead
  * structure can be handled by kfree_rcu()?
  */
 #define __is_kfree_rcu_offset(offset) ((offset) < 4096)

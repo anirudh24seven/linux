@@ -150,7 +150,7 @@ static unsigned long hugetlb_entry_end(struct hstate *h, unsigned long addr,
 static int walk_hugetlb_range(unsigned long addr, unsigned long end,
 			      struct mm_walk *walk)
 {
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	struct hstate *h = hstate_vma(vma);
 	unsigned long next;
 	unsigned long hmask = huge_page_mask(h);

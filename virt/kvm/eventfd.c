@@ -45,7 +45,7 @@
 static struct workqueue_struct *irqfd_cleanup_wq;
 
 static void
-irqfd_inject(struct work_struct *work)
+irqfd_inject(struct workStruct *work)
 {
 	struct kvm_kernel_irqfd *irqfd =
 		container_of(work, struct kvm_kernel_irqfd, inject);
@@ -115,7 +115,7 @@ irqfd_resampler_shutdown(struct kvm_kernel_irqfd *irqfd)
  * Race-free decouple logic (ordering is critical)
  */
 static void
-irqfd_shutdown(struct work_struct *work)
+irqfd_shutdown(struct workStruct *work)
 {
 	struct kvm_kernel_irqfd *irqfd =
 		container_of(work, struct kvm_kernel_irqfd, shutdown);

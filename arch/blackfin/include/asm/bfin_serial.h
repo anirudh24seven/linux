@@ -46,7 +46,7 @@ struct bfin_serial_port {
 	spinlock_t rx_lock;
 	unsigned int tx_dma_channel;
 	unsigned int rx_dma_channel;
-	struct work_struct tx_dma_workqueue;
+	struct workStruct tx_dma_workqueue;
 #elif ANOMALY_05000363
 	unsigned int anomaly_threshold;
 #endif

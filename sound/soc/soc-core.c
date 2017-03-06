@@ -764,7 +764,7 @@ EXPORT_SYMBOL_GPL(snd_soc_suspend);
 /* deferred resume work, so resume can complete before we finished
  * setting our codec back up, which can be very slow on I2C
  */
-static void soc_resume_deferred(struct work_struct *work)
+static void soc_resume_deferred(struct workStruct *work)
 {
 	struct snd_soc_card *card =
 			container_of(work, struct snd_soc_card, deferred_resume_work);

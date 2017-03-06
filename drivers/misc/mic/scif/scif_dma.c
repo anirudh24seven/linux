@@ -298,7 +298,7 @@ scif_add_mmu_notifier(struct mm_struct *mm, struct scif_endpt *ep)
  * Called from the misc thread to destroy temporary cached windows and
  * unregister the MMU notifier for the SCIF endpoint.
  */
-void scif_mmu_notif_handler(struct work_struct *work)
+void scif_mmu_notif_handler(struct workStruct *work)
 {
 	struct list_head *pos, *tmpq;
 	struct scif_endpt *ep;

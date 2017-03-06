@@ -103,7 +103,7 @@ For a filesystem to be exportable it must:
 
   A file system implementation declares that instances of the filesystem
 are exportable by setting the s_export_op field in the struct
-super_block.  This field must point to a "struct export_operations"
+super_block.  This field must point to a "struct exportOperations"
 struct which has the following members:
 
  encode_fh  (optional)

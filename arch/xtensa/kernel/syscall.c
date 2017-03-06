@@ -62,7 +62,7 @@ asmlinkage long xtensa_fadvise64_64(int fd, int advice,
 unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr,
 		unsigned long len, unsigned long pgoff, unsigned long flags)
 {
-	struct vm_area_struct *vmm;
+	struct vmAreaStruct *vmm;
 
 	if (flags & MAP_FIXED) {
 		/* We do not accept a shared mapping if it would violate

@@ -15,13 +15,13 @@
 #define clear_page(paddr)		memset((paddr), 0, PAGE_SIZE)
 #define copy_page(to, from)		memcpy((to), (from), PAGE_SIZE)
 
-struct vm_area_struct;
+struct vmAreaStruct;
 struct page;
 
 #define __HAVE_ARCH_COPY_USER_HIGHPAGE
 
 void copy_user_highpage(struct page *to, struct page *from,
-			unsigned long u_vaddr, struct vm_area_struct *vma);
+			unsigned long u_vaddr, struct vmAreaStruct *vma);
 void clear_user_page(void *to, unsigned long u_vaddr, struct page *page);
 
 #undef STRICT_MM_TYPECHECKS

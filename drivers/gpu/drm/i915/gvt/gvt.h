@@ -174,7 +174,7 @@ struct intel_vgpu {
 		struct notifier_block iommu_notifier;
 		struct notifier_block group_notifier;
 		struct kvm *kvm;
-		struct work_struct release_work;
+		struct workStruct release_work;
 		atomic_t released;
 	} vdev;
 #endif

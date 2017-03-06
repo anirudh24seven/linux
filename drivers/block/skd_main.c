@@ -4587,7 +4587,7 @@ static void skd_destruct(struct skd_device *skdev)
  *****************************************************************************
  */
 
-static int skd_bdev_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int skd_bdev_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct skd_device *skdev;
 	u64 capacity;

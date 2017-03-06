@@ -3265,7 +3265,7 @@ static const struct vm_operations_struct snd_pcm_vm_ops_status =
 };
 
 static int snd_pcm_mmap_status(struct snd_pcm_substream *substream, struct file *file,
-			       struct vm_area_struct *area)
+			       struct vmAreaStruct *area)
 {
 	long size;
 	if (!(area->vm_flags & VM_READ))
@@ -3301,7 +3301,7 @@ static const struct vm_operations_struct snd_pcm_vm_ops_control =
 };
 
 static int snd_pcm_mmap_control(struct snd_pcm_substream *substream, struct file *file,
-				struct vm_area_struct *area)
+				struct vmAreaStruct *area)
 {
 	long size;
 	if (!(area->vm_flags & VM_READ))
@@ -3430,7 +3430,7 @@ EXPORT_SYMBOL_GPL(snd_pcm_lib_default_mmap);
  * is supposed to work only on limited architectures.
  */
 int snd_pcm_lib_mmap_iomem(struct snd_pcm_substream *substream,
-			   struct vm_area_struct *area)
+			   struct vmAreaStruct *area)
 {
 	struct snd_pcm_runtime *runtime = substream->runtime;;
 

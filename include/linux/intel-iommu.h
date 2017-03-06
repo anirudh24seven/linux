@@ -481,7 +481,7 @@ struct svm_dev_ops;
 
 struct intel_svm_dev {
 	struct list_head list;
-	struct rcu_head rcu;
+	struct rcuHead rcu;
 	struct device *dev;
 	struct svm_dev_ops *ops;
 	int users;

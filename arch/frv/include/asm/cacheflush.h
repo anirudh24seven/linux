@@ -74,7 +74,7 @@ static inline void flush_icache_range(unsigned long start, unsigned long end)
 }
 
 #ifdef CONFIG_MMU
-extern void flush_icache_user_range(struct vm_area_struct *vma, struct page *page,
+extern void flush_icache_user_range(struct vmAreaStruct *vma, struct page *page,
 				    unsigned long start, unsigned long len);
 #else
 static inline void flush_icache_user_range(struct vm_area_struct *vma, struct page *page,

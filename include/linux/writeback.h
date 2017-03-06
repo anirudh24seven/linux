@@ -31,7 +31,7 @@ DECLARE_PER_CPU(int, dirty_throttle_leaks);
 #define DIRTY_SCOPE		8
 #define DIRTY_FULL_SCOPE	(DIRTY_SCOPE / 2)
 
-struct backing_dev_info;
+struct backingDevInfo;
 
 /*
  * fs/fs-writeback.c
@@ -90,7 +90,7 @@ struct writeback_control {
 	unsigned range_cyclic:1;	/* range_start is cyclic */
 	unsigned for_sync:1;		/* sync(2) WB_SYNC_ALL writeback */
 #ifdef CONFIG_CGROUP_WRITEBACK
-	struct bdi_writeback *wb;	/* wb this writeback is issued under */
+	struct bdiWriteback *wb;	/* wb this writeback is issued under */
 	struct inode *inode;		/* inode being written out */
 
 	/* foreign inode detection, see wbc_detach_inode() */
@@ -114,7 +114,7 @@ static inline int wbc_to_write_flags(struct writeback_control *wbc)
 }
 
 /*
- * A wb_domain represents a domain that wb's (bdi_writeback's) belong to
+ * A wb_domain represents a domain that wb's (bdiWriteback's) belong to
  * and are measured against each other in.  There always is one global
  * domain, global_wb_domain, that every wb in the system is a member of.
  * This allows measuring the relative bandwidth of each wb to distribute
@@ -181,7 +181,7 @@ static inline void wb_domain_size_changed(struct wb_domain *dom)
 /*
  * fs/fs-writeback.c
  */	
-struct bdi_writeback;
+struct bdiWriteback;
 void writeback_inodes_sb(struct super_block *, enum wb_reason reason);
 void writeback_inodes_sb_nr(struct super_block *, unsigned long nr,
 							enum wb_reason reason);
@@ -249,7 +249,7 @@ static inline void inode_detach_wb(struct inode *inode)
  *
  * This function is to be used by __filemap_fdatawrite_range(), which is an
  * alternative entry point into writeback code, and first ensures @inode is
- * associated with a bdi_writeback and attaches it to @wbc.
+ * associated with a bdiWriteback and attaches it to @wbc.
  */
 static inline void wbc_attach_fdatawrite_inode(struct writeback_control *wbc,
 					       struct inode *inode)
@@ -325,9 +325,9 @@ static inline void cgroup_writeback_umount(void)
  * mm/page-writeback.c
  */
 #ifdef CONFIG_BLOCK
-void laptop_io_completion(struct backing_dev_info *info);
+void laptop_io_completion(struct backingDevInfo *info);
 void laptop_sync_completion(void);
-void laptop_mode_sync(struct work_struct *work);
+void laptop_mode_sync(struct workStruct *work);
 void laptop_mode_timer_fn(unsigned long data);
 #else
 static inline void laptop_sync_completion(void) { }
@@ -372,11 +372,11 @@ int dirty_writeback_centisecs_handler(struct ctl_table *, int,
 				      void __user *, size_t *, loff_t *);
 
 void global_dirty_limits(unsigned long *pbackground, unsigned long *pdirty);
-unsigned long wb_calc_thresh(struct bdi_writeback *wb, unsigned long thresh);
+unsigned long wb_calc_thresh(struct bdiWriteback *wb, unsigned long thresh);
 
-void wb_update_bandwidth(struct bdi_writeback *wb, unsigned long start_time);
+void wb_update_bandwidth(struct bdiWriteback *wb, unsigned long start_time);
 void balance_dirty_pages_ratelimited(struct address_space *mapping);
-bool wb_over_bg_thresh(struct bdi_writeback *wb);
+bool wb_over_bg_thresh(struct bdiWriteback *wb);
 
 typedef int (*writepage_t)(struct page *page, struct writeback_control *wbc,
 				void *data);

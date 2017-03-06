@@ -127,7 +127,7 @@ struct hd_struct {
 	struct disk_stats dkstats;
 #endif
 	struct percpu_ref ref;
-	struct rcu_head rcu_head;
+	struct rcuHead rcuHead;
 };
 
 #define GENHD_FL_REMOVABLE			1
@@ -147,7 +147,7 @@ enum {
 };
 
 struct disk_part_tbl {
-	struct rcu_head rcu_head;
+	struct rcuHead rcuHead;
 	int len;
 	struct hd_struct __rcu *last_lookup;
 	struct hd_struct __rcu *part[];

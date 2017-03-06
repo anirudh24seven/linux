@@ -240,7 +240,7 @@ bail:
 	preempt_enable();
 }
 
-void radix__flush_tlb_page(struct vm_area_struct *vma, unsigned long vmaddr)
+void radix__flush_tlb_page(struct vmAreaStruct *vma, unsigned long vmaddr)
 {
 #ifdef CONFIG_HUGETLB_PAGE
 	if (vma && is_vm_hugetlb_page(vma))

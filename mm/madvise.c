@@ -51,8 +51,8 @@ static int madvise_need_mmap_write(int behavior)
  * We can potentially split a vm area into separate
  * areas, each area with its own behavior.
  */
-static long madvise_behavior(struct vm_area_struct *vma,
-		     struct vm_area_struct **prev,
+static long madvise_behavior(struct vmAreaStruct *vma,
+		     struct vmAreaStruct **prev,
 		     unsigned long start, unsigned long end, int behavior)
 {
 	struct mm_struct *mm = vma->vm_mm;
@@ -182,7 +182,7 @@ static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
 	unsigned long end, struct mm_walk *walk)
 {
 	pte_t *orig_pte;
-	struct vm_area_struct *vma = walk->private;
+	struct vmAreaStruct *vma = walk->private;
 	unsigned long index;
 
 	if (pmd_none_or_trans_huge_or_clear_bad(pmd))
@@ -213,7 +213,7 @@ static int swapin_walk_pmd_entry(pmd_t *pmd, unsigned long start,
 	return 0;
 }
 
-static void force_swapin_readahead(struct vm_area_struct *vma,
+static void force_swapin_readahead(struct vmAreaStruct *vma,
 		unsigned long start, unsigned long end)
 {
 	struct mm_walk walk = {
@@ -227,7 +227,7 @@ static void force_swapin_readahead(struct vm_area_struct *vma,
 	lru_add_drain();	/* Push any new pages onto the LRU now */
 }
 
-static void force_shm_swapin_readahead(struct vm_area_struct *vma,
+static void force_shm_swapin_readahead(struct vmAreaStruct *vma,
 		unsigned long start, unsigned long end,
 		struct address_space *mapping)
 {
@@ -258,8 +258,8 @@ static void force_shm_swapin_readahead(struct vm_area_struct *vma,
 /*
  * Schedule all required I/O operations.  Do not wait for completion.
  */
-static long madvise_willneed(struct vm_area_struct *vma,
-			     struct vm_area_struct **prev,
+static long madvise_willneed(struct vmAreaStruct *vma,
+			     struct vmAreaStruct **prev,
 			     unsigned long start, unsigned long end)
 {
 	struct file *file = vma->vm_file;
@@ -303,7 +303,7 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
 {
 	struct mmu_gather *tlb = walk->private;
 	struct mm_struct *mm = tlb->mm;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	spinlock_t *ptl;
 	pte_t *orig_pte, *pte, ptent;
 	struct page *page;
@@ -431,7 +431,7 @@ next:
 }
 
 static void madvise_free_page_range(struct mmu_gather *tlb,
-			     struct vm_area_struct *vma,
+			     struct vmAreaStruct *vma,
 			     unsigned long addr, unsigned long end)
 {
 	struct mm_walk free_walk = {
@@ -445,7 +445,7 @@ static void madvise_free_page_range(struct mmu_gather *tlb,
 	tlb_end_vma(tlb, vma);
 }
 
-static int madvise_free_single_vma(struct vm_area_struct *vma,
+static int madvise_free_single_vma(struct vmAreaStruct *vma,
 			unsigned long start_addr, unsigned long end_addr)
 {
 	unsigned long start, end;
@@ -478,8 +478,8 @@ static int madvise_free_single_vma(struct vm_area_struct *vma,
 	return 0;
 }
 
-static long madvise_free(struct vm_area_struct *vma,
-			     struct vm_area_struct **prev,
+static long madvise_free(struct vmAreaStruct *vma,
+			     struct vmAreaStruct **prev,
 			     unsigned long start, unsigned long end)
 {
 	*prev = vma;
@@ -505,8 +505,8 @@ static long madvise_free(struct vm_area_struct *vma,
  * An interface that causes the system to free clean pages and flush
  * dirty pages is already available as msync(MS_INVALIDATE).
  */
-static long madvise_dontneed(struct vm_area_struct *vma,
-			     struct vm_area_struct **prev,
+static long madvise_dontneed(struct vmAreaStruct *vma,
+			     struct vmAreaStruct **prev,
 			     unsigned long start, unsigned long end)
 {
 	*prev = vma;
@@ -522,8 +522,8 @@ static long madvise_dontneed(struct vm_area_struct *vma,
  * Application wants to free up the pages and associated backing store.
  * This is effectively punching a hole into the middle of a file.
  */
-static long madvise_remove(struct vm_area_struct *vma,
-				struct vm_area_struct **prev,
+static long madvise_remove(struct vmAreaStruct *vma,
+				struct vmAreaStruct **prev,
 				unsigned long start, unsigned long end)
 {
 	loff_t offset;
@@ -604,7 +604,7 @@ static int madvise_hwpoison(int bhv, unsigned long start, unsigned long end)
 #endif
 
 static long
-madvise_vma(struct vm_area_struct *vma, struct vm_area_struct **prev,
+madvise_vma(struct vmAreaStruct *vma, struct vmAreaStruct **prev,
 		unsigned long start, unsigned long end, int behavior)
 {
 	switch (behavior) {
@@ -716,7 +716,7 @@ madvise_behavior_valid(int behavior)
 SYSCALL_DEFINE3(madvise, unsigned long, start, size_t, len_in, int, behavior)
 {
 	unsigned long end, tmp;
-	struct vm_area_struct *vma, *prev;
+	struct vmAreaStruct *vma, *prev;
 	int unmapped_error = 0;
 	int error = -EINVAL;
 	int write;

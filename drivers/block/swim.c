@@ -721,7 +721,7 @@ static int floppy_ioctl(struct block_device *bdev, fmode_t mode,
 	return 0;
 }
 
-static int floppy_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int floppy_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct floppy_state *fs = bdev->bd_disk->private_data;
 	struct floppy_struct *g;

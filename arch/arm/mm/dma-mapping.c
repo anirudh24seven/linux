@@ -1596,7 +1596,7 @@ static void *arm_coherent_iommu_alloc_attrs(struct device *dev, size_t size,
 	return __arm_iommu_alloc_attrs(dev, size, handle, gfp, attrs, COHERENT);
 }
 
-static int __arm_iommu_mmap_attrs(struct device *dev, struct vm_area_struct *vma,
+static int __arm_iommu_mmap_attrs(struct device *dev, struct vmAreaStruct *vma,
 		    void *cpu_addr, dma_addr_t dma_addr, size_t size,
 		    unsigned long attrs)
 {
@@ -1627,7 +1627,7 @@ static int __arm_iommu_mmap_attrs(struct device *dev, struct vm_area_struct *vma
 	return 0;
 }
 static int arm_iommu_mmap_attrs(struct device *dev,
-		struct vm_area_struct *vma, void *cpu_addr,
+		struct vmAreaStruct *vma, void *cpu_addr,
 		dma_addr_t dma_addr, size_t size, unsigned long attrs)
 {
 	vma->vm_page_prot = __get_dma_pgprot(attrs, vma->vm_page_prot);
@@ -1636,7 +1636,7 @@ static int arm_iommu_mmap_attrs(struct device *dev,
 }
 
 static int arm_coherent_iommu_mmap_attrs(struct device *dev,
-		struct vm_area_struct *vma, void *cpu_addr,
+		struct vmAreaStruct *vma, void *cpu_addr,
 		dma_addr_t dma_addr, size_t size, unsigned long attrs)
 {
 	return __arm_iommu_mmap_attrs(dev, vma, cpu_addr, dma_addr, size, attrs);

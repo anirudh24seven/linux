@@ -137,15 +137,15 @@ static void vma_stop(struct proc_maps_private *priv)
 	mmput(mm);
 }
 
-static struct vm_area_struct *
-m_next_vma(struct proc_maps_private *priv, struct vm_area_struct *vma)
+static struct vmAreaStruct *
+m_next_vma(struct proc_maps_private *priv, struct vmAreaStruct *vma)
 {
 	if (vma == priv->tail_vma)
 		return NULL;
 	return vma->vm_next ?: priv->tail_vma;
 }
 
-static void m_cache_vma(struct seq_file *m, struct vm_area_struct *vma)
+static void m_cache_vma(struct seq_file *m, struct vmAreaStruct *vma)
 {
 	if (m->count < m->size)	/* vma is copied successfully */
 		m->version = m_next_vma(m->private, vma) ? vma->vm_end : -1UL;
@@ -156,7 +156,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
 	struct proc_maps_private *priv = m->private;
 	unsigned long last_addr = m->version;
 	struct mm_struct *mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned int pos = *ppos;
 
 	/* See m_cache_vma(). Zero at the start or after lseek. */
@@ -203,7 +203,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
 static void *m_next(struct seq_file *m, void *v, loff_t *pos)
 {
 	struct proc_maps_private *priv = m->private;
-	struct vm_area_struct *next;
+	struct vmAreaStruct *next;
 
 	(*pos)++;
 	next = m_next_vma(priv, v);
@@ -267,7 +267,7 @@ static int do_maps_open(struct inode *inode, struct file *file,
  * /proc/PID/maps that is the stack of the main task.
  */
 static int is_stack(struct proc_maps_private *priv,
-		    struct vm_area_struct *vma)
+		    struct vmAreaStruct *vma)
 {
 	/*
 	 * We make no effort to guess what a given thread considers to be
@@ -279,7 +279,7 @@ static int is_stack(struct proc_maps_private *priv,
 }
 
 static void
-show_map_vma(struct seq_file *m, struct vm_area_struct *vma, int is_pid)
+show_map_vma(struct seq_file *m, struct vmAreaStruct *vma, int is_pid)
 {
 	struct mm_struct *mm = vma->vm_mm;
 	struct file *file = vma->vm_file;
@@ -515,7 +515,7 @@ static void smaps_pte_entry(pte_t *pte, unsigned long addr,
 		struct mm_walk *walk)
 {
 	struct mem_size_stats *mss = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	struct page *page = NULL;
 
 	if (pte_present(*pte)) {
@@ -564,7 +564,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
 		struct mm_walk *walk)
 {
 	struct mem_size_stats *mss = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	struct page *page;
 
 	/* FOLL_DUMP will return -EFAULT on huge zero page */
@@ -591,7 +591,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
 static int smaps_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 			   struct mm_walk *walk)
 {
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	pte_t *pte;
 	spinlock_t *ptl;
 
@@ -617,7 +617,7 @@ static int smaps_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 	return 0;
 }
 
-static void show_smap_vma_flags(struct seq_file *m, struct vm_area_struct *vma)
+static void show_smap_vma_flags(struct seq_file *m, struct vmAreaStruct *vma)
 {
 	/*
 	 * Don't forget to update Documentation/ on changes.
@@ -690,7 +690,7 @@ static int smaps_hugetlb_range(pte_t *pte, unsigned long hmask,
 				 struct mm_walk *walk)
 {
 	struct mem_size_stats *mss = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	struct page *page = NULL;
 
 	if (pte_present(*pte)) {
@@ -713,13 +713,13 @@ static int smaps_hugetlb_range(pte_t *pte, unsigned long hmask,
 }
 #endif /* HUGETLB_PAGE */
 
-void __weak arch_show_smap(struct seq_file *m, struct vm_area_struct *vma)
+void __weak arch_show_smap(struct seq_file *m, struct vmAreaStruct *vma)
 {
 }
 
 static int show_smap(struct seq_file *m, void *v, int is_pid)
 {
-	struct vm_area_struct *vma = v;
+	struct vmAreaStruct *vma = v;
 	struct mem_size_stats mss;
 	struct mm_walk smaps_walk = {
 		.pmd_entry = smaps_pte_range,
@@ -868,7 +868,7 @@ struct clear_refs_private {
 };
 
 #ifdef CONFIG_MEM_SOFT_DIRTY
-static inline void clear_soft_dirty(struct vm_area_struct *vma,
+static inline void clear_soft_dirty(struct vmAreaStruct *vma,
 		unsigned long addr, pte_t *pte)
 {
 	/*
@@ -890,14 +890,14 @@ static inline void clear_soft_dirty(struct vm_area_struct *vma,
 	}
 }
 #else
-static inline void clear_soft_dirty(struct vm_area_struct *vma,
+static inline void clear_soft_dirty(struct vmAreaStruct *vma,
 		unsigned long addr, pte_t *pte)
 {
 }
 #endif
 
 #if defined(CONFIG_MEM_SOFT_DIRTY) && defined(CONFIG_TRANSPARENT_HUGEPAGE)
-static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+static inline void clear_soft_dirty_pmd(struct vmAreaStruct *vma,
 		unsigned long addr, pmd_t *pmdp)
 {
 	pmd_t pmd = pmdp_huge_get_and_clear(vma->vm_mm, addr, pmdp);
@@ -908,7 +908,7 @@ static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
 	set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
 }
 #else
-static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+static inline void clear_soft_dirty_pmd(struct vmAreaStruct *vma,
 		unsigned long addr, pmd_t *pmdp)
 {
 }
@@ -918,7 +918,7 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
 				unsigned long end, struct mm_walk *walk)
 {
 	struct clear_refs_private *cp = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	pte_t *pte, ptent;
 	spinlock_t *ptl;
 	struct page *page;
@@ -974,7 +974,7 @@ static int clear_refs_test_walk(unsigned long start, unsigned long end,
 				struct mm_walk *walk)
 {
 	struct clear_refs_private *cp = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 
 	if (vma->vm_flags & VM_PFNMAP)
 		return 1;
@@ -998,7 +998,7 @@ static ssize_t clear_refs_write(struct file *file, const char __user *buf,
 	struct task_struct *task;
 	char buffer[PROC_NUMBUF];
 	struct mm_struct *mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	enum clear_refs_types type;
 	int itype;
 	int rv;
@@ -1128,7 +1128,7 @@ static int pagemap_pte_hole(unsigned long start, unsigned long end,
 	int err = 0;
 
 	while (addr < end) {
-		struct vm_area_struct *vma = find_vma(walk->mm, addr);
+		struct vmAreaStruct *vma = find_vma(walk->mm, addr);
 		pagemap_entry_t pme = make_pme(0, 0);
 		/* End of address space hole, which we mark as non-present. */
 		unsigned long hole_end;
@@ -1161,7 +1161,7 @@ out:
 }
 
 static pagemap_entry_t pte_to_pagemap_entry(struct pagemapread *pm,
-		struct vm_area_struct *vma, unsigned long addr, pte_t pte)
+		struct vmAreaStruct *vma, unsigned long addr, pte_t pte)
 {
 	u64 frame = 0, flags = 0;
 	struct page *page = NULL;
@@ -1198,7 +1198,7 @@ static pagemap_entry_t pte_to_pagemap_entry(struct pagemapread *pm,
 static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
 			     struct mm_walk *walk)
 {
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	struct pagemapread *pm = walk->private;
 	spinlock_t *ptl;
 	pte_t *pte, *orig_pte;
@@ -1275,7 +1275,7 @@ static int pagemap_hugetlb_range(pte_t *ptep, unsigned long hmask,
 				 struct mm_walk *walk)
 {
 	struct pagemapread *pm = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	u64 flags = 0, frame = 0;
 	int err = 0;
 	pte_t pte;
@@ -1506,7 +1506,7 @@ static void gather_stats(struct page *page, struct numa_maps *md, int pte_dirty,
 	md->node[page_to_nid(page)] += nr_pages;
 }
 
-static struct page *can_gather_numa_stats(pte_t pte, struct vm_area_struct *vma,
+static struct page *can_gather_numa_stats(pte_t pte, struct vmAreaStruct *vma,
 		unsigned long addr)
 {
 	struct page *page;
@@ -1531,7 +1531,7 @@ static struct page *can_gather_numa_stats(pte_t pte, struct vm_area_struct *vma,
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
 static struct page *can_gather_numa_stats_pmd(pmd_t pmd,
-					      struct vm_area_struct *vma,
+					      struct vmAreaStruct *vma,
 					      unsigned long addr)
 {
 	struct page *page;
@@ -1559,7 +1559,7 @@ static int gather_pte_stats(pmd_t *pmd, unsigned long addr,
 		unsigned long end, struct mm_walk *walk)
 {
 	struct numa_maps *md = walk->private;
-	struct vm_area_struct *vma = walk->vma;
+	struct vmAreaStruct *vma = walk->vma;
 	spinlock_t *ptl;
 	pte_t *orig_pte;
 	pte_t *pte;
@@ -1627,7 +1627,7 @@ static int show_numa_map(struct seq_file *m, void *v, int is_pid)
 {
 	struct numa_maps_private *numa_priv = m->private;
 	struct proc_maps_private *proc_priv = &numa_priv->proc_maps;
-	struct vm_area_struct *vma = v;
+	struct vmAreaStruct *vma = v;
 	struct numa_maps *md = &numa_priv->md;
 	struct file *file = vma->vm_file;
 	struct mm_struct *mm = vma->vm_mm;

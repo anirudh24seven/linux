@@ -165,7 +165,7 @@ struct aoedev {
 	struct gendisk *gd;
 	struct dentry *debugfs;
 	struct request_queue *blkq;
-	struct hd_geometry geo;
+	struct hdGeometry geo;
 	sector_t ssize;
 	struct timer_list timer;
 	spinlock_t lock;

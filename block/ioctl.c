@@ -449,10 +449,10 @@ static int blkdev_roset(struct block_device *bdev, fmode_t mode,
 }
 
 static int blkdev_getgeo(struct block_device *bdev,
-		struct hd_geometry __user *argp)
+		struct hdGeometry __user *argp)
 {
 	struct gendisk *disk = bdev->bd_disk;
-	struct hd_geometry geo;
+	struct hdGeometry geo;
 	int ret;
 
 	if (!argp)

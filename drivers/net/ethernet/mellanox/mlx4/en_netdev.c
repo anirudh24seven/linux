@@ -99,7 +99,7 @@ static int __mlx4_en_setup_tc(struct net_device *dev, u32 handle, __be16 proto,
 
 struct mlx4_en_filter {
 	struct list_head next;
-	struct work_struct work;
+	struct workStruct work;
 
 	u8     ip_proto;
 	__be32 src_ip;
@@ -135,7 +135,7 @@ static enum mlx4_net_trans_rule_id mlx4_ip_proto_to_trans_rule_id(u8 ip_proto)
 /* Must not acquire state_lock, as its corresponding work_sync
  * is done under it.
  */
-static void mlx4_en_filter_work(struct work_struct *work)
+static void mlx4_en_filter_work(struct workStruct *work)
 {
 	struct mlx4_en_filter *filter = container_of(work,
 						     struct mlx4_en_filter,

@@ -37,8 +37,8 @@ extern void local_flush_tlb_range(struct vm_area_struct *, unsigned long,
 #else	/* CONFIG_SMP */
 extern void smp_flush_tlb_all(void);
 extern void smp_flush_tlb_mm(struct mm_struct *);
-extern void smp_flush_tlb_page(struct vm_area_struct *, unsigned long);
-extern void smp_flush_tlb_range(struct vm_area_struct *, unsigned long,
+extern void smp_flush_tlb_page(struct vmAreaStruct *, unsigned long);
+extern void smp_flush_tlb_range(struct vmAreaStruct *, unsigned long,
 	unsigned long);
 
 #define flush_tlb_all()			smp_flush_tlb_all()

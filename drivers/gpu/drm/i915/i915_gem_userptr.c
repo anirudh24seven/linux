@@ -58,11 +58,11 @@ struct i915_mmu_object {
 	struct drm_i915_gem_object *obj;
 	struct interval_tree_node it;
 	struct list_head link;
-	struct work_struct work;
+	struct workStruct work;
 	bool attached;
 };
 
-static void cancel_userptr(struct work_struct *work)
+static void cancel_userptr(struct workStruct *work)
 {
 	struct i915_mmu_object *mo = container_of(work, typeof(*mo), work);
 	struct drm_i915_gem_object *obj = mo->obj;

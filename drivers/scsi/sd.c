@@ -1295,7 +1295,7 @@ static void sd_release(struct gendisk *disk, fmode_t mode)
 	scsi_disk_put(sdkp);
 }
 
-static int sd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int sd_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	struct scsi_disk *sdkp = scsi_disk(bdev->bd_disk);
 	struct scsi_device *sdp = sdkp->device;

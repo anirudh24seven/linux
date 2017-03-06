@@ -7,7 +7,7 @@
 #include <linux/linkage.h>
 #include <linux/topology.h>
 
-struct vm_area_struct;
+struct vmAreaStruct;
 
 /*
  * In case of changes, please don't forget to update
@@ -462,7 +462,7 @@ alloc_pages(gfp_t gfp_mask, unsigned int order)
 	return alloc_pages_current(gfp_mask, order);
 }
 extern struct page *alloc_pages_vma(gfp_t gfp_mask, int order,
-			struct vm_area_struct *vma, unsigned long addr,
+			struct vmAreaStruct *vma, unsigned long addr,
 			int node, bool hugepage);
 #define alloc_hugepage_vma(gfp_mask, vma, addr, order)	\
 	alloc_pages_vma(gfp_mask, order, vma, addr, numa_node_id(), true)

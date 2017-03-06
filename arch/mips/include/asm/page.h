@@ -105,9 +105,9 @@ static inline void clear_user_page(void *addr, unsigned long vaddr,
 		flush_data_cache_page((unsigned long)addr);
 }
 
-struct vm_area_struct;
+struct vmAreaStruct;
 extern void copy_user_highpage(struct page *to, struct page *from,
-	unsigned long vaddr, struct vm_area_struct *vma);
+	unsigned long vaddr, struct vmAreaStruct *vma);
 
 #define __HAVE_ARCH_COPY_USER_HIGHPAGE
 

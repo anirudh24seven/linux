@@ -48,7 +48,7 @@ struct inet_peer {
 	/*
 	 * Once inet_peer is queued for deletion (refcnt == -1), following field
 	 * is not available: rid
-	 * We can share memory with rcu_head to help keep inet_peer small.
+	 * We can share memory with rcuHead to help keep inet_peer small.
 	 */
 	union {
 		struct {

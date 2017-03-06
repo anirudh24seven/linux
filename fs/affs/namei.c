@@ -499,7 +499,7 @@ static struct dentry *affs_fh_to_parent(struct super_block *sb, struct fid *fid,
 				    affs_nfs_get_inode);
 }
 
-const struct export_operations affs_export_ops = {
+const struct exportOperations affs_export_ops = {
 	.fh_to_dentry = affs_fh_to_dentry,
 	.fh_to_parent = affs_fh_to_parent,
 	.get_parent = affs_get_parent,

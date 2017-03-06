@@ -17,44 +17,44 @@
 #include <linux/backing-dev-defs.h>
 #include <linux/slab.h>
 
-int __must_check bdi_init(struct backing_dev_info *bdi);
+int __must_check bdi_init(struct backingDevInfo *bdi);
 
-static inline struct backing_dev_info *bdi_get(struct backing_dev_info *bdi)
+static inline struct backingDevInfo *bdi_get(struct backingDevInfo *bdi)
 {
 	kref_get(&bdi->refcnt);
 	return bdi;
 }
 
-void bdi_put(struct backing_dev_info *bdi);
+void bdi_put(struct backingDevInfo *bdi);
 
 __printf(3, 4)
-int bdi_register(struct backing_dev_info *bdi, struct device *parent,
+int bdi_register(struct backingDevInfo *bdi, struct device *parent,
 		const char *fmt, ...);
-int bdi_register_dev(struct backing_dev_info *bdi, dev_t dev);
-int bdi_register_owner(struct backing_dev_info *bdi, struct device *owner);
-void bdi_unregister(struct backing_dev_info *bdi);
+int bdi_register_dev(struct backingDevInfo *bdi, dev_t dev);
+int bdi_register_owner(struct backingDevInfo *bdi, struct device *owner);
+void bdi_unregister(struct backingDevInfo *bdi);
 
-int __must_check bdi_setup_and_register(struct backing_dev_info *, char *);
-void bdi_destroy(struct backing_dev_info *bdi);
-struct backing_dev_info *bdi_alloc_node(gfp_t gfp_mask, int node_id);
+int __must_check bdi_setup_and_register(struct backingDevInfo *, char *);
+void bdi_destroy(struct backingDevInfo *bdi);
+struct backingDevInfo *bdi_alloc_node(gfp_t gfp_mask, int node_id);
 
-void wb_start_writeback(struct bdi_writeback *wb, long nr_pages,
+void wb_start_writeback(struct bdiWriteback *wb, long nr_pages,
 			bool range_cyclic, enum wb_reason reason);
-void wb_start_background_writeback(struct bdi_writeback *wb);
+void wb_start_background_writeback(struct bdiWriteback *wb);
 void wb_workfn(struct work_struct *work);
-void wb_wakeup_delayed(struct bdi_writeback *wb);
+void wb_wakeup_delayed(struct bdiWriteback *wb);
 
 extern spinlock_t bdi_lock;
 extern struct list_head bdi_list;
 
 extern struct workqueue_struct *bdi_wq;
 
-static inline bool wb_has_dirty_io(struct bdi_writeback *wb)
+static inline bool wb_has_dirty_io(struct bdiWriteback *wb)
 {
 	return test_bit(WB_has_dirty_io, &wb->state);
 }
 
-static inline bool bdi_has_dirty_io(struct backing_dev_info *bdi)
+static inline bool bdi_has_dirty_io(struct backingDevInfo *bdi)
 {
 	/*
 	 * @bdi->tot_write_bandwidth is guaranteed to be > 0 if there are
@@ -63,19 +63,19 @@ static inline bool bdi_has_dirty_io(struct backing_dev_info *bdi)
 	return atomic_long_read(&bdi->tot_write_bandwidth);
 }
 
-static inline void __add_wb_stat(struct bdi_writeback *wb,
+static inline void __add_wb_stat(struct bdiWriteback *wb,
 				 enum wb_stat_item item, s64 amount)
 {
 	__percpu_counter_add(&wb->stat[item], amount, WB_STAT_BATCH);
 }
 
-static inline void __inc_wb_stat(struct bdi_writeback *wb,
+static inline void __inc_wb_stat(struct bdiWriteback *wb,
 				 enum wb_stat_item item)
 {
 	__add_wb_stat(wb, item, 1);
 }
 
-static inline void inc_wb_stat(struct bdi_writeback *wb, enum wb_stat_item item)
+static inline void inc_wb_stat(struct bdiWriteback *wb, enum wb_stat_item item)
 {
 	unsigned long flags;
 
@@ -84,13 +84,13 @@ static inline void inc_wb_stat(struct bdi_writeback *wb, enum wb_stat_item item)
 	local_irq_restore(flags);
 }
 
-static inline void __dec_wb_stat(struct bdi_writeback *wb,
+static inline void __dec_wb_stat(struct bdiWriteback *wb,
 				 enum wb_stat_item item)
 {
 	__add_wb_stat(wb, item, -1);
 }
 
-static inline void dec_wb_stat(struct bdi_writeback *wb, enum wb_stat_item item)
+static inline void dec_wb_stat(struct bdiWriteback *wb, enum wb_stat_item item)
 {
 	unsigned long flags;
 
@@ -99,18 +99,18 @@ static inline void dec_wb_stat(struct bdi_writeback *wb, enum wb_stat_item item)
 	local_irq_restore(flags);
 }
 
-static inline s64 wb_stat(struct bdi_writeback *wb, enum wb_stat_item item)
+static inline s64 wb_stat(struct bdiWriteback *wb, enum wb_stat_item item)
 {
 	return percpu_counter_read_positive(&wb->stat[item]);
 }
 
-static inline s64 __wb_stat_sum(struct bdi_writeback *wb,
+static inline s64 __wb_stat_sum(struct bdiWriteback *wb,
 				enum wb_stat_item item)
 {
 	return percpu_counter_sum_positive(&wb->stat[item]);
 }
 
-static inline s64 wb_stat_sum(struct bdi_writeback *wb, enum wb_stat_item item)
+static inline s64 wb_stat_sum(struct bdiWriteback *wb, enum wb_stat_item item)
 {
 	s64 sum;
 	unsigned long flags;
@@ -122,12 +122,12 @@ static inline s64 wb_stat_sum(struct bdi_writeback *wb, enum wb_stat_item item)
 	return sum;
 }
 
-extern void wb_writeout_inc(struct bdi_writeback *wb);
+extern void wb_writeout_inc(struct bdiWriteback *wb);
 
 /*
  * maximal error of a stat counter.
  */
-static inline unsigned long wb_stat_error(struct bdi_writeback *wb)
+static inline unsigned long wb_stat_error(struct bdiWriteback *wb)
 {
 #ifdef CONFIG_SMP
 	return nr_cpu_ids * WB_STAT_BATCH;
@@ -136,11 +136,11 @@ static inline unsigned long wb_stat_error(struct bdi_writeback *wb)
 #endif
 }
 
-int bdi_set_min_ratio(struct backing_dev_info *bdi, unsigned int min_ratio);
-int bdi_set_max_ratio(struct backing_dev_info *bdi, unsigned int max_ratio);
+int bdi_set_min_ratio(struct backingDevInfo *bdi, unsigned int min_ratio);
+int bdi_set_max_ratio(struct backingDevInfo *bdi, unsigned int max_ratio);
 
 /*
- * Flags in backing_dev_info::capability
+ * Flags in backingDevInfo::capability
  *
  * The first three flags control whether dirty pages will contribute to the
  * VM's accounting and whether writepages() should be called for dirty pages
@@ -167,7 +167,7 @@ int bdi_set_max_ratio(struct backing_dev_info *bdi, unsigned int max_ratio);
 #define BDI_CAP_NO_ACCT_AND_WRITEBACK \
 	(BDI_CAP_NO_WRITEBACK | BDI_CAP_NO_ACCT_DIRTY | BDI_CAP_NO_ACCT_WB)
 
-extern struct backing_dev_info noop_backing_dev_info;
+extern struct backingDevInfo noop_backing_dev_info;
 
 /**
  * writeback_in_progress - determine whether there is writeback in progress
@@ -176,12 +176,12 @@ extern struct backing_dev_info noop_backing_dev_info;
  * Determine whether there is writeback waiting to be handled against a
  * bdi_writeback.
  */
-static inline bool writeback_in_progress(struct bdi_writeback *wb)
+static inline bool writeback_in_progress(struct bdiWriteback *wb)
 {
 	return test_bit(WB_writeback_running, &wb->state);
 }
 
-static inline struct backing_dev_info *inode_to_bdi(struct inode *inode)
+static inline struct backingDevInfo *inode_to_bdi(struct inode *inode)
 {
 	struct super_block *sb;
 
@@ -196,9 +196,9 @@ static inline struct backing_dev_info *inode_to_bdi(struct inode *inode)
 	return sb->s_bdi;
 }
 
-static inline int wb_congested(struct bdi_writeback *wb, int cong_bits)
+static inline int wb_congested(struct bdiWriteback *wb, int cong_bits)
 {
-	struct backing_dev_info *bdi = wb->bdi;
+	struct backingDevInfo *bdi = wb->bdi;
 
 	if (bdi->congested_fn)
 		return bdi->congested_fn(bdi->congested_data, cong_bits);
@@ -210,22 +210,22 @@ long wait_iff_congested(struct pglist_data *pgdat, int sync, long timeout);
 int pdflush_proc_obsolete(struct ctl_table *table, int write,
 		void __user *buffer, size_t *lenp, loff_t *ppos);
 
-static inline bool bdi_cap_stable_pages_required(struct backing_dev_info *bdi)
+static inline bool bdi_cap_stable_pages_required(struct backingDevInfo *bdi)
 {
 	return bdi->capabilities & BDI_CAP_STABLE_WRITES;
 }
 
-static inline bool bdi_cap_writeback_dirty(struct backing_dev_info *bdi)
+static inline bool bdi_cap_writeback_dirty(struct backingDevInfo *bdi)
 {
 	return !(bdi->capabilities & BDI_CAP_NO_WRITEBACK);
 }
 
-static inline bool bdi_cap_account_dirty(struct backing_dev_info *bdi)
+static inline bool bdi_cap_account_dirty(struct backingDevInfo *bdi)
 {
 	return !(bdi->capabilities & BDI_CAP_NO_ACCT_DIRTY);
 }
 
-static inline bool bdi_cap_account_writeback(struct backing_dev_info *bdi)
+static inline bool bdi_cap_account_writeback(struct backingDevInfo *bdi)
 {
 	/* Paranoia: BDI_CAP_NO_WRITEBACK implies BDI_CAP_NO_ACCT_WB */
 	return !(bdi->capabilities & (BDI_CAP_NO_ACCT_WB |
@@ -251,9 +251,9 @@ static inline int bdi_sched_wait(void *word)
 #ifdef CONFIG_CGROUP_WRITEBACK
 
 struct bdi_writeback_congested *
-wb_congested_get_create(struct backing_dev_info *bdi, int blkcg_id, gfp_t gfp);
+wb_congested_get_create(struct backingDevInfo *bdi, int blkcg_id, gfp_t gfp);
 void wb_congested_put(struct bdi_writeback_congested *congested);
-struct bdi_writeback *wb_get_create(struct backing_dev_info *bdi,
+struct bdiWriteback *wb_get_create(struct backingDevInfo *bdi,
 				    struct cgroup_subsys_state *memcg_css,
 				    gfp_t gfp);
 void wb_memcg_offline(struct mem_cgroup *memcg);
@@ -273,7 +273,7 @@ int inode_congested(struct inode *inode, int cong_bits);
  */
 static inline bool inode_cgwb_enabled(struct inode *inode)
 {
-	struct backing_dev_info *bdi = inode_to_bdi(inode);
+	struct backingDevInfo *bdi = inode_to_bdi(inode);
 
 	return cgroup_subsys_on_dfl(memory_cgrp_subsys) &&
 		cgroup_subsys_on_dfl(io_cgrp_subsys) &&
@@ -290,10 +290,10 @@ static inline bool inode_cgwb_enabled(struct inode *inode)
  * Must be called under rcu_read_lock() which protects the returend wb.
  * NULL if not found.
  */
-static inline struct bdi_writeback *wb_find_current(struct backing_dev_info *bdi)
+static inline struct bdiWriteback *wb_find_current(struct backingDevInfo *bdi)
 {
 	struct cgroup_subsys_state *memcg_css;
-	struct bdi_writeback *wb;
+	struct bdiWriteback *wb;
 
 	memcg_css = task_css(current, memory_cgrp_id);
 	if (!memcg_css->parent)
@@ -319,10 +319,10 @@ static inline struct bdi_writeback *wb_find_current(struct backing_dev_info *bdi
  * called from a relatively hot path and optimizes the common cases using
  * wb_find_current().
  */
-static inline struct bdi_writeback *
-wb_get_create_current(struct backing_dev_info *bdi, gfp_t gfp)
+static inline struct bdiWriteback *
+wb_get_create_current(struct backingDevInfo *bdi, gfp_t gfp)
 {
-	struct bdi_writeback *wb;
+	struct bdiWriteback *wb;
 
 	rcu_read_lock();
 	wb = wb_find_current(bdi);
@@ -360,7 +360,7 @@ static inline bool inode_to_wb_is_valid(struct inode *inode)
  * holding either @inode->i_lock, @inode->i_mapping->tree_lock, or the
  * associated wb's list_lock.
  */
-static inline struct bdi_writeback *inode_to_wb(struct inode *inode)
+static inline struct bdiWriteback *inode_to_wb(struct inode *inode)
 {
 #ifdef CONFIG_LOCKDEP
 	WARN_ON_ONCE(debug_locks &&
@@ -386,7 +386,7 @@ static inline struct bdi_writeback *inode_to_wb(struct inode *inode)
  * afterwards and can't sleep during transaction.  IRQ may or may not be
  * disabled on return.
  */
-static inline struct bdi_writeback *
+static inline struct bdiWriteback *
 unlocked_inode_to_wb_begin(struct inode *inode, bool *lockedp)
 {
 	rcu_read_lock();
@@ -428,7 +428,7 @@ static inline bool inode_cgwb_enabled(struct inode *inode)
 }
 
 static inline struct bdi_writeback_congested *
-wb_congested_get_create(struct backing_dev_info *bdi, int blkcg_id, gfp_t gfp)
+wb_congested_get_create(struct backingDevInfo *bdi, int blkcg_id, gfp_t gfp)
 {
 	atomic_inc(&bdi->wb_congested->refcnt);
 	return bdi->wb_congested;
@@ -440,13 +440,13 @@ static inline void wb_congested_put(struct bdi_writeback_congested *congested)
 		kfree(congested);
 }
 
-static inline struct bdi_writeback *wb_find_current(struct backing_dev_info *bdi)
+static inline struct bdiWriteback *wb_find_current(struct backingDevInfo *bdi)
 {
 	return &bdi->wb;
 }
 
-static inline struct bdi_writeback *
-wb_get_create_current(struct backing_dev_info *bdi, gfp_t gfp)
+static inline struct bdiWriteback *
+wb_get_create_current(struct backingDevInfo *bdi, gfp_t gfp)
 {
 	return &bdi->wb;
 }
@@ -456,12 +456,12 @@ static inline bool inode_to_wb_is_valid(struct inode *inode)
 	return true;
 }
 
-static inline struct bdi_writeback *inode_to_wb(struct inode *inode)
+static inline struct bdiWriteback *inode_to_wb(struct inode *inode)
 {
 	return &inode_to_bdi(inode)->wb;
 }
 
-static inline struct bdi_writeback *
+static inline struct bdiWriteback *
 unlocked_inode_to_wb_begin(struct inode *inode, bool *lockedp)
 {
 	return inode_to_wb(inode);
@@ -502,22 +502,22 @@ static inline int inode_rw_congested(struct inode *inode)
 				      (1 << WB_async_congested));
 }
 
-static inline int bdi_congested(struct backing_dev_info *bdi, int cong_bits)
+static inline int bdi_congested(struct backingDevInfo *bdi, int cong_bits)
 {
 	return wb_congested(&bdi->wb, cong_bits);
 }
 
-static inline int bdi_read_congested(struct backing_dev_info *bdi)
+static inline int bdi_read_congested(struct backingDevInfo *bdi)
 {
 	return bdi_congested(bdi, 1 << WB_sync_congested);
 }
 
-static inline int bdi_write_congested(struct backing_dev_info *bdi)
+static inline int bdi_write_congested(struct backingDevInfo *bdi)
 {
 	return bdi_congested(bdi, 1 << WB_async_congested);
 }
 
-static inline int bdi_rw_congested(struct backing_dev_info *bdi)
+static inline int bdi_rw_congested(struct backingDevInfo *bdi)
 {
 	return bdi_congested(bdi, (1 << WB_sync_congested) |
 				  (1 << WB_async_congested));

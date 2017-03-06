@@ -785,7 +785,7 @@ struct device_link {
 	u32 flags;
 	bool rpm_active;
 #ifdef CONFIG_SRCU
-	struct rcu_head rcu_head;
+	struct rcuHead rcuHead;
 #endif
 };
 

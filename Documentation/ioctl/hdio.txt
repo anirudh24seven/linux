@@ -86,7 +86,7 @@ HDIO_GETGEO			get device geometry
 
 	usage:
 
-	  struct hd_geometry geom;
+	  struct hdGeometry geom;
 	  ioctl(fd, HDIO_GETGEO, &geom);
 
 
@@ -94,7 +94,7 @@ HDIO_GETGEO			get device geometry
 
 	outputs:
 
-	  hd_geometry structure containing:
+	  hdGeometry structure containing:
 
 	    heads	number of heads
 	    sectors	number of sectors/track
@@ -117,7 +117,7 @@ HDIO_GETGEO			get device geometry
 	  are the "bios" values -- presumably the values the drive had
 	  when Linux first booted.
 
-	  In addition, the cylinders field of the hd_geometry is an
+	  In addition, the cylinders field of the hdGeometry is an
 	  unsigned short, meaning that on most architectures, this
 	  ioctl will not return a meaningful value on drives with more
 	  than 65535 tracks.

@@ -848,7 +848,7 @@ static int clcdfb_of_vram_setup(struct clcd_fb *fb)
 	return 0;
 }
 
-static int clcdfb_of_vram_mmap(struct clcd_fb *fb, struct vm_area_struct *vma)
+static int clcdfb_of_vram_mmap(struct clcd_fb *fb, struct vmAreaStruct *vma)
 {
 	unsigned long off, user_size, kernel_size;
 
@@ -894,7 +894,7 @@ static int clcdfb_of_dma_setup(struct clcd_fb *fb)
 	return 0;
 }
 
-static int clcdfb_of_dma_mmap(struct clcd_fb *fb, struct vm_area_struct *vma)
+static int clcdfb_of_dma_mmap(struct clcd_fb *fb, struct vmAreaStruct *vma)
 {
 	return dma_mmap_wc(&fb->dev->dev, vma, fb->fb.screen_base,
 			   fb->fb.fix.smem_start, fb->fb.fix.smem_len);

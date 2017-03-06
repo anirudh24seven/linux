@@ -104,7 +104,7 @@ ia64_set_rbs_bot (void)
 void
 ia64_init_addr_space (void)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 
 	ia64_set_rbs_bot();
 
@@ -272,7 +272,7 @@ setup_gate (void)
 	ia64_patch_gate();
 }
 
-static struct vm_area_struct gate_vma;
+static struct vmAreaStruct gate_vma;
 
 static int __init gate_vma_init(void)
 {
@@ -286,7 +286,7 @@ static int __init gate_vma_init(void)
 }
 __initcall(gate_vma_init);
 
-struct vm_area_struct *get_gate_vma(struct mm_struct *mm)
+struct vmAreaStruct *get_gate_vma(struct mm_struct *mm)
 {
 	return &gate_vma;
 }

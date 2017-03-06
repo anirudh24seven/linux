@@ -294,7 +294,7 @@ static int btrfs_get_name(struct dentry *parent, char *name,
 	return 0;
 }
 
-const struct export_operations btrfs_export_ops = {
+const struct exportOperations btrfs_export_ops = {
 	.encode_fh	= btrfs_encode_fh,
 	.fh_to_dentry	= btrfs_fh_to_dentry,
 	.fh_to_parent	= btrfs_fh_to_parent,

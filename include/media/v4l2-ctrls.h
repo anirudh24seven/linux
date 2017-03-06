@@ -30,7 +30,7 @@ struct video_device;
 struct v4l2_subdev;
 struct v4l2_subscribed_event;
 struct v4l2_fh;
-struct poll_table_struct;
+struct pollTableStruct;
 
 /**
  * union v4l2_ctrl_ptr - A pointer to a control value.
@@ -1024,7 +1024,7 @@ int v4l2_ctrl_subscribe_event(struct v4l2_fh *fh,
  * @file: pointer to struct file
  * @wait: pointer to struct poll_table_struct
  */
-unsigned int v4l2_ctrl_poll(struct file *file, struct poll_table_struct *wait);
+unsigned int v4l2_ctrl_poll(struct file *file, struct pollTableStruct *wait);
 
 /* Helpers for ioctl_ops */
 

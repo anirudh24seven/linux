@@ -60,13 +60,13 @@ unsigned long pipe_user_pages_soft = PIPE_DEF_BUFFERS * INR_OPEN_CUR;
  * -- Manfred Spraul <manfred@colorfullife.com> 2002-05-09
  */
 
-static void pipe_lock_nested(struct pipe_inode_info *pipe, int subclass)
+static void pipe_lock_nested(struct pipeInodeInfo *pipe, int subclass)
 {
 	if (pipe->files)
 		mutex_lock_nested(&pipe->mutex, subclass);
 }
 
-void pipe_lock(struct pipe_inode_info *pipe)
+void pipe_lock(struct pipeInodeInfo *pipe)
 {
 	/*
 	 * pipe_lock() nests non-pipe inode locks (for writing to a file)
@@ -75,25 +75,25 @@ void pipe_lock(struct pipe_inode_info *pipe)
 }
 EXPORT_SYMBOL(pipe_lock);
 
-void pipe_unlock(struct pipe_inode_info *pipe)
+void pipe_unlock(struct pipeInodeInfo *pipe)
 {
 	if (pipe->files)
 		mutex_unlock(&pipe->mutex);
 }
 EXPORT_SYMBOL(pipe_unlock);
 
-static inline void __pipe_lock(struct pipe_inode_info *pipe)
+static inline void __pipe_lock(struct pipeInodeInfo *pipe)
 {
 	mutex_lock_nested(&pipe->mutex, I_MUTEX_PARENT);
 }
 
-static inline void __pipe_unlock(struct pipe_inode_info *pipe)
+static inline void __pipe_unlock(struct pipeInodeInfo *pipe)
 {
 	mutex_unlock(&pipe->mutex);
 }
 
-void pipe_double_lock(struct pipe_inode_info *pipe1,
-		      struct pipe_inode_info *pipe2)
+void pipe_double_lock(struct pipeInodeInfo *pipe1,
+		      struct pipeInodeInfo *pipe2)
 {
 	BUG_ON(pipe1 == pipe2);
 
@@ -107,7 +107,7 @@ void pipe_double_lock(struct pipe_inode_info *pipe1,
 }
 
 /* Drop the inode semaphore and wait for a pipe event, atomically */
-void pipe_wait(struct pipe_inode_info *pipe)
+void pipe_wait(struct pipeInodeInfo *pipe)
 {
 	DEFINE_WAIT(wait);
 
@@ -122,7 +122,7 @@ void pipe_wait(struct pipe_inode_info *pipe)
 	pipe_lock(pipe);
 }
 
-static void anon_pipe_buf_release(struct pipe_inode_info *pipe,
+static void anon_pipe_buf_release(struct pipeInodeInfo *pipe,
 				  struct pipe_buffer *buf)
 {
 	struct page *page = buf->page;
@@ -138,7 +138,7 @@ static void anon_pipe_buf_release(struct pipe_inode_info *pipe,
 		put_page(page);
 }
 
-static int anon_pipe_buf_steal(struct pipe_inode_info *pipe,
+static int anon_pipe_buf_steal(struct pipeInodeInfo *pipe,
 			       struct pipe_buffer *buf)
 {
 	struct page *page = buf->page;
@@ -164,7 +164,7 @@ static int anon_pipe_buf_steal(struct pipe_inode_info *pipe,
  *	he wishes; the typical use is insertion into a different file
  *	page cache.
  */
-int generic_pipe_buf_steal(struct pipe_inode_info *pipe,
+int generic_pipe_buf_steal(struct pipeInodeInfo *pipe,
 			   struct pipe_buffer *buf)
 {
 	struct page *page = buf->page;
@@ -193,7 +193,7 @@ EXPORT_SYMBOL(generic_pipe_buf_steal);
  *	in the tee() system call, when we duplicate the buffers in one
  *	pipe into another.
  */
-void generic_pipe_buf_get(struct pipe_inode_info *pipe, struct pipe_buffer *buf)
+void generic_pipe_buf_get(struct pipeInodeInfo *pipe, struct pipe_buffer *buf)
 {
 	get_page(buf->page);
 }
@@ -208,7 +208,7 @@ EXPORT_SYMBOL(generic_pipe_buf_get);
  *	This function does nothing, because the generic pipe code uses
  *	pages that are always good when inserted into the pipe.
  */
-int generic_pipe_buf_confirm(struct pipe_inode_info *info,
+int generic_pipe_buf_confirm(struct pipeInodeInfo *info,
 			     struct pipe_buffer *buf)
 {
 	return 0;
@@ -223,7 +223,7 @@ EXPORT_SYMBOL(generic_pipe_buf_confirm);
  * Description:
  *	This function releases a reference to @buf.
  */
-void generic_pipe_buf_release(struct pipe_inode_info *pipe,
+void generic_pipe_buf_release(struct pipeInodeInfo *pipe,
 			      struct pipe_buffer *buf)
 {
 	put_page(buf->page);
@@ -251,7 +251,7 @@ pipe_read(struct kiocb *iocb, struct iov_iter *to)
 {
 	size_t total_len = iov_iter_count(to);
 	struct file *filp = iocb->ki_filp;
-	struct pipe_inode_info *pipe = filp->private_data;
+	struct pipeInodeInfo *pipe = filp->private_data;
 	int do_wakeup;
 	ssize_t ret;
 
@@ -357,7 +357,7 @@ static ssize_t
 pipe_write(struct kiocb *iocb, struct iov_iter *from)
 {
 	struct file *filp = iocb->ki_filp;
-	struct pipe_inode_info *pipe = filp->private_data;
+	struct pipeInodeInfo *pipe = filp->private_data;
 	ssize_t ret = 0;
 	int do_wakeup = 0;
 	size_t total_len = iov_iter_count(from);
@@ -492,7 +492,7 @@ out:
 
 static long pipe_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
-	struct pipe_inode_info *pipe = filp->private_data;
+	struct pipeInodeInfo *pipe = filp->private_data;
 	int count, buf, nrbufs;
 
 	switch (cmd) {
@@ -518,7 +518,7 @@ static unsigned int
 pipe_poll(struct file *filp, poll_table *wait)
 {
 	unsigned int mask;
-	struct pipe_inode_info *pipe = filp->private_data;
+	struct pipeInodeInfo *pipe = filp->private_data;
 	int nrbufs;
 
 	poll_wait(filp, &pipe->wait, wait);
@@ -545,7 +545,7 @@ pipe_poll(struct file *filp, poll_table *wait)
 	return mask;
 }
 
-static void put_pipe_info(struct inode *inode, struct pipe_inode_info *pipe)
+static void put_pipe_info(struct inode *inode, struct pipeInodeInfo *pipe)
 {
 	int kill = 0;
 
@@ -563,7 +563,7 @@ static void put_pipe_info(struct inode *inode, struct pipe_inode_info *pipe)
 static int
 pipe_release(struct inode *inode, struct file *file)
 {
-	struct pipe_inode_info *pipe = file->private_data;
+	struct pipeInodeInfo *pipe = file->private_data;
 
 	__pipe_lock(pipe);
 	if (file->f_mode & FMODE_READ)
@@ -585,7 +585,7 @@ pipe_release(struct inode *inode, struct file *file)
 static int
 pipe_fasync(int fd, struct file *filp, int on)
 {
-	struct pipe_inode_info *pipe = filp->private_data;
+	struct pipeInodeInfo *pipe = filp->private_data;
 	int retval = 0;
 
 	__pipe_lock(pipe);
@@ -617,14 +617,14 @@ static bool too_many_pipe_buffers_hard(unsigned long user_bufs)
 	return pipe_user_pages_hard && user_bufs >= pipe_user_pages_hard;
 }
 
-struct pipe_inode_info *alloc_pipe_info(void)
+struct pipeInodeInfo *alloc_pipe_info(void)
 {
-	struct pipe_inode_info *pipe;
+	struct pipeInodeInfo *pipe;
 	unsigned long pipe_bufs = PIPE_DEF_BUFFERS;
 	struct user_struct *user = get_current_user();
 	unsigned long user_bufs;
 
-	pipe = kzalloc(sizeof(struct pipe_inode_info), GFP_KERNEL_ACCOUNT);
+	pipe = kzalloc(sizeof(struct pipeInodeInfo), GFP_KERNEL_ACCOUNT);
 	if (pipe == NULL)
 		goto out_free_uid;
 
@@ -661,7 +661,7 @@ out_free_uid:
 	return NULL;
 }
 
-void free_pipe_info(struct pipe_inode_info *pipe)
+void free_pipe_info(struct pipeInodeInfo *pipe)
 {
 	int i;
 
@@ -696,7 +696,7 @@ static const struct dentry_operations pipefs_dentry_operations = {
 static struct inode * get_pipe_inode(void)
 {
 	struct inode *inode = new_inode_pseudo(pipe_mnt->mnt_sb);
-	struct pipe_inode_info *pipe;
+	struct pipeInodeInfo *pipe;
 
 	if (!inode)
 		goto fail_inode;
@@ -863,7 +863,7 @@ SYSCALL_DEFINE1(pipe, int __user *, fildes)
 	return sys_pipe2(fildes, 0);
 }
 
-static int wait_for_partner(struct pipe_inode_info *pipe, unsigned int *cnt)
+static int wait_for_partner(struct pipeInodeInfo *pipe, unsigned int *cnt)
 {
 	int cur = *cnt;	
 
@@ -875,14 +875,14 @@ static int wait_for_partner(struct pipe_inode_info *pipe, unsigned int *cnt)
 	return cur == *cnt ? -ERESTARTSYS : 0;
 }
 
-static void wake_up_partner(struct pipe_inode_info *pipe)
+static void wake_up_partner(struct pipeInodeInfo *pipe)
 {
 	wake_up_interruptible(&pipe->wait);
 }
 
 static int fifo_open(struct inode *inode, struct file *filp)
 {
-	struct pipe_inode_info *pipe;
+	struct pipeInodeInfo *pipe;
 	bool is_pipe = inode->i_sb->s_magic == PIPEFS_MAGIC;
 	int ret;
 
@@ -1032,7 +1032,7 @@ static inline unsigned int round_pipe_size(unsigned int size)
  * Allocate a new array of pipe buffers and copy the info over. Returns the
  * pipe size if successful, or return -ERROR on error.
  */
-static long pipe_set_size(struct pipe_inode_info *pipe, unsigned long arg)
+static long pipe_set_size(struct pipeInodeInfo *pipe, unsigned long arg)
 {
 	struct pipe_buffer *bufs;
 	unsigned int size, nr_pages;
@@ -1138,14 +1138,14 @@ int pipe_proc_fn(struct ctl_table *table, int write, void __user *buf,
  * location, so checking ->i_pipe is not enough to verify that this is a
  * pipe.
  */
-struct pipe_inode_info *get_pipe_info(struct file *file)
+struct pipeInodeInfo *get_pipe_info(struct file *file)
 {
 	return file->f_op == &pipefifo_fops ? file->private_data : NULL;
 }
 
 long pipe_fcntl(struct file *file, unsigned int cmd, unsigned long arg)
 {
-	struct pipe_inode_info *pipe;
+	struct pipeInodeInfo *pipe;
 	long ret;
 
 	pipe = get_pipe_info(file);

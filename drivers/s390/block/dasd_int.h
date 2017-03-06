@@ -362,7 +362,7 @@ struct dasd_discipline {
 					 struct irb *);
 
         /* i/o control functions. */
-	int (*fill_geometry) (struct dasd_block *, struct hd_geometry *);
+	int (*fill_geometry) (struct dasd_block *, struct hdGeometry *);
 	int (*fill_info) (struct dasd_device *, struct dasd_information2_t *);
 	int (*ioctl) (struct dasd_block *, unsigned int, void __user *);
 

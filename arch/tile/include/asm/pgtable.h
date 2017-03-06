@@ -33,7 +33,7 @@
 #include <asm/page.h>
 
 struct mm_struct;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 /*
  * ZERO_PAGE is a global shared page that is always zero: used
@@ -399,7 +399,7 @@ static inline unsigned long pmd_index(unsigned long address)
 }
 
 #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-static inline int pmdp_test_and_clear_young(struct vm_area_struct *vma,
+static inline int pmdp_test_and_clear_young(struct vmAreaStruct *vma,
 					    unsigned long address,
 					    pmd_t *pmdp)
 {

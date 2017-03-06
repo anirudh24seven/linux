@@ -76,7 +76,7 @@ struct assoc_array_shortcut {
  * Preallocation cache.
  */
 struct assoc_array_edit {
-	struct rcu_head			rcu;
+	struct rcuHead			rcu;
 	struct assoc_array		*array;
 	const struct assoc_array_ops	*ops;
 	const struct assoc_array_ops	*ops_for_excised_subtree;

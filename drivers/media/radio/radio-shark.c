@@ -64,7 +64,7 @@ struct shark_device {
 	struct snd_tea575x tea;
 
 #ifdef SHARK_USE_LEDS
-	struct work_struct led_work;
+	struct workStruct led_work;
 	struct led_classdev leds[NO_LEDS];
 	char led_names[NO_LEDS][32];
 	atomic_t brightness[NO_LEDS];
@@ -152,7 +152,7 @@ static const struct snd_tea575x_ops shark_tea_ops = {
 };
 
 #ifdef SHARK_USE_LEDS
-static void shark_led_work(struct work_struct *work)
+static void shark_led_work(struct workStruct *work)
 {
 	struct shark_device *shark =
 		container_of(work, struct shark_device, led_work);

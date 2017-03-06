@@ -13,7 +13,7 @@
 #include <uapi/linux/uio.h>
 
 struct page;
-struct pipe_inode_info;
+struct pipeInodeInfo;
 
 struct kvec {
 	void *iov_base; /* and that should *never* hold a userland pointer */
@@ -35,7 +35,7 @@ struct iov_iter {
 		const struct iovec *iov;
 		const struct kvec *kvec;
 		const struct bio_vec *bvec;
-		struct pipe_inode_info *pipe;
+		struct pipeInodeInfo *pipe;
 	};
 	union {
 		unsigned long nr_segs;
@@ -101,7 +101,7 @@ void iov_iter_kvec(struct iov_iter *i, int direction, const struct kvec *kvec,
 			unsigned long nr_segs, size_t count);
 void iov_iter_bvec(struct iov_iter *i, int direction, const struct bio_vec *bvec,
 			unsigned long nr_segs, size_t count);
-void iov_iter_pipe(struct iov_iter *i, int direction, struct pipe_inode_info *pipe,
+void iov_iter_pipe(struct iov_iter *i, int direction, struct pipeInodeInfo *pipe,
 			size_t count);
 ssize_t iov_iter_get_pages(struct iov_iter *i, struct page **pages,
 			size_t maxsize, unsigned maxpages, size_t *start);

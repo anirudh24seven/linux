@@ -209,7 +209,7 @@ static void normalize_cpu_capacity(void)
 #ifdef CONFIG_CPU_FREQ
 static cpumask_var_t cpus_to_visit;
 static bool cap_parsing_done;
-static void parsing_done_workfn(struct work_struct *work);
+static void parsing_done_workfn(struct workStruct *work);
 static DECLARE_WORK(parsing_done_work, parsing_done_workfn);
 
 static int
@@ -267,7 +267,7 @@ static int __init register_cpufreq_notifier(void)
 }
 core_initcall(register_cpufreq_notifier);
 
-static void parsing_done_workfn(struct work_struct *work)
+static void parsing_done_workfn(struct workStruct *work)
 {
 	cpufreq_unregister_notifier(&init_cpu_capacity_notifier,
 					 CPUFREQ_POLICY_NOTIFIER);

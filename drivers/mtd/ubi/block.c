@@ -278,7 +278,7 @@ static void ubiblock_release(struct gendisk *gd, fmode_t mode)
 	mutex_unlock(&dev->dev_mutex);
 }
 
-static int ubiblock_getgeo(struct block_device *bdev, struct hd_geometry *geo)
+static int ubiblock_getgeo(struct block_device *bdev, struct hdGeometry *geo)
 {
 	/* Some tools might require this information */
 	geo->heads = 1;

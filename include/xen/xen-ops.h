@@ -40,7 +40,7 @@ int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
 
 void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order);
 
-struct vm_area_struct;
+struct vmAreaStruct;
 
 /*
  * xen_remap_domain_gfn_array() - map an array of foreign frames
@@ -59,7 +59,7 @@ struct vm_area_struct;
  * Returns the number of successfully mapped frames, or a -ve error
  * code.
  */
-int xen_remap_domain_gfn_array(struct vm_area_struct *vma,
+int xen_remap_domain_gfn_array(struct vmAreaStruct *vma,
 			       unsigned long addr,
 			       xen_pfn_t *gfn, int nr,
 			       int *err_ptr, pgprot_t prot,
@@ -78,20 +78,20 @@ int xen_remap_domain_gfn_array(struct vm_area_struct *vma,
  * Returns the number of successfully mapped frames, or a -ve error
  * code.
  */
-int xen_remap_domain_gfn_range(struct vm_area_struct *vma,
+int xen_remap_domain_gfn_range(struct vmAreaStruct *vma,
 			       unsigned long addr,
 			       xen_pfn_t gfn, int nr,
 			       pgprot_t prot, unsigned domid,
 			       struct page **pages);
-int xen_unmap_domain_gfn_range(struct vm_area_struct *vma,
+int xen_unmap_domain_gfn_range(struct vmAreaStruct *vma,
 			       int numpgs, struct page **pages);
-int xen_xlate_remap_gfn_array(struct vm_area_struct *vma,
+int xen_xlate_remap_gfn_array(struct vmAreaStruct *vma,
 			      unsigned long addr,
 			      xen_pfn_t *gfn, int nr,
 			      int *err_ptr, pgprot_t prot,
 			      unsigned domid,
 			      struct page **pages);
-int xen_xlate_unmap_gfn_range(struct vm_area_struct *vma,
+int xen_xlate_unmap_gfn_range(struct vmAreaStruct *vma,
 			      int nr, struct page **pages);
 int xen_xlate_map_ballooned_pages(xen_pfn_t **pfns, void **vaddr,
 				  unsigned long nr_grant_frames);

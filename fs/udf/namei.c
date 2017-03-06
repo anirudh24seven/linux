@@ -1341,7 +1341,7 @@ static int udf_encode_fh(struct inode *inode, __u32 *fh, int *lenp,
 	return type;
 }
 
-const struct export_operations udf_export_ops = {
+const struct exportOperations udf_export_ops = {
 	.encode_fh	= udf_encode_fh,
 	.fh_to_dentry   = udf_fh_to_dentry,
 	.fh_to_parent   = udf_fh_to_parent,

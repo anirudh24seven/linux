@@ -24,7 +24,7 @@ to each other.
 <li>	<a href="#The rcu_dynticks Structure">
 	The <tt>rcu_dynticks</tt> Structure</a>
 <li>	<a href="#The rcu_head Structure">
-	The <tt>rcu_head</tt> Structure</a>
+	The <tt>rcuHead</tt> Structure</a>
 <li>	<a href="#RCU-Specific Fields in the task_struct Structure">
 	RCU-Specific Fields in the <tt>task_struct</tt> Structure</a>
 <li>	<a href="#Accessor Functions">
@@ -191,7 +191,7 @@ RCU callbacks, either directly via <tt>call_rcu()</tt> and
 friends (namely <tt>call_rcu_bh()</tt> and <tt>call_rcu_sched()</tt>),
 there being a separate interface per flavor of RCU)
 or indirectly via <tt>synchronize_rcu()</tt> and friends.
-RCU callbacks are represented by <tt>rcu_head</tt> structures,
+RCU callbacks are represented by <tt>rcuHead</tt> structures,
 which are queued on <tt>rcu_data</tt> structures while they are
 waiting for a grace period to elapse, as shown in the following figure:
 
@@ -275,10 +275,10 @@ follows:
 	state for the corresponding CPU.
 	Unlike the other three structures, the <tt>rcu_dynticks</tt>
 	structure is not replicated per RCU flavor.
-<li>	<tt>rcu_head</tt>:
+<li>	<tt>rcuHead</tt>:
 	This structure represents RCU callbacks, and is the
 	only structure allocated and managed by RCU users.
-	The <tt>rcu_head</tt> structure is normally embedded
+	The <tt>rcuHead</tt> structure is normally embedded
 	within the RCU-protected data structure.
 </ol>
 
@@ -983,8 +983,8 @@ choice.
 as follows:
 
 <pre>
- 1 struct rcu_head *nxtlist;
- 2 struct rcu_head **nxttail[RCU_NEXT_SIZE];
+ 1 struct rcuHead *nxtlist;
+ 2 struct rcuHead **nxttail[RCU_NEXT_SIZE];
  3 unsigned long nxtcompleted[RCU_NEXT_SIZE];
  4 long qlen_lazy;
  5 long qlen;
@@ -1142,30 +1142,30 @@ value otherwise.
 builds, and are discussed separately.
 
 <h3><a name="The rcu_head Structure">
-The <tt>rcu_head</tt> Structure</a></h3>
+The <tt>rcuHead</tt> Structure</a></h3>
 
-<p>Each <tt>rcu_head</tt> structure represents an RCU callback.
+<p>Each <tt>rcuHead</tt> structure represents an RCU callback.
 These structures are normally embedded within RCU-protected data
 structures whose algorithms use asynchronous grace periods.
 In contrast, when using algorithms that block waiting for RCU grace periods,
-RCU users need not provide <tt>rcu_head</tt> structures.
+RCU users need not provide <tt>rcuHead</tt> structures.
 
-</p><p>The <tt>rcu_head</tt> structure has fields as follows:
+</p><p>The <tt>rcuHead</tt> structure has fields as follows:
 
 <pre>
-  1   struct rcu_head *next;
-  2   void (*func)(struct rcu_head *head);
+  1   struct rcuHead *next;
+  2   void (*func)(struct rcuHead *head);
 </pre>
 
 <p>The <tt>-&gt;next</tt> field is used
-to link the <tt>rcu_head</tt> structures together in the
+to link the <tt>rcuHead</tt> structures together in the
 lists within the <tt>rcu_data</tt> structures.
 The <tt>-&gt;func</tt> field is a pointer to the function
 to be called when the callback is ready to be invoked, and
-this function is passed a pointer to the <tt>rcu_head</tt>
+this function is passed a pointer to the <tt>rcuHead</tt>
 structure.
 However, <tt>kfree_rcu()</tt> uses the <tt>-&gt;func</tt>
-field to record the offset of the <tt>rcu_head</tt>
+field to record the offset of the <tt>rcuHead</tt>
 structure within the enclosing RCU-protected data structure.
 
 </p><p>Both of these fields are used internally by RCU.
@@ -1177,7 +1177,7 @@ opaque &ldquo;cookie&rdquo;.
 <tr><th align="left">Quick Quiz:</th></tr>
 <tr><td>
 	Given that the callback function <tt>-&gt;func</tt>
-	is passed a pointer to the <tt>rcu_head</tt> structure,
+	is passed a pointer to the <tt>rcuHead</tt> structure,
 	how is that function supposed to find the beginning of the
 	enclosing RCU-protected data structure?
 </td></tr>

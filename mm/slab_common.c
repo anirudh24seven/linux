@@ -630,7 +630,7 @@ out_unlock:
 	put_online_cpus();
 }
 
-static void kmemcg_deactivate_workfn(struct work_struct *work)
+static void kmemcg_deactivate_workfn(struct workStruct *work)
 {
 	struct kmem_cache *s = container_of(work, struct kmem_cache,
 					    memcg_params.deact_work);
@@ -651,7 +651,7 @@ static void kmemcg_deactivate_workfn(struct work_struct *work)
 	css_put(&s->memcg_params.memcg->css);
 }
 
-static void kmemcg_deactivate_rcufn(struct rcu_head *head)
+static void kmemcg_deactivate_rcufn(struct rcuHead *head)
 {
 	struct kmem_cache *s = container_of(head, struct kmem_cache,
 					    memcg_params.deact_rcu_head);

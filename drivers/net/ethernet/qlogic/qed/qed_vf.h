@@ -867,7 +867,7 @@ void __qed_vf_get_link_caps(struct qed_hwfn *p_hwfn,
 			    struct qed_mcp_link_capabilities *p_link_caps,
 			    struct qed_bulletin_content *p_bulletin);
 
-void qed_iov_vf_task(struct work_struct *work);
+void qed_iov_vf_task(struct workStruct *work);
 #else
 static inline void qed_vf_get_link_params(struct qed_hwfn *p_hwfn,
 					  struct qed_mcp_link_params *params)

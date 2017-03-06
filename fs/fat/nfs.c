@@ -287,13 +287,13 @@ static struct dentry *fat_get_parent(struct dentry *child_dir)
 	return d_obtain_alias(parent_inode);
 }
 
-const struct export_operations fat_export_ops = {
+const struct exportOperations fat_export_ops = {
 	.fh_to_dentry   = fat_fh_to_dentry,
 	.fh_to_parent   = fat_fh_to_parent,
 	.get_parent     = fat_get_parent,
 };
 
-const struct export_operations fat_export_ops_nostale = {
+const struct exportOperations fat_export_ops_nostale = {
 	.encode_fh      = fat_encode_fh_nostale,
 	.fh_to_dentry   = fat_fh_to_dentry_nostale,
 	.fh_to_parent   = fat_fh_to_parent_nostale,

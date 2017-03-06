@@ -29,7 +29,7 @@ appropriate lock, of course:
 
 But the above code cannot be used in IRQ context -- the call_rcu()
 primitive must be used instead. This primitive takes a pointer to an
-rcu_head struct placed within the RCU-protected data structure and
+rcuHead struct placed within the RCU-protected data structure and
 another pointer to a function that may be invoked later to free that
 structure. Code to delete an element p from the linked list from IRQ
 context might then be as follows:
@@ -40,7 +40,7 @@ context might then be as follows:
 Since call_rcu() never blocks, this code can safely be used from within
 IRQ context. The function p_callback() might be defined as follows:
 
-	static void p_callback(struct rcu_head *rp)
+	static void p_callback(struct rcuHead *rp)
 	{
 		struct pstruct *p = container_of(rp, struct pstruct, rcu);
 
@@ -233,7 +233,7 @@ to post an RCU callback, as follows:
  2 {
  3 int cpu = smp_processor_id();
  4 struct rcu_data *rdp = &per_cpu(rcu_data, cpu);
- 5 struct rcu_head *head;
+ 5 struct rcuHead *head;
  6
  7 head = &rdp->barrier;
  8 atomic_inc(&rcu_barrier_cpu_count);
@@ -241,8 +241,8 @@ to post an RCU callback, as follows:
 10 }
 
 Lines 3 and 4 locate RCU's internal per-CPU rcu_data structure,
-which contains the struct rcu_head that needed for the later call to
-call_rcu(). Line 7 picks up a pointer to this struct rcu_head, and line
+which contains the struct rcuHead that needed for the later call to
+call_rcu(). Line 7 picks up a pointer to this struct rcuHead, and line
 8 increments a global counter. This counter will later be decremented
 by the callback. Line 9 then registers the rcu_barrier_callback() on
 the current CPU's queue.
@@ -251,7 +251,7 @@ The rcu_barrier_callback() function simply atomically decrements the
 rcu_barrier_cpu_count variable and finalizes the completion when it
 reaches zero, as follows:
 
- 1 static void rcu_barrier_callback(struct rcu_head *notused)
+ 1 static void rcu_barrier_callback(struct rcuHead *notused)
  2 {
  3 if (atomic_dec_and_test(&rcu_barrier_cpu_count))
  4 complete(&rcu_barrier_completion);

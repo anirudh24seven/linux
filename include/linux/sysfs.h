@@ -150,7 +150,7 @@ static const struct attribute_group _name##_group = {		\
 __ATTRIBUTE_GROUPS(_name)
 
 struct file;
-struct vm_area_struct;
+struct vmAreaStruct;
 
 struct bin_attribute {
 	struct attribute	attr;
@@ -161,7 +161,7 @@ struct bin_attribute {
 	ssize_t (*write)(struct file *, struct kobject *, struct bin_attribute *,
 			 char *, loff_t, size_t);
 	int (*mmap)(struct file *, struct kobject *, struct bin_attribute *attr,
-		    struct vm_area_struct *vma);
+		    struct vmAreaStruct *vma);
 };
 
 /**

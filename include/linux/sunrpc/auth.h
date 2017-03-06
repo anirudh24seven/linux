@@ -61,7 +61,7 @@ struct rpc_credops;
 struct rpc_cred {
 	struct hlist_node	cr_hash;	/* hash chain */
 	struct list_head	cr_lru;		/* lru garbage collection */
-	struct rcu_head		cr_rcu;
+	struct rcuHead		cr_rcu;
 	struct rpc_auth *	cr_auth;
 	const struct rpc_credops *cr_ops;
 	unsigned long		cr_expire;	/* when to gc */

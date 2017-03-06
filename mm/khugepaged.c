@@ -302,7 +302,7 @@ struct attribute_group khugepaged_attr_group = {
 
 #define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
 
-int hugepage_madvise(struct vm_area_struct *vma,
+int hugepage_madvise(struct vmAreaStruct *vma,
 		     unsigned long *vm_flags, int advice)
 {
 	switch (advice) {
@@ -429,7 +429,7 @@ int __khugepaged_enter(struct mm_struct *mm)
 	return 0;
 }
 
-int khugepaged_enter_vma_merge(struct vm_area_struct *vma,
+int khugepaged_enter_vma_merge(struct vmAreaStruct *vma,
 			       unsigned long vm_flags)
 {
 	unsigned long hstart, hend;
@@ -498,7 +498,7 @@ static void release_pte_pages(pte_t *pte, pte_t *_pte)
 	}
 }
 
-static int __collapse_huge_page_isolate(struct vm_area_struct *vma,
+static int __collapse_huge_page_isolate(struct vmAreaStruct *vma,
 					unsigned long address,
 					pte_t *pte)
 {
@@ -609,7 +609,7 @@ out:
 }
 
 static void __collapse_huge_page_copy(pte_t *pte, struct page *page,
-				      struct vm_area_struct *vma,
+				      struct vmAreaStruct *vma,
 				      unsigned long address,
 				      spinlock_t *ptl)
 {
@@ -817,7 +817,7 @@ khugepaged_alloc_page(struct page **hpage, gfp_t gfp, int node)
 }
 #endif
 
-static bool hugepage_vma_check(struct vm_area_struct *vma)
+static bool hugepage_vma_check(struct vmAreaStruct *vma)
 {
 	if ((!(vma->vm_flags & VM_HUGEPAGE) && !khugepaged_always()) ||
 	    (vma->vm_flags & VM_NOHUGEPAGE))
@@ -843,9 +843,9 @@ static bool hugepage_vma_check(struct vm_area_struct *vma)
  */
 
 static int hugepage_vma_revalidate(struct mm_struct *mm, unsigned long address,
-		struct vm_area_struct **vmap)
+		struct vmAreaStruct **vmap)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long hstart, hend;
 
 	if (unlikely(khugepaged_test_exit(mm)))
@@ -873,7 +873,7 @@ static int hugepage_vma_revalidate(struct mm_struct *mm, unsigned long address,
  */
 
 static bool __collapse_huge_page_swapin(struct mm_struct *mm,
-					struct vm_area_struct *vma,
+					struct vmAreaStruct *vma,
 					unsigned long address, pmd_t *pmd,
 					int referenced)
 {
@@ -937,7 +937,7 @@ static void collapse_huge_page(struct mm_struct *mm,
 	spinlock_t *pmd_ptl, *pte_ptl;
 	int isolated = 0, result = 0;
 	struct mem_cgroup *memcg;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long mmun_start;	/* For mmu_notifiers */
 	unsigned long mmun_end;		/* For mmu_notifiers */
 	gfp_t gfp;
@@ -1091,7 +1091,7 @@ out:
 }
 
 static int khugepaged_scan_pmd(struct mm_struct *mm,
-			       struct vm_area_struct *vma,
+			       struct vmAreaStruct *vma,
 			       unsigned long address,
 			       struct page **hpage)
 {
@@ -1241,7 +1241,7 @@ static void collect_mm_slot(struct mm_slot *mm_slot)
 #if defined(CONFIG_SHMEM) && defined(CONFIG_TRANSPARENT_HUGE_PAGECACHE)
 static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
 {
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	unsigned long addr;
 	pmd_t *pmd, _pmd;
 
@@ -1657,7 +1657,7 @@ static unsigned int khugepaged_scan_mm_slot(unsigned int pages,
 {
 	struct mm_slot *mm_slot;
 	struct mm_struct *mm;
-	struct vm_area_struct *vma;
+	struct vmAreaStruct *vma;
 	int progress = 0;
 
 	VM_BUG_ON(!pages);

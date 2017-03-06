@@ -238,7 +238,7 @@
 
 struct net_device;
 struct scatterlist;
-struct pipe_inode_info;
+struct pipeInodeInfo;
 struct iov_iter;
 struct napi_struct;
 
@@ -3065,7 +3065,7 @@ struct sk_buff *__skb_recv_datagram(struct sock *sk, unsigned flags,
 struct sk_buff *skb_recv_datagram(struct sock *sk, unsigned flags, int noblock,
 				  int *err);
 unsigned int datagram_poll(struct file *file, struct socket *sock,
-			   struct poll_table_struct *wait);
+			   struct pollTableStruct *wait);
 int skb_copy_datagram_iter(const struct sk_buff *from, int offset,
 			   struct iov_iter *to, int size);
 static inline int skb_copy_datagram_msg(const struct sk_buff *from, int offset,
@@ -3091,7 +3091,7 @@ int skb_store_bits(struct sk_buff *skb, int offset, const void *from, int len);
 __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset, u8 *to,
 			      int len, __wsum csum);
 int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
-		    struct pipe_inode_info *pipe, unsigned int len,
+		    struct pipeInodeInfo *pipe, unsigned int len,
 		    unsigned int flags);
 void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to);
 unsigned int skb_zerocopy_headlen(const struct sk_buff *from);

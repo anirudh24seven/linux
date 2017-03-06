@@ -132,7 +132,7 @@ struct blkcg_gq {
 
 	struct blkg_policy_data		*pd[BLKCG_MAX_POLS];
 
-	struct rcu_head			rcu_head;
+	struct rcuHead			rcuHead;
 };
 
 typedef struct blkcg_policy_data *(blkcg_pol_alloc_cpd_fn)(gfp_t gfp);
@@ -358,7 +358,7 @@ static inline void blkg_get(struct blkcg_gq *blkg)
 	atomic_inc(&blkg->refcnt);
 }
 
-void __blkg_release_rcu(struct rcu_head *rcu);
+void __blkg_release_rcu(struct rcuHead *rcu);
 
 /**
  * blkg_put - put a blkg reference
@@ -368,7 +368,7 @@ static inline void blkg_put(struct blkcg_gq *blkg)
 {
 	WARN_ON_ONCE(atomic_read(&blkg->refcnt) <= 0);
 	if (atomic_dec_and_test(&blkg->refcnt))
-		call_rcu(&blkg->rcu_head, __blkg_release_rcu);
+		call_rcu(&blkg->rcuHead, __blkg_release_rcu);
 }
 
 /**

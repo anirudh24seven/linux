@@ -923,7 +923,7 @@ static int dev_set_geometry(struct dm_ioctl *param, size_t param_size)
 {
 	int r = -EINVAL, x;
 	struct mapped_device *md;
-	struct hd_geometry geometry;
+	struct hdGeometry geometry;
 	unsigned long indata[4];
 	char *geostr = (char *) param + param->data_start;
 	char dummy;

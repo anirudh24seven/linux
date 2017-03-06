@@ -6351,7 +6351,7 @@ void sched_online_group(struct task_group *tg, struct task_group *parent)
 }
 
 /* rcu callback to free various structures associated with a task group */
-static void sched_free_group_rcu(struct rcu_head *rhp)
+static void sched_free_group_rcu(struct rcuHead *rhp)
 {
 	/* Now it should be safe to free those cfs_rqs: */
 	sched_free_group(container_of(rhp, struct task_group, rcu));

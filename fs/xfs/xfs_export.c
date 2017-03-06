@@ -240,7 +240,7 @@ xfs_fs_nfs_commit_metadata(
 	return _xfs_log_force_lsn(mp, lsn, XFS_LOG_SYNC, NULL);
 }
 
-const struct export_operations xfs_export_operations = {
+const struct exportOperations xfs_export_operations = {
 	.encode_fh		= xfs_fs_encode_fh,
 	.fh_to_dentry		= xfs_fs_fh_to_dentry,
 	.fh_to_parent		= xfs_fs_fh_to_parent,

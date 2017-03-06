@@ -144,7 +144,7 @@ struct rtc_device {
 	int uie_unsupported;
 
 #ifdef CONFIG_RTC_INTF_DEV_UIE_EMUL
-	struct work_struct uie_task;
+	struct workStruct uie_task;
 	struct timer_list uie_timer;
 	/* Those fields are protected by rtc->irq_lock */
 	unsigned int oldsecs;

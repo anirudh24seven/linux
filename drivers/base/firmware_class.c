@@ -1699,7 +1699,7 @@ static void device_uncache_fw_images(void)
 	__device_uncache_fw_images();
 }
 
-static void device_uncache_fw_images_work(struct work_struct *work)
+static void device_uncache_fw_images_work(struct workStruct *work)
 {
 	device_uncache_fw_images();
 }

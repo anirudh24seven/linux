@@ -2339,7 +2339,7 @@ int hcd_bus_resume(struct usb_device *rhdev, pm_message_t msg)
 }
 
 /* Workqueue routine for root-hub remote wakeup */
-static void hcd_resume_work(struct work_struct *work)
+static void hcd_resume_work(struct workStruct *work)
 {
 	struct usb_hcd *hcd = container_of(work, struct usb_hcd, wakeup_work);
 	struct usb_device *udev = hcd->self.root_hub;

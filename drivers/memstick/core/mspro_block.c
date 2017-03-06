@@ -232,7 +232,7 @@ static void mspro_block_bd_release(struct gendisk *disk, fmode_t mode)
 }
 
 static int mspro_block_bd_getgeo(struct block_device *bdev,
-				 struct hd_geometry *geo)
+				 struct hdGeometry *geo)
 {
 	struct mspro_block_data *msb = bdev->bd_disk->private_data;
 

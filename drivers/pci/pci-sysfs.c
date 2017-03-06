@@ -867,7 +867,7 @@ static ssize_t pci_write_legacy_io(struct file *filp, struct kobject *kobj,
  * @filp: open sysfs file
  * @kobj: kobject corresponding to device to be mapped
  * @attr: struct bin_attribute for this file
- * @vma: struct vm_area_struct passed to mmap
+ * @vma: struct vmAreaStruct passed to mmap
  *
  * Uses an arch specific callback, pci_mmap_legacy_mem_page_range, to mmap
  * legacy memory space (first meg of bus space) into application virtual
@@ -875,7 +875,7 @@ static ssize_t pci_write_legacy_io(struct file *filp, struct kobject *kobj,
  */
 static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
 			       struct bin_attribute *attr,
-			       struct vm_area_struct *vma)
+			       struct vmAreaStruct *vma)
 {
 	struct pci_bus *bus = to_pci_bus(kobj_to_dev(kobj));
 
@@ -887,7 +887,7 @@ static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
  * @filp: open sysfs file
  * @kobj: kobject corresponding to device to be mapped
  * @attr: struct bin_attribute for this file
- * @vma: struct vm_area_struct passed to mmap
+ * @vma: struct vmAreaStruct passed to mmap
  *
  * Uses an arch specific callback, pci_mmap_legacy_io_page_range, to mmap
  * legacy IO space (first meg of bus space) into application virtual
@@ -895,7 +895,7 @@ static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
  */
 static int pci_mmap_legacy_io(struct file *filp, struct kobject *kobj,
 			      struct bin_attribute *attr,
-			      struct vm_area_struct *vma)
+			      struct vmAreaStruct *vma)
 {
 	struct pci_bus *bus = to_pci_bus(kobj_to_dev(kobj));
 
@@ -982,7 +982,7 @@ void pci_remove_legacy_files(struct pci_bus *b)
 
 #ifdef HAVE_PCI_MMAP
 
-int pci_mmap_fits(struct pci_dev *pdev, int resno, struct vm_area_struct *vma,
+int pci_mmap_fits(struct pci_dev *pdev, int resno, struct vmAreaStruct *vma,
 		  enum pci_mmap_api mmap_api)
 {
 	unsigned long nr, start, size, pci_start;
@@ -1004,13 +1004,13 @@ int pci_mmap_fits(struct pci_dev *pdev, int resno, struct vm_area_struct *vma,
  * pci_mmap_resource - map a PCI resource into user memory space
  * @kobj: kobject for mapping
  * @attr: struct bin_attribute for the file being mapped
- * @vma: struct vm_area_struct passed into the mmap
+ * @vma: struct vmAreaStruct passed into the mmap
  * @write_combine: 1 for write_combine mapping
  *
  * Use the regular PCI mapping routines to map a PCI resource into userspace.
  */
 static int pci_mmap_resource(struct kobject *kobj, struct bin_attribute *attr,
-			     struct vm_area_struct *vma, int write_combine)
+			     struct vmAreaStruct *vma, int write_combine)
 {
 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
 	struct resource *res = attr->private;
@@ -1048,14 +1048,14 @@ static int pci_mmap_resource(struct kobject *kobj, struct bin_attribute *attr,
 
 static int pci_mmap_resource_uc(struct file *filp, struct kobject *kobj,
 				struct bin_attribute *attr,
-				struct vm_area_struct *vma)
+				struct vmAreaStruct *vma)
 {
 	return pci_mmap_resource(kobj, attr, vma, 0);
 }
 
 static int pci_mmap_resource_wc(struct file *filp, struct kobject *kobj,
 				struct bin_attribute *attr,
-				struct vm_area_struct *vma)
+				struct vmAreaStruct *vma)
 {
 	return pci_mmap_resource(kobj, attr, vma, 1);
 }

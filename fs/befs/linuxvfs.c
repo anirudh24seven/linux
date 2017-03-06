@@ -90,7 +90,7 @@ static const struct address_space_operations befs_symlink_aops = {
 	.readpage	= befs_symlink_readpage,
 };
 
-static const struct export_operations befs_export_operations = {
+static const struct exportOperations befs_export_operations = {
 	.fh_to_dentry	= befs_fh_to_dentry,
 	.fh_to_parent	= befs_fh_to_parent,
 };

@@ -572,7 +572,7 @@ const struct inode_operations nilfs_symlink_inode_operations = {
 	.permission     = nilfs_permission,
 };
 
-const struct export_operations nilfs_export_ops = {
+const struct exportOperations nilfs_export_ops = {
 	.encode_fh = nilfs_encode_fh,
 	.fh_to_dentry = nilfs_fh_to_dentry,
 	.fh_to_parent = nilfs_fh_to_parent,

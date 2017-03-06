@@ -245,7 +245,7 @@ struct siena_nic_data {
 	struct list_head local_addr_list;
 	struct list_head local_page_list;
 	struct mutex local_lock;
-	struct work_struct peer_work;
+	struct workStruct peer_work;
 #endif
 };
 

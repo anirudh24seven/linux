@@ -86,14 +86,14 @@ static const match_table_t tokens = {
 };
 
 #ifdef CONFIG_NUMA
-static inline void hugetlb_set_vma_policy(struct vm_area_struct *vma,
+static inline void hugetlb_set_vma_policy(struct vmAreaStruct *vma,
 					struct inode *inode, pgoff_t index)
 {
 	vma->vm_policy = mpol_shared_policy_lookup(&HUGETLBFS_I(inode)->policy,
 							index);
 }
 
-static inline void hugetlb_drop_vma_policy(struct vm_area_struct *vma)
+static inline void hugetlb_drop_vma_policy(struct vmAreaStruct *vma)
 {
 	mpol_cond_put(vma->vm_policy);
 }

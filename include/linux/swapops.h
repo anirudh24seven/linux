@@ -139,7 +139,7 @@ extern void __migration_entry_wait(struct mm_struct *mm, pte_t *ptep,
 					spinlock_t *ptl);
 extern void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
 					unsigned long address);
-extern void migration_entry_wait_huge(struct vm_area_struct *vma,
+extern void migration_entry_wait_huge(struct vmAreaStruct *vma,
 		struct mm_struct *mm, pte_t *pte);
 #else
 

@@ -229,7 +229,7 @@ ENTRY(v7_flush_user_cache_all)
  *
  *	- start - start address (may not be aligned)
  *	- end   - end address (exclusive, may not be aligned)
- *	- flags	- vm_area_struct flags describing address space
+ *	- flags	- vmAreaStruct flags describing address space
  *
  *	It is assumed that:
  *	- we have a VIPT cache.

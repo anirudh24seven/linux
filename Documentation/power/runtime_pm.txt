@@ -209,7 +209,7 @@ defined in include/linux/pm.h:
       timer is running and will expire at that time, otherwise the timer is not
       running)
 
-  struct work_struct work;
+  struct workStruct work;
     - work structure used for queuing up requests (i.e. work items in pm_wq)
 
   wait_queue_head_t wait_queue;

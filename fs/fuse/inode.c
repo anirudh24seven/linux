@@ -797,7 +797,7 @@ static struct dentry *fuse_get_parent(struct dentry *child)
 	return parent;
 }
 
-static const struct export_operations fuse_export_operations = {
+static const struct exportOperations fuse_export_operations = {
 	.fh_to_dentry	= fuse_fh_to_dentry,
 	.fh_to_parent	= fuse_fh_to_parent,
 	.encode_fh	= fuse_encode_fh,

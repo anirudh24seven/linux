@@ -134,7 +134,7 @@ struct lustre_sb_info {
 	char			  lsi_osd_type[16];
 	char			  lsi_fstype[16];
 	struct backing_dev_info   lsi_bdi;     /* each client mountpoint needs
-						* own backing_dev_info
+						* own backingDevInfo
 						*/
 };
 

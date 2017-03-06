@@ -42,7 +42,7 @@ static inline void __tlb_remove_table(void *_table)
 }
 
 struct mmu_table_batch {
-	struct rcu_head		rcu;
+	struct rcuHead		rcu;
 	unsigned int		nr;
 	void			*tables[0];
 };
@@ -69,7 +69,7 @@ struct mmu_gather {
 	unsigned int		need_flush;
 #endif
 	unsigned int		fullmm;
-	struct vm_area_struct	*vma;
+	struct vmAreaStruct	*vma;
 	unsigned long		start, end;
 	unsigned long		range_start;
 	unsigned long		range_end;
@@ -194,7 +194,7 @@ tlb_remove_tlb_entry(struct mmu_gather *tlb, pte_t *ptep, unsigned long addr)
  * the vmas are adjusted to only cover the region to be torn down.
  */
 static inline void
-tlb_start_vma(struct mmu_gather *tlb, struct vm_area_struct *vma)
+tlb_start_vma(struct mmu_gather *tlb, struct vmAreaStruct *vma)
 {
 	if (!tlb->fullmm) {
 		flush_cache_range(vma, vma->vm_start, vma->vm_end);
@@ -205,7 +205,7 @@ tlb_start_vma(struct mmu_gather *tlb, struct vm_area_struct *vma)
 }
 
 static inline void
-tlb_end_vma(struct mmu_gather *tlb, struct vm_area_struct *vma)
+tlb_end_vma(struct mmu_gather *tlb, struct vmAreaStruct *vma)
 {
 	if (!tlb->fullmm)
 		tlb_flush(tlb);
